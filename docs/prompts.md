@@ -1,0 +1,1 @@
+please think deeper and think harder to explore carefully and thoroughly how best to re-imagine an awesome `README.md` for the GitHub repo that will do justice to your awesome PRD. then meticulously create a comprehensive plan to create the re-imagined `README.md`, review and validate the plan before executing cautiously.
