@@ -2,7 +2,7 @@
 
 Where compassionate care meets modern comfort for every family.
 
-ElderCare SG is a modern, accessible, and emotionally thoughtful web platform designed for families in Singapore seeking trusted elderly daycare services. Built with Laravel, TailwindCSS, and a design-first mindset, this project emphasizes human-centered storytelling, accessibility, and performance.
+ElderCare SG is a modern, accessible, and emotionally thoughtful web platform designed for families in Singapore seeking trusted elderly daycare services. Built with Laravel, TailwindCSS, and a design[...]
 
 ![hero-screenshot-placeholder](public/assets/images/hero-placeholder.jpg)
 
@@ -66,81 +66,75 @@ cp .env.example .env
 ./vendor/bin/sail up -d
 php artisan migrate
 npm install && npm run dev
-Visit http://localhost
- to view the app locally.
+```
 
-🧪 QA & Accessibility
+Visit http://localhost to view the app locally.
+
+### 🧪 QA & Accessibility
 
 This project adheres to WCAG 2.1 AA standards.
 
-✅ Color contrast checked
-✅ Keyboard navigability for all components
-✅ Lightbox, carousel, nav are screen reader accessible
-✅ prefers-reduced-motion respected
-✅ Lighthouse score target: >90 on mobile and desktop
+- ✅ Color contrast checked
+- ✅ Keyboard navigability for all components
+- ✅ Lightbox, carousel, nav are screen reader accessible
+- ✅ prefers-reduced-motion respected
+- ✅ Lighthouse score target: >90 on mobile and desktop
 
 Test tools:
 
-axe-core (browser extension or CI pipeline)
+- axe-core (browser extension or CI pipeline)
+- Lighthouse (Chrome DevTools)
+- VoiceOver (Mac) and NVDA (Windows)
 
-Lighthouse (Chrome DevTools)
-
-VoiceOver (Mac) and NVDA (Windows)
-
-🛠️ Developer Tooling
+### 🛠️ Developer Tooling
 
 Common scripts:
 
-Command	Purpose
-npm run dev	Compile Tailwind + watch
-php artisan migrate	Run DB migrations
-sail artisan test	Run test suite (if added)
-npm run build	Build assets for production
-./vendor/bin/sail up	Start Laravel environment
-🧩 Components & UI System
+| Command | Purpose |
+|---------|---------|
+| npm run dev | Compile Tailwind + watch |
+| php artisan migrate | Run DB migrations |
+| sail artisan test | Run test suite (if added) |
+| npm run build | Build assets for production |
+| ./vendor/bin/sail up | Start Laravel environment |
+
+### 🧩 Components & UI System
 
 Built using TailwindCSS + shadcn components:
 
-<Card> → Program Highlight Blocks
+- <Card> → Program Highlight Blocks
+- <Carousel> → Testimonials Marquee
+- <Steps> → Care Philosophy Timeline
+- <Input> & <Button> → Newsletter Signup
 
-<Carousel> → Testimonials Marquee
-
-<Steps> → Care Philosophy Timeline
-
-<Input> & <Button> → Newsletter Signup
-
-Reusable layout partials:
+Reusable layout partials:  
 layouts/header.blade.php, layouts/footer.blade.php, components/cta-card.blade.php
 
-🤝 Contributing
+---
+
+## 🤝 Contributing
 
 We welcome thoughtful contributions — accessibility, performance, UI polish, or feature ideas!
 
-Fork this repo
+- Fork this repo
+- Create a new branch: feat/your-feature-name
+- Follow Laravel’s PSR-12 + Tailwind class naming conventions
+- Submit a pull request with a clear description
 
-Create a new branch: feat/your-feature-name
+Check our [CONTRIBUTING.md](./CONTRIBUTING.md) for full details (coming soon).
 
-Follow Laravel’s PSR-12 + Tailwind class naming conventions
+---
 
-Submit a pull request with a clear description
-
-Check our CONTRIBUTING.md
- for full details (coming soon).
-
-📄 License & Acknowledgements
+## 📄 License & Acknowledgements
 
 MIT License © 2025 Nordeim
 
 Credits:
 
-Icons: Lucide (https://lucide.dev
-)
-
-Fonts: Google Fonts (Playfair Display, Inter)
-
-Photos: Licensed via [unsplash.com/@...]
-
-Carousel: Embla or shadcn/ui carousel
+- Icons: Lucide (https://lucide.dev)
+- Fonts: Google Fonts (Playfair Display, Inter)
+- Photos: Licensed via [unsplash.com/@...]
+- Carousel: Embla or shadcn/ui carousel
 
 📬 Feedback & Contact
 
@@ -148,8 +142,7 @@ Have ideas, found bugs, or just want to say hi?
 
 Open an issue on GitHub → https://github.com/nordeim/ElderCare-SG/issues
 
-Or contact: hello@nordeim.sg
- (if applicable)
+Or contact: hello@nordeim.sg (if applicable)
 
 —
 
