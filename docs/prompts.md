@@ -2,6 +2,12 @@ please think deeper and think harder to explore carefully and thoroughly how bes
 
 ---
 
+awesome job! please think deeper and think harder to explore carefully and thoroughly how best to re-imagine a mockup landing page for the application envisioned in the awesome PRD and README.md you created earlier. Create the mockup landing page HTML broken down into static components `index.html`, 'js/main.js` and `css/globals.css` for size manageability. then meticulously create an execution plan to create the mockup landing page for the project, review and validate the plan before proceeding cautiously to create one. 
+
+rememeber to create the 3 files within ```html, ```js and ```css markdown tags.
+
+---
+
 awesome job! please think deeper and think harder to meticulously plan how to create a comprehensive step-by-step guide to scaffold the project codebase for Laravel 12 and the following TailwindCSS related components. your comprehensive guide to initialize and scaffold the project must include necessary code/script snippets within ``` tags, as well as include essential config files within ```js or ```json tags. carefully review your guide creation plan for correctness and accuracy before proceeding cautiously to create the guide.
 
 ```json
