@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElderCare SG</title>
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+</head>
+<body class="font-body bg-slate-50 text-slate dark:text-white">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 backdrop-blur-lg bg-white/70 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="font-heading text-2xl text-trust">ElderCare SG</h1>
+      <nav class="space-x-6 hidden md:block">
+        <a href="#programs" class="hover:underline">Programs</a>
+        <a href="#care" class="hover:underline">Our Philosophy</a>
+        <a href="#testimonials" class="hover:underline">Testimonials</a>
+        <a href="#visit" class="cta-button">Book a Visit</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative h-[80vh] flex items-center justify-center text-center text-white bg-black">
+    <video autoplay muted loop playsinline class="absolute w-full h-full object-cover opacity-50">
+      <source src="media/hero.mp4" type="video/mp4" />
+    </video>
+    <div class="z-10 px-4">
+      <h2 class="text-4xl md:text-5xl font-heading mb-4">Where Compassion Meets Comfort</h2>
+      <p class="text-lg md:text-xl mb-6">Premier Daycare Services for Seniors in Singapore</p>
+      <a href="#visit" class="cta-button">Schedule a Tour</a>
+    </div>
+  </section>
+
+  <!-- Program Highlights -->
+  <section id="programs" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h3 class="text-3xl font-heading mb-8">Our Programs</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-amber rounded-lg p-6 shadow-lg hover:scale-105 transition">
+          <h4 class="font-heading text-xl mb-2">Day Programs</h4>
+          <p class="text-slate-700">Engaging activities and supervised care for every need.</p>
+        </div>
+        <div class="bg-trust text-white rounded-lg p-6 shadow-lg hover:scale-105 transition">
+          <h4 class="font-heading text-xl mb-2">Wellness Services</h4>
+          <p>Therapy, health checks, and personalized care routines.</p>
+        </div>
+        <div class="bg-amber rounded-lg p-6 shadow-lg hover:scale-105 transition">
+          <h4 class="font-heading text-xl mb-2">Family Support</h4>
+          <p class="text-slate-700">Resources and respite support for caregivers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Care Philosophy -->
+  <section id="care" class="py-16 bg-slate-100">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+      <img src="media/care.jpg" alt="Elder care philosophy" class="rounded-lg shadow" />
+      <div>
+        <h3 class="text-3xl font-heading mb-4">Our Care Philosophy</h3>
+        <p class="mb-4">We uphold three core values: Safety, Engagement, and Dignity.</p>
+        <ul class="list-disc list-inside text-slate-700">
+          <li>24/7 monitored environments</li>
+          <li>Certified caregivers and therapists</li>
+          <li>Joyful, meaningful daily activities</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Carousel -->
+  <section id="testimonials" class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h3 class="text-3xl font-heading mb-8">What Families Say</h3>
+      <div id="carousel" class="overflow-hidden">
+        <div class="flex gap-6 transition-transform duration-500">
+          <blockquote class="p-6 bg-slate-100 rounded-lg shadow">"They cared for my mum like their own family!"</blockquote>
+          <blockquote class="p-6 bg-slate-100 rounded-lg shadow">"Trustworthy, clean, and full of joy!"</blockquote>
+          <blockquote class="p-6 bg-slate-100 rounded-lg shadow">"The caregivers always went the extra mile."</blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Virtual Tour -->
+  <section id="visit" class="py-16 bg-trust text-white text-center">
+    <div class="max-w-2xl mx-auto px-4">
+      <h3 class="text-3xl font-heading mb-4">Take a Virtual Tour</h3>
+      <p class="mb-6">See our facility, programs, and meet our caregivers before you visit.</p>
+      <a href="#" class="cta-button">Watch Virtual Tour</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-800 text-white py-12">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <p class="mb-2">&copy; 2025 ElderCare SG. All rights reserved.</p>
+      <p class="text-sm text-slate-400">Designed with accessibility, compassion, and modern care in mind.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
