@@ -4,6 +4,7 @@ please think deeper and think harder to explore carefully and thoroughly how bes
 
 awesome job! please think deeper and think harder to meticulously plan how to create a comprehensive step-by-step guide to scaffold the project codebase for Laravel 12 and the following TailwindCSS related components. your comprehensive guide to initialize and scaffold the project must include necessary code/script snippets within ``` tags, as well as include essential config files within ```js or ```json tags. carefully review your guide creation plan for correctness and accuracy before proceeding cautiously to create the guide.
 
+```json
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
     "alpinejs": "^3.15.0",
@@ -25,4 +26,4 @@ awesome job! please think deeper and think harder to meticulously plan how to cr
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13",
     "vite": "^7.1.7"
-    
+```    
