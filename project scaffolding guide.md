@@ -1,4 +1,4 @@
-Absolutely — scaffolding a Laravel 12 + TailwindCSS + Alpine.js project with this curated frontend stack requires a methodical setup to ensure the build system, UI components, and modern DX are all in sync.
+Absolutely — scaffolding a Laravel 12 + TailwindCSS + Alpine.js project with this curated frontend stack requires a methodical setup to ensure the build system, UI components, and modern DX are all [...]
 
 Let’s proceed through these deliberate steps:
 
@@ -46,51 +46,59 @@ Git
 
 Install Laravel 12 via Composer:
 
+```bash
 composer create-project laravel/laravel eldercare-sg
 cd eldercare-sg
-
+```
 
 Optional (recommended): use Laravel Sail for Dockerized environment:
 
+```bash
 php artisan sail:install
 ./vendor/bin/sail up -d
-
+```
 
 📦 2. Initialize Node + TailwindCSS Ecosystem
 
 Create package.json if not already:
 
+```bash
 npm init -y
-
+```
 
 Install TailwindCSS stack + Laravel Vite plugin:
 
+```bash
 npm install -D tailwindcss postcss autoprefixer vite laravel-vite-plugin
-
+```
 
 Initialize Tailwind config:
 
+```bash
 npx tailwindcss init -p
-
+```
 
 Install Tailwind plugins and dependencies:
 
+```bash
 # Tailwind plugins
 npm install -D @tailwindcss/forms @tailwindcss/typography tailwindcss-animate
 
 # Alpine.js + component ecosystem
 npm install alpinejs embla-carousel class-variance-authority clsx lucide-react tailwind-merge @radix-ui/react-slot
-
+```
 
 Set node engine in package.json:
 
+```json
 "engines": {
   "node": ">=18.0.0"
 }
-
+```
 
 Your full dependencies section now looks like:
 
+```json
 "dependencies": {
   "@radix-ui/react-slot": "^1.2.3",
   "alpinejs": "^3.15.0",
@@ -110,12 +118,13 @@ Your full dependencies section now looks like:
   "tailwindcss": "^3.4.13",
   "vite": "^7.1.7"
 }
-
+```
 
 ⚙️ 3. Configure TailwindCSS
 
 Edit tailwind.config.js:
 
+```js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -148,18 +157,20 @@ module.exports = {
     require('tailwindcss-animate'),
   ],
 }
-
+```
 
 💡 Add Google Fonts to resources/views/layouts/app.blade.php:
 
+```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap">
-
+```
 
 ⚙️ 4. Configure Vite
 
 Edit vite.config.js:
 
+```js
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
@@ -171,12 +182,13 @@ export default defineConfig({
     }),
   ],
 });
-
+```
 
 🧬 5. Create CSS & JS Entry Points
 
 resources/css/app.css:
 
+```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -187,19 +199,21 @@ resources/css/app.css:
     @apply px-6 py-3 bg-gold text-white font-bold rounded-lg hover:bg-yellow-600 transition;
   }
 }
-
+```
 
 resources/js/app.js:
 
+```js
 import Alpine from 'alpinejs';
 window.Alpine = Alpine;
 Alpine.start();
-
+```
 
 Include assets in Blade template:
 
 resources/views/layouts/app.blade.php:
 
+```blade
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -213,50 +227,55 @@ resources/views/layouts/app.blade.php:
   @include('partials.footer')
 </body>
 </html>
-
+```
 
 🧪 6. Validate It Works
 
 Compile assets:
 
+```bash
 npm run dev
-
+```
 
 Start Laravel:
 
+```bash
 php artisan serve
 # or with Sail:
 ./vendor/bin/sail up -d
+```
 
-
-Visit http://localhost
- and verify Tailwind + Alpine is running.
+Visit http://localhost and verify Tailwind + Alpine is running.
 
 🧩 7. Add Sample Component (Optional)
 
 resources/views/components/button.blade.php:
 
+```blade
 @props(['type' => 'button'])
 
 <button {{ $attributes->merge(['type' => $type, 'class' => 'cta-button']) }}>
   {{ $slot }}
 </button>
-
+```
 
 Use in Blade:
 
+```blade
 <x-button>Book a Visit</x-button>
-
+```
 
 🔁 8. Add Carousel (Embla + Alpine Example)
 
 Install embla-carousel:
 
+```bash
 npm install embla-carousel
-
+```
 
 Create Alpine Embla instance in JS (e.g. resources/js/carousel.js):
 
+```js
 import EmblaCarousel from 'embla-carousel';
 
 window.initEmbla = (element) => {
@@ -265,10 +284,11 @@ window.initEmbla = (element) => {
   });
   return embla;
 }
-
+```
 
 Use with x-init in Blade:
 
+```html
 <div x-data x-init="initEmbla($el)">
   <div class="embla__viewport">
     <div class="embla__container">
@@ -277,7 +297,7 @@ Use with x-init in Blade:
     </div>
   </div>
 </div>
-
+```
 
 Style slides in CSS with Tailwind utilities.
 
@@ -285,24 +305,25 @@ Style slides in CSS with Tailwind utilities.
 
 Add helpful NPM scripts to package.json:
 
+```json
 "scripts": {
   "dev": "vite",
   "build": "vite build",
   "watch": "vite watch"
 }
-
+```
 
 Optional: add .gitattributes, .editorconfig, and .stylelintrc for team consistency.
 
 🧪 10. Final Validation Checklist
 
-✅ Laravel 12 up and running
-✅ TailwindCSS, plugins, and utility layers working
-✅ Vite hot reload works
-✅ Alpine.js initialized
-✅ Embla carousel demo mounted
-✅ Blade component using Tailwind classes
-✅ Fonts loaded properly
+✅ Laravel 12 up and running  
+✅ TailwindCSS, plugins, and utility layers working  
+✅ Vite hot reload works  
+✅ Alpine.js initialized  
+✅ Embla carousel demo mounted  
+✅ Blade component using Tailwind classes  
+✅ Fonts loaded properly  
 ✅ Responsive breakpoints & accessibility in place
 
 —
