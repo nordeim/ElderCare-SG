@@ -1,0 +1,23 @@
+# VCS
+.git
+.gitignore
+
+# Dependencies
+/vendor
+/node_modules
+
+# Laravel runtime files
+/storage/logs
+/storage/framework/cache
+/storage/framework/sessions
+/storage/framework/views
+
+# Secrets
+.env
+
+# Docker build assets: exclude all, then re-include needed
+docker/*
+!docker/composer
+!docker/entrypoint.sh
+!docker/app-healthcheck.sh
+
