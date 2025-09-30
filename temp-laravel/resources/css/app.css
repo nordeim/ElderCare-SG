@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        color-scheme: light;
+        background-color: theme('colors.canvas');
+    }
+
+    html {
+        @apply scroll-smooth;
+    }
+
+    body {
+        @apply bg-canvas font-body text-slate-dark antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-heading text-trust;
+    }
+
+    a {
+        @apply text-trust underline-offset-4 transition-colors duration-200 ease-out;
+    }
+
+    a:hover {
+        @apply text-gold;
+    }
+
+    ::selection {
+        background-color: theme('colors.gold');
+        color: white;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+@layer components {
+    .cta-button {
+        @apply inline-flex items-center justify-center rounded-full bg-gold px-6 py-3 font-semibold uppercase tracking-wide text-trust shadow-card transition duration-300 ease-out hover:bg-gold/90 hover:text-trust focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gold;
+    }
+
+    .pill-tag {
+        @apply inline-flex items-center rounded-full bg-amber/60 px-3 py-1 text-sm font-medium text-trust;
+    }
+
+    .section-card {
+        @apply rounded-3xl bg-white p-8 shadow-card ring-1 ring-slate/10;
+    }
+}
+
+@layer utilities {
+    .fade-in-up {
+        @apply animate-fade-in-up;
+    }
+}
