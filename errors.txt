@@ -1,0 +1,178 @@
+$ ./launch_laravel_dev_server.sh 
+[2025-09-30 13:02:42] INFO  Starting Laravel dev server on http://localhost:8000 ...
+[2025-09-30 13:02:42] INFO  Laravel dev server PID: 164619 (logs: storage/logs/dev-server.log).
+[2025-09-30 13:02:42] INFO  Waiting for server to respond...
+[2025-09-30 13:02:43] INFO  Server is responding at http://localhost:8000.
+------------------------------------------------------------------------
+Manual QA Checklist
+- Open the homepage: http://localhost:8000
+- Confirm seeded programs/testimonials render correctly.
+- Submit the newsletter form with a test email; expect success or fallback
+  banner and confirm log entries in storage/logs/laravel.log when keys absent.
+------------------------------------------------------------------------
+[2025-09-30 13:02:43] INFO  Running accessibility audit (npm run lint:accessibility)...
+
+> lint:accessibility
+> axe http://localhost:8000 --exit --load-delay 2000
+
+Running axe-core 4.10.3 in chrome-headless
+
+Testing http://localhost:8000 ... please wait, this may take a minute.
+Waiting for 2000 milliseconds after page loads...
+
+  Violation of "color-contrast" with 7 occurrences!
+    Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds. Correct invalid elements at:
+     - .h-10
+     - .fade-in-up[data-animate=""]:nth-child(1) > .tracking-wide.text-gold.uppercase > span:nth-child(2)
+     - .fade-in-up[data-animate=""]:nth-child(2) > .tracking-wide.text-gold.uppercase > span:nth-child(2)
+     - .fade-in-up[data-animate=""]:nth-child(3) > .tracking-wide.text-gold.uppercase > span:nth-child(2)
+     - .bg-amber\/40.px-3.py-1:nth-child(1)
+     - .bg-amber\/40.px-3.py-1:nth-child(2)
+     - .bg-amber\/40.px-3.py-1:nth-child(3)
+    For details, see: https://dequeuniversity.com/rules/axe/4.10/color-contrast
+
+7 Accessibility issues detected.
+Testing complete of 1 pages
+
+[2025-09-30 13:02:47] WARN  Accessibility audit failed; review output above.
+[2025-09-30 13:02:47] INFO  Running Lighthouse CI audit (npm run lighthouse)...
+
+> lighthouse
+> lhci autorun
+
+✅  .lighthouseci/ directory writable
+✅  Configuration file found
+✅  Chrome installation found
+⚠   GitHub token not set
+Healthcheck passed!
+
+Started a web server with "php artisan serve --host=0.0.0.0 --port=8000"...
+Running Lighthouse 1 time(s) on http://localhost:8000
+Run #1...done.
+Done running Lighthouse!
+
+Checking assertions against 1 URL(s), 1 total run(s)
+
+12 result(s) for http://localhost:8000/ :
+
+  ✘  color-contrast failure for minScore assertion
+       Background and foreground colors do not have a sufficient contrast ratio.
+       https://dequeuniversity.com/rules/axe/4.9/color-contrast
+
+        expected: >=0.9
+           found: 0
+      all values: 0
+
+
+  ✘  errors-in-console failure for minScore assertion
+       Browser errors were logged to the console
+       https://developer.chrome.com/docs/lighthouse/best-practices/errors-in-console/
+
+        expected: >=0.9
+           found: 0
+      all values: 0
+
+
+  ✘  lcp-lazy-loaded failure for minScore assertion
+       Largest Contentful Paint image was not lazily loaded
+       https://web.dev/articles/lcp-lazy-loading
+       Audit did not produce a value at all. "minScore" might not be a valid assertion for this audit.
+
+        expected: >=0.9
+           found: NaN
+      all values: NaN
+
+
+  ✘  non-composited-animations failure for minScore assertion
+       Avoid non-composited animations
+       https://developer.chrome.com/docs/lighthouse/performance/non-composited-animations/
+       Audit did not produce a value at all. "minScore" might not be a valid assertion for this audit.
+
+        expected: >=0.9
+           found: NaN
+      all values: NaN
+
+
+  ✘  offscreen-images failure for maxLength assertion
+       Defer offscreen images
+       https://developer.chrome.com/docs/lighthouse/performance/offscreen-images/
+
+        expected: <=0
+           found: 1
+      all values: 1
+
+
+  ✘  prioritize-lcp-image failure for minScore assertion
+       Preload Largest Contentful Paint image
+       https://web.dev/articles/optimize-lcp#optimize_when_the_resource_is_discovered
+       Audit did not produce a value at all. "minScore" might not be a valid assertion for this audit.
+
+        expected: >=0.9
+           found: NaN
+      all values: NaN
+
+
+  ✘  unused-css-rules failure for maxLength assertion
+       Reduce unused CSS
+       https://developer.chrome.com/docs/lighthouse/performance/unused-css-rules/
+
+        expected: <=0
+           found: 1
+      all values: 1
+
+
+  ✘  unused-javascript failure for maxLength assertion
+       Reduce unused JavaScript
+       https://developer.chrome.com/docs/lighthouse/performance/unused-javascript/
+
+        expected: <=0
+           found: 1
+      all values: 1
+
+
+  ✘  uses-text-compression failure for maxLength assertion
+       Enable text compression
+       https://developer.chrome.com/docs/lighthouse/performance/uses-text-compression/
+
+        expected: <=0
+           found: 3
+      all values: 3
+
+
+  ⚠  first-contentful-paint warning for minScore assertion
+       First Contentful Paint
+       https://developer.chrome.com/docs/lighthouse/performance/first-contentful-paint/
+
+        expected: >=0.9
+           found: 0.59
+      all values: 0.59
+
+
+  ⚠  largest-contentful-paint warning for minScore assertion
+       Largest Contentful Paint
+       https://developer.chrome.com/docs/lighthouse/performance/lighthouse-largest-contentful-paint/
+
+        expected: >=0.9
+           found: 0.81
+      all values: 0.81
+
+
+  ⚠  uses-long-cache-ttl warning for maxLength assertion
+       Serve static assets with an efficient cache policy
+       https://developer.chrome.com/docs/lighthouse/performance/uses-long-cache-ttl/
+
+        expected: <=0
+           found: 2
+      all values: 2
+
+Assertion failed. Exiting with status code 1.
+
+Dumping 1 reports to disk at /Home1/project/ElderCare-SG/temp-laravel/storage/app/lighthouse...
+Done writing reports to disk.
+
+assert command failed. Exiting with status code 1.
+[2025-09-30 13:03:05] WARN  Lighthouse audit failed; review output above.
+[2025-09-30 13:03:05] WARN  One or more QA checks failed. Review logs above.
+[2025-09-30 13:03:05] INFO  Dev server is running (PID: 164619). Press Ctrl+C to exit when finished.
+
+
