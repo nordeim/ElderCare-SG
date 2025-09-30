@@ -8,8 +8,8 @@ services:
       dockerfile: Dockerfile
     container_name: eldersg-app
     ports:
-      - "8000:8000"
-      - "5173:5173"
+      - "8000:8000"    # Laravel dev server via artisan
+      - "5173:5173"    # Optional Vite HMR (run `npm run dev -- --host` inside container)
     # Inject local env without baking it into the image
     env_file:
       - .env.docker
@@ -49,9 +49,9 @@ services:
       - .env.docker
     environment:
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-root_password}
-      MARIADB_DATABASE: ${DB_DATABASE:-eldersg_daycare}
-      MARIADB_USER: ${DB_USERNAME:-eldersg}
-      MARIADB_PASSWORD: ${DB_PASSWORD:-eldersg_secret}
+      MARIADB_DATABASE: ${DB_DATABASE:-laravel}
+      MARIADB_USER: ${DB_USERNAME:-sail}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-password}
     ports:
       - "3306:3306"
     volumes:

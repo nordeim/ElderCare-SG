@@ -4,7 +4,7 @@ set -euo pipefail
 # Fail fast if readiness marker missing
 test -f /tmp/app.ready || exit 1
 
-URL="${HEALTHCHECK_URL:-http://localhost:8000/healthz}"
+URL="${HEALTHCHECK_URL:-http://app:8000/healthz}"
 
 if command -v curl >/dev/null 2>&1; then
   curl -fsS "$URL" >/dev/null || exit 1

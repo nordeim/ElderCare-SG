@@ -1,7 +1,8 @@
 .DEFAULT_GOAL := help
 
 APP := eldersg-app
-COMPOSE := docker compose
+# Compose command (override with COMPOSE="docker compose -f docker-compose.yml" if needed)
+COMPOSE ?= docker compose
 
 .PHONY: up down logs restart migrate migrate-fresh migrate-refresh migrate-rollback migrate-status seed tinker artisan bash health cache clear test test-ci lint npm-dev npm-build npm-ci env-check key-check reset prune help
 
@@ -70,6 +71,12 @@ test-ci: ## Run tests under non-interactive / CI mode
 lint: ## Run Laravel Pint or PHP-CS-Fixer
 	docker exec $(APP) ./vendor/bin/pint
 
+qa-axe: ## Run accessibility audit (axe)
+	$(COMPOSE) exec $(APP) npm run lint:accessibility
+
+qa-lighthouse: ## Run Lighthouse CI audit
+	$(COMPOSE) exec $(APP) npm run lighthouse
+
 npm-dev: ## Start Vite development server (CTRL+C to stop)
 	$(COMPOSE) exec -it $(APP) npm run dev
 
@@ -78,7 +85,6 @@ npm-build: ## Build frontend assets for production
 
 npm-ci: ## Install node dependencies inside container
 	$(COMPOSE) exec $(APP) npm ci
-
 env-check: ## Validate required .env variables
 	@grep -E '^APP_KEY=|^DB_HOST=|^DB_DATABASE=|^DB_USERNAME=|^DB_PASSWORD=' .env || echo "Missing required .env vars"
 

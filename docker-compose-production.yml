@@ -16,9 +16,9 @@ services:
       REDIS_PORT: ${REDIS_PORT:-6379}
       DB_HOST: ${DB_HOST:-mysql}
       DB_PORT: ${DB_PORT:-3306}
-      DB_DATABASE: ${DB_DATABASE:-eldersg_daycare}
-      DB_USERNAME: ${DB_USERNAME:-eldersg}
-      DB_PASSWORD: ${DB_PASSWORD:-eldersg_secret}
+      DB_DATABASE: ${DB_DATABASE:-laravel}
+      DB_USERNAME: ${DB_USERNAME:-sail}
+      DB_PASSWORD: ${DB_PASSWORD:-password}
     volumes:
       - eldersg-app-storage:/var/www/html/storage
     expose:
@@ -63,16 +63,16 @@ services:
       - .env.docker
     environment:
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-root_password}
-      MARIADB_DATABASE: ${DB_DATABASE:-eldersg_daycare}
-      MARIADB_USER: ${DB_USERNAME:-eldersg}
-      MARIADB_PASSWORD: ${DB_PASSWORD:-eldersg_secret}
+      MARIADB_DATABASE: ${DB_DATABASE:-laravel}
+      MARIADB_USER: ${DB_USERNAME:-sail}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-password}
     ports:
       - "3306:3306"
     volumes:
       - eldersg-mysql-data:/var/lib/mysql
     command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u${MARIADB_USER:-eldersg} -p${MARIADB_PASSWORD:-eldersg_secret} || exit 1"]
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u${MARIADB_USER:-sail} -p${MARIADB_PASSWORD:-password} || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 20
