@@ -1,4 +1,5 @@
-FROM php:8.2-fpm
+# Consider bumping to php:8.3-fpm once production parity is confirmed
+FROM php:8.3-fpm
 
 # Install system dependencies and PHP extensions (as root)
 RUN apt-get update \
@@ -8,7 +9,7 @@ RUN apt-get update \
         libpng-dev libjpeg-dev libfreetype6-dev \
         libxml2-dev libzip-dev libonig-dev \
         zip unzip \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y --no-install-recommends nodejs \
     && docker-php-ext-configure gd --with-jpeg --with-freetype \
     && docker-php-ext-install mbstring pdo_mysql exif pcntl bcmath gd zip opcache \
@@ -53,6 +54,9 @@ COPY --chown=appuser:appgroup composer.json composer.lock package.json package-l
 ENV HOME=/home/appuser \
     COMPOSER_HOME=/home/appuser/.composer \
     NPM_CONFIG_CACHE=/home/appuser/.npm
+ARG RUN_ASSET_BUILD=true
+ENV RUN_ASSET_BUILD=${RUN_ASSET_BUILD}
+
 USER appuser
 RUN composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader --no-scripts \
     && npm ci
@@ -65,7 +69,7 @@ COPY --chown=appuser:appgroup . .
 USER appuser
 RUN composer run-script post-autoload-dump || true \
     && composer dump-autoload --optimize --no-interaction \
-    && npm run build
+    && bash -lc 'if [ "${RUN_ASSET_BUILD}" = "true" ]; then npm run build; else echo "Skipping asset build (RUN_ASSET_BUILD=${RUN_ASSET_BUILD})"; fi'
 
 # Normalize ownership and deterministic permissions
 USER root

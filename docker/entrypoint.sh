@@ -111,14 +111,20 @@ run_migrations() {
       log "Migrations completed"
       return 0
     fi
-    log "Migrations failed (attempt $i/$retries); retrying in ${sleep_s}s"
+    log "Migrations failed (attempt $i/$retries); retrying in ${sleep_s}s" >&2
+    php artisan migrate:status || true
     sleep "$sleep_s"
   done
   return 1
 }
 
-log "Running migrations"
+{{ ... }}
 run_migrations || die "Migrations failed after retries"
+
+if [[ "${RUN_DB_SEED:-false}" =~ ^(true|1|yes)$ ]]; then
+  log "RUN_DB_SEED flag detected; running php artisan db:seed"
+  php artisan db:seed --force || die "Database seeding failed"
+fi
 
 # --- 6) Redis verification with driver detection (adds autoload for Predis) ---
 log "Redis ping check"
