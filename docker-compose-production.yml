@@ -20,7 +20,7 @@ services:
       DB_USERNAME: ${DB_USERNAME:-eldersg}
       DB_PASSWORD: ${DB_PASSWORD:-eldersg_secret}
     volumes:
-      - app-storage:/var/www/html/storage
+      - eldersg-eldersg-app-storage:/var/www/html/storage
     expose:
       - "9000"
     depends_on:
@@ -69,7 +69,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - eldersg-eldersg-mysql-data:/var/lib/mysql
     command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u${MARIADB_USER:-eldersg} -p${MARIADB_PASSWORD:-eldersg_secret} || exit 1"]
@@ -107,6 +107,6 @@ services:
 #      start_period: 30s
 
 volumes:
-  mysql-data:
-  app-storage:
+  eldersg-eldersg-mysql-data:
+  eldersg-eldersg-app-storage:
 

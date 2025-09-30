@@ -25,8 +25,8 @@ services:
       MAIL_PORT: ${MAIL_PORT:-1025}
     # Keep runtime writable paths minimal; code is baked into the image
     volumes:
-      - app-storage:/var/www/html/storage
-      - app-public:/var/www/html/public
+      - eldersg-eldersg-app-storage:/var/www/html/storage
+      - eldersg-eldersg-app-public:/var/www/html/public
     depends_on:
       - mysql
       - redis
@@ -55,7 +55,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - eldersg-eldersg-mysql-data:/var/lib/mysql
     command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p${MARIADB_ROOT_PASSWORD} || exit 1"]
@@ -90,7 +90,7 @@ services:
       start_period: 15s
 
 volumes:
-  mysql-data:
-  app-storage:
-  app-public:
+  eldersg-eldersg-mysql-data:
+  eldersg-eldersg-app-storage:
+  eldersg-eldersg-app-public:
 

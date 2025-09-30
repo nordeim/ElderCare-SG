@@ -1,0 +1,34 @@
+{
+    "$schema": "https://json.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite",
+        "dev:analyze": "ANALYTICS_DRIVER=plausible vite",
+        "lint:accessibility": "axe http://localhost:8000 --exit --load-delay 2000",
+        "lighthouse": "lhci autorun"
+    },
+    "devDependencies": {
+        "@axe-core/cli": "^4.8.2",
+        "@lhci/cli": "^0.14.0",
+        "@tailwindcss/forms": "^0.5.10",
+        "@tailwindcss/typography": "^0.5.19",
+        "autoprefixer": "^10.4.21",
+        "axios": "^1.11.0",
+        "concurrently": "^9.0.1",
+        "laravel-vite-plugin": "^2.0.1",
+        "postcss": "^8.5.6",
+        "tailwindcss": "^3.4.13",
+        "tailwindcss-animate": "^1.0.7",
+        "vite": "^7.1.7"
+    },
+    "dependencies": {
+        "alpinejs": "^3.15.0",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "embla-carousel": "^8.6.0",
+        "lucide": "^0.544.0",
+        "tailwind-merge": "^3.3.1"
+    }
+}
