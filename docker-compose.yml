@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: elderly-app
+    container_name: eldersg-app
     ports:
       - "8000:8000"
       - "5173:5173"
@@ -43,15 +43,15 @@ services:
 
   mysql:
     image: mariadb:10.11
-    container_name: elderly-mysql
+    container_name: eldersg-mysql
     restart: unless-stopped
     env_file:
       - .env
     environment:
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-root_password}
-      MARIADB_DATABASE: ${DB_DATABASE:-elderly_daycare}
-      MARIADB_USER: ${DB_USERNAME:-elderly}
-      MARIADB_PASSWORD: ${DB_PASSWORD:-elderly_secret}
+      MARIADB_DATABASE: ${DB_DATABASE:-eldersg_daycare}
+      MARIADB_USER: ${DB_USERNAME:-eldersg}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-eldersg_secret}
     ports:
       - "3306:3306"
     volumes:
@@ -66,7 +66,7 @@ services:
 
   redis:
     image: redis:7.4
-    container_name: elderly-redis
+    container_name: eldersg-redis
     restart: unless-stopped
     ports:
       - "6379:6379"
@@ -79,7 +79,7 @@ services:
 
   mailhog:
     image: mailhog/mailhog:v1.0.1
-    container_name: elderly-mailhog
+    container_name: eldersg-mailhog
     ports:
       - "8025:8025" # Web UI
     healthcheck:
