@@ -16,7 +16,7 @@ The architecture is a standard **Laravel Model-View-Controller (MVC)** pattern. 
 | Component | Technology | Version / Details | Confirmation File |
 | :--- | :--- | :--- | :--- |
 | Backend Framework | Laravel | `~12.0` | `composer.json` |
-| Language | PHP | `8.2` | `composer.json` |
+| Language | PHP | `8.3` | `Dockerfile` |
 | Database | MariaDB | `10.11` | `docker-compose.yml` |
 | Caching & Queues | Redis | `7.4` | `docker-compose.yml` |
 | Frontend Stack | Blade, TailwindCSS, Alpine.js | Vite build tool | `package.json`, `vite.config.js` |
@@ -30,17 +30,14 @@ The project uses a Docker-based development environment managed by Docker Compos
 
 ### 1. First-Time Setup
 
+The project is ready to run out-of-the-box. The Docker environment is pre-configured using the `.env.docker` file. On the first run, an `.env` file will be generated automatically inside the application container.
+
 ```sh
-# 1. Copy the example environment file
-cp .env.example .env
-
-# 2. Generate the Laravel application key (done automatically by entrypoint.sh if not set)
-# You can run it manually if needed:
-make artisan ARGS="key:generate"
-
-# 3. Build and start all services in the background
+# Build and start all services in the background
 make up
 ```
+
+After running `make up`, the application will be available at `http://localhost:8000` and the Mailhog UI at `http://localhost:8025`.
 
 ### 2. Standard Workflow
 
@@ -53,20 +50,30 @@ make up
 # Stop and remove all containers and volumes
 make down
 
+# Restart the application container
+make restart
+
+# View application logs in real-time
+make logs
+
 # Open a shell inside the application container
 make bash
 
 # Run database migrations
 make migrate
 
+# Drop all tables and re-run all migrations
+make migrate-fresh
+
 # Run tests
 make test
+
+# Clear all application caches
+make clear
 
 # View all available commands
 make help
 ```
-
-The application will be available at `http://localhost:8000` and the Mailhog UI at `http://localhost:8025`.
 
 ---
 

@@ -2,11 +2,7 @@
 
 Where compassionate care meets modern comfort for every family.
 
-ElderCare SG is a modern, accessible, and emotionally thoughtful web platform designed for families in Singapore seeking trusted elderly daycare services. Built with Laravel, TailwindCSS, and a design[...]
-
-![hero-screenshot-placeholder](public/assets/images/hero-placeholder.jpg)
-
-🔗 Live demo coming soon
+ElderCare SG is a modern, accessible, and emotionally thoughtful web platform designed for families in Singapore seeking trusted elderly daycare services. Built with Laravel, TailwindCSS, and a design-first approach, it aims to provide a seamless and reassuring digital experience.
 
 ---
 
@@ -14,28 +10,156 @@ ElderCare SG is a modern, accessible, and emotionally thoughtful web platform de
 
 We envision a digital experience that:
 
-- Communicates warmth, reliability, and clinical trustworthiness
-- Helps adult children confidently book care services for their aging parents
-- Brings accessibility and performance best practices into eldercare
+- Communicates warmth, reliability, and clinical trustworthiness.
+- Helps adult children confidently book care services for their aging parents.
+- Brings accessibility and performance best practices into eldercare.
 
-🎯 Audience: Families of elderly Singaporeans (60+), caregivers, clinicians  
-🛠️ Platform: Mobile-friendly web app
+---
+
+## 🚀 Getting Started
+
+This project is designed to run in a Docker container, managed by a simple `Makefile`.
+
+### Recommended Workflow (Docker)
+
+This is the simplest and most reliable way to get the application running.
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/nordeim/ElderCare-SG.git
+    cd ElderCare-SG
+    ```
+
+2.  **Build and run the application:**
+    ```bash
+    make up
+    ```
+    This single command builds the Docker images, starts all necessary services (application, database, Redis), and runs database migrations automatically via the entrypoint script.
+
+The application will be available at [http://localhost:8000](http://localhost:8000).
+
+### Alternative Workflow (Local Environment)
+
+If you have a local PHP and Node.js environment, you can run the application manually.
+
+1.  **Clone and set up the environment:**
+    ```bash
+    git clone https://github.com/nordeim/ElderCare-SG.git
+    cd ElderCare-SG
+    cp .env.example .env
+    composer install
+    npm install
+    ```
+
+2.  **Configure your `.env` file** with your local database and Redis credentials.
+
+3.  **Run key commands and start the servers:**
+    ```bash
+    php artisan key:generate
+    php artisan migrate
+    npm run build
+    php artisan serve
+    ```
 
 ---
 
 ## 🌐 Project Architecture & Stack
 
-| Layer            | Tech                        |
-|------------------|-----------------------------|
-| Backend          | Laravel 12 (PHP 8.2)        |
-| Frontend         | Blade Templates + TailwindCSS + Alpine.js |
-| Database         | MariaDB                     |
-| Caching/Queues   | Redis (jobs, notifications) |
-| Dev Environment  | Docker                      |
-| CI/CD            | GitHub Actions              |
+### Technology Stack
 
-📁 MVC structure with service layer:  
-app/Http, app/Models, app/Services, app/Jobs, app/Support
+| Layer | Tech | Version / Confirmation |
+|---|---|---|
+| Backend | Laravel | `~12.0` (`composer.json`) |
+| Language | PHP | `8.3` (`Dockerfile`) |
+| Frontend | Blade Templates + TailwindCSS + Alpine.js | `package.json` |
+| Database | MariaDB | `10.11` (`docker-compose.yml`) |
+| Caching/Queues | Redis | `7.4` (`docker-compose.yml`) |
+| Dev Environment | Docker | `docker-compose.yml`, `Makefile` |
+| CI/CD | Not yet implemented | N/A |
+
+### High-Level Architecture
+
+```mermaid
+graph TD
+    A[Client Browser] -->|HTTP| B[Laravel App]
+    B -->|Renders Blade| C[Views & Components]
+    B -->|Eloquent| D[(MariaDB)]
+    B -->|Service Call| E[Mailchimp API]
+    B -->|External Link| F[Booking Provider]
+    B -->|Analytics Script| G[Plausible / Custom]
+    C -->|Vite Assets| H[public/build]
+    subgraph Infrastructure
+        B
+        D
+    end
+```
+
+### Key File Structure
+
+| Path | Description |
+|---|---|
+| `app/Http/Controllers/` | Handles incoming HTTP requests and delegates to services. |
+| `app/Http/Requests/` | Contains Form Request classes for validating incoming data. |
+| `app/Models/` | Eloquent models that interact with the database. |
+| `app/Services/` | Houses business logic and integrations with external APIs (e.g., Mailchimp). |
+| `config/` | Contains all application configuration files. |
+| `database/migrations/` | The source of truth for the database schema. |
+| `resources/views/` | Blade templates that compose the frontend UI. |
+| `routes/web.php` | Defines all web-facing application routes. |
+| `docker-compose.yml` | Defines the services, networks, and volumes for the Docker environment. |
+| `Makefile` | Provides convenient shortcuts for common Docker and Artisan commands. |
+
+### Core Application Flows
+
+#### Homepage Request Flow
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Router
+    participant HomeController
+    participant ProgramModel as Program
+    participant TestimonialModel as Testimonial
+    participant BookingService
+    participant View
+
+    Client->>+Router: GET /
+    Router->>+HomeController: __invoke()
+    HomeController->>+ProgramModel: active()->orderBy(...)
+    ProgramModel-->>-HomeController: Collection<Program>
+    HomeController->>+TestimonialModel: active()->orderBy(...)
+    TestimonialModel-->>-HomeController: Collection<Testimonial>
+    HomeController->>+BookingService: bookingUrl()
+    BookingService-->>-HomeController: string (URL)
+    HomeController->>+View: render('home', data)
+    View-->>-HomeController: HTML Response
+    HomeController-->>-Client: 200 OK
+```
+
+#### Newsletter Submission Flow
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Router
+    participant NewsletterController
+    participant NewsletterSubscriptionRequest as Validation
+    participant MailchimpService
+    participant Session
+
+    Client->>+Router: POST /newsletter (with email)
+    Router->>+NewsletterController: __invoke()
+    NewsletterController->>+Validation: Validate request
+    Validation-->>-NewsletterController: Validated email
+    NewsletterController->>+MailchimpService: subscribe(email)
+    alt Subscription Successful
+        MailchimpService-->>-NewsletterController: true
+        NewsletterController->>+Session: flash('newsletter_status', message)
+    else Subscription Fails
+        MailchimpService-->>-NewsletterController: false
+        NewsletterController->>+Session: flash('newsletter_error', message)
+    end
+    Session-->>-NewsletterController:
+    NewsletterController-->>-Client: 302 Redirect Back
+```
 
 ---
 
@@ -43,178 +167,52 @@ app/Http, app/Models, app/Services, app/Jobs, app/Support
 
 This project is crafted using a UI/UX-first approach, where visuals and accessibility are core to success.
 
-📄 Read the full Project Requirements Document → [(PRD)](./Project_Requirements_Document.md)
+📄 Read the full [Project Requirements Document](./Project_Requirements_Document.md).
 
-✨ Visual Language:
-
-- Color palette: deep blues, warm ambers, calming greens
-- Typography: Playfair Display (serif), Inter (modern sans-serif)
-- Motion: micro-interactions, fade-ins, hover effects (prefers-reduced-motion respected)
-
-🖼️ Uses licensed lifestyle photography to convey care and dignity.
+✨ **Visual Language:**
+- **Color palette:** deep blues, warm ambers, calming greens
+- **Typography:** Playfair Display (serif), Inter (modern sans-serif)
+- **Motion:** micro-interactions, fade-ins, hover effects (prefers-reduced-motion respected)
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Developer Tooling
 
-Clone and run the project locally using Docker.
+The `Makefile` provides shortcuts for common development tasks.
 
-```bash
-git clone https://github.com/nordeim/ElderCare-SG.git
-cd ElderCare-SG
-cp .env.example .env
-./vendor/bin/sail up -d
-php artisan migrate
-npm install && npm run dev
-```
+| Command | Purpose |
+|---|---|
+| `make up` | Build and start all Docker containers. |
+| `make down` | Stop and remove all containers and volumes. |
+| `make restart` | Restart the application container. |
+| `make logs` | Tail the application container logs. |
+| `make bash` | Open a shell inside the application container. |
+| `make migrate` | Run database migrations. |
+| `make migrate-fresh` | Drop all tables and re-run migrations and seeds. |
+| `make test` | Run the PHPUnit test suite. |
+| `make npm-build` | Build frontend assets for production. |
+| `make npm-dev` | Start the Vite development server with HMR. |
 
-Visit http://localhost to view the app locally.
+---
 
-### 🧪 QA & Accessibility
+## 🧪 QA & Accessibility
 
 This project adheres to WCAG 2.1 AA standards.
 
 - ✅ Color contrast checked
 - ✅ Keyboard navigability for all components
-- ✅ Lightbox, carousel, nav are screen reader accessible
-- ✅ prefers-reduced-motion respected
+- ✅ Screen reader accessibility for interactive elements
+- ✅ `prefers-reduced-motion` respected
 - ✅ Lighthouse score target: >90 on mobile and desktop
-
-Test tools:
-
-- axe-core (browser extension or CI pipeline)
-- Lighthouse (Chrome DevTools)
-- VoiceOver (Mac) and NVDA (Windows)
-
-### 🛠️ Developer Tooling
-
-Common scripts:
-
-| Command | Purpose |
-|---------|---------|
-| npm run dev | Compile Tailwind + watch |
-| php artisan migrate | Run DB migrations |
-| sail artisan test | Run test suite (if added) |
-| npm run build | Build assets for production |
-| ./vendor/bin/sail up | Start Laravel environment |
-
-### 🧩 Components & UI System
-
-Built using TailwindCSS + shadcn components:
-
-- <Card> → Program Highlight Blocks
-- <Carousel> → Testimonials Marquee
-- <Steps> → Care Philosophy Timeline
-- <Input> & <Button> → Newsletter Signup
-
-Reusable layout partials:  
-layouts/header.blade.php, layouts/footer.blade.php, components/cta-card.blade.php
 
 ---
 
 ## 🤝 Contributing
 
-We welcome thoughtful contributions — accessibility, performance, UI polish, or feature ideas!
-
-- Fork this repo
-- Create a new branch: feat/your-feature-name
-- Follow Laravel’s PSR-12 + Tailwind class naming conventions
-- Submit a pull request with a clear description
-
-Check our [CONTRIBUTING.md](./CONTRIBUTING.md) for full details (coming soon).
+We welcome thoughtful contributions — accessibility, performance, UI polish, or feature ideas! Please check our (forthcoming) `CONTRIBUTING.md` for full details.
 
 ---
 
-## 📄 License & Acknowledgements
+## 📄 License
 
 MIT License © 2025 Nordeim
-
-Credits:
-
-- Icons: Lucide (https://lucide.dev)
-- Fonts: Google Fonts (Playfair Display, Inter)
-- Photos: Licensed via [unsplash.com/@...]
-- Carousel: Embla or shadcn/ui carousel
-
-📬 Feedback & Contact
-
-Have ideas, found bugs, or just want to say hi?
-
-Open an issue on GitHub → https://github.com/nordeim/ElderCare-SG/issues
-
-Or contact: hello@nordeim.sg (if applicable)
-
-—
-
----
-
-## 🖼 Screenshots
-
-Here’s a preview of what the ElderCare SG experience will look like:
-
-| Landing Page Hero | Program Cards | Testimonials Carousel |
-|-------------------|---------------|------------------------|
-| ![hero](./docs/screens/hero.png) | ![cards](./docs/screens/programs.png) | ![carousel](./docs/screens/testimonials.png) |
-
-> Screenshots above are mockups. Final UI may vary based on real content.
-
----
-
-## 🔍 Related Documentation
-
-- 📄 Full UI/UX PRD → /docs/PRD.md  
-- 🎨 Style Guide → /docs/design-system.md (Coming soon)  
-- 🧰 Architecture Guide → /docs/architecture.md (Coming soon)  
-- ✅ Accessibility Checklist → /docs/accessibility.md (Coming soon)  
-
----
-
-## 🔒 Security Policy
-
-If you discover a vulnerability or have concerns related to elder data protection or accessibility compliance:
-
-- Please report privately to hello@nordeim.sg  
-- Responsible disclosure is appreciated  
-- No personal data is collected in this MVP
-
----
-
-## 📦 Deployment & Hosting (Planned)
-
-This site is designed to be deployable via:
-
-- Laravel Forge (for managed hosting)
-- Vercel or Netlify for static Blade-rendered pages
-- Docker image for self-hosted deployment
-
-Coming soon:
-
-- ✅ CI/CD with GitHub Actions  
-- ✅ Preview deploys via GitHub PRs  
-- ✅ Lighthouse test automation  
-
----
-
-## ❤️ Acknowledgements
-
-This project is inspired by:
-
-- Families caring for aging loved ones  
-- UI/UX designers committed to accessibility  
-- Open-source tools like Tailwind, Laravel, and Alpine.js  
-- Web performance advocates pushing for fast, inclusive design  
-
----
-
-## 🙏 Final Note
-
-This project is a love letter to families, caregivers, and seniors in Singapore. We believe design, care, and technology can — and should — coexist gracefully.
-
-If you're reading this and have thoughts, feedback, or want to help, we welcome you.
-
-🔗 GitHub Repo: https://github.com/nordeim/ElderCare-SG  
-📧 Contact: hello@nordeim.sg (or open an Issue)  
-🛠️ Contribute: Fork, branch, improve!
-
-—
-👴 Built with care and code · 🇸🇬 Made for Singapore
