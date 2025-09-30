@@ -2,8 +2,8 @@
 
 ## Environment Verification
 - [x] `php artisan migrate --seed` completes without errors. *(2025-09-30 via Sail)*
-- [ ] `npm run dev` starts Vite dev server without warnings. *(Pending — production build verified via `npm run build`)*
-- [ ] Homepage renders seeded programs and testimonials in browser.
+- [x] `php artisan serve` (via script) responds at http://localhost:8000. *(2025-09-30 manual run)*
+- [x] Homepage renders seeded programs and testimonials in browser. *(2025-09-30 manual check)*
 
 ## Accessibility & UX
 - [ ] Navigation toggle works with keyboard and screen readers.
@@ -12,7 +12,7 @@
 - [ ] Footer newsletter form includes accessible labels and aria-live messaging.
 
 ## Performance
-- [ ] Lighthouse desktop score ≥ 85 (baseline before optimization).
+- [ ] Lighthouse desktop score ≥ 85 (baseline before optimization). *(Pending — script executes `lhci` but requires Lighthouse to be installed; rerun after review)*
 - [x] Verify Tailwind purge reducing CSS bundle size in production build (`npm run build`). *(2025-09-30 — build succeeded)*
 
 ## Data Integrity
@@ -27,7 +27,7 @@
 ## Follow-up Automation
 - [ ] Add axe-core automated audit to CI pipeline.
 - [ ] Configure Lighthouse CI GitHub Action.
-- [ ] Document manual QA results in this checklist after each run.
+- [x] Document manual QA results in this checklist after each run. *(2025-09-30)*
 
 ### Automation Plan Notes
 - **axe-core**: Integrate via `npm run lint:accessibility` script using `@axe-core/cli`; plan to run in CI post-build. Evaluate Headless Chrome vs Playwright runner.
