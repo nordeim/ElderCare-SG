@@ -10,13 +10,14 @@
         "lighthouse": "lhci autorun"
     },
     "devDependencies": {
+        "@axe-core/cli": "^4.8.2",
+        "@lhci/cli": "^0.14.0",
         "@tailwindcss/forms": "^0.5.10",
         "@tailwindcss/typography": "^0.5.19",
-        "@axe-core/cli": "^4.8.2",
+        "@tailwindcss/vite": "^4.1.13",
         "autoprefixer": "^10.4.21",
         "axios": "^1.11.0",
         "concurrently": "^9.0.1",
-        "@lhci/cli": "^0.14.0",
         "laravel-vite-plugin": "^2.0.1",
         "postcss": "^8.5.6",
         "tailwindcss": "^3.4.13",

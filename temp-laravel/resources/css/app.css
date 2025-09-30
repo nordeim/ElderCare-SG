@@ -5,7 +5,7 @@
 @layer base {
     :root {
         color-scheme: light;
-        background-color: theme('colors.canvas');
+        background-color: theme('colors.canvas', '#F7F9FC');
     }
 
     html {
@@ -34,7 +34,7 @@
     }
 
     ::selection {
-        background-color: theme('colors.gold');
+        background-color: theme('colors.gold', '#F0A500');
         color: white;
     }
 
