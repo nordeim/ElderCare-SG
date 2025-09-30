@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @if (config('analytics.driver') === 'plausible' && config('analytics.plausible.domain'))
+        <script defer data-domain="{{ config('analytics.plausible.domain') }}" src="{{ config('analytics.plausible.script') }}"></script>
+    @endif
 </head>
 <body class="bg-canvas font-body text-slate-dark">
     <div class="relative flex min-h-screen flex-col">
