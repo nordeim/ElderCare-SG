@@ -6,7 +6,7 @@
         "build": "vite build",
         "dev": "vite",
         "dev:analyze": "ANALYTICS_DRIVER=plausible vite",
-        "lint:accessibility": "axe http://localhost:8000 --headless --exit 2",
+        "lint:accessibility": "axe http://localhost:8000 --exit --load-delay 2000",
         "lighthouse": "lhci autorun"
     },
     "devDependencies": {
