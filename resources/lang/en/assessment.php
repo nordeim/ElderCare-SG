@@ -1,0 +1,220 @@
+<?php
+
+return [
+    'pill_label' => 'Guided Assessment',
+    'headline' => 'Discover the care plan that fits your family best',
+    'description' => 'Answer a few thoughtful questions and we will highlight the programs, specialists, and next steps that match your loved one’s needs.',
+    'cta_label' => 'Take the quick assessment',
+    'secondary_link' => 'Explore programs instead',
+    'benefits' => [
+        'personalized_programs' => 'Instantly see recommended programs based on your answers.',
+        'clinical_insights' => 'Understand how our nursing and therapy teams can support unique health considerations.',
+        'follow_up' => 'Choose the follow-up that works for you—book a visit or receive curated resources.',
+    ],
+    'preview' => [
+        'step_one' => [
+            'title' => 'Share care priorities',
+            'copy' => 'Tell us about mobility, memory, and support frequency needs.',
+        ],
+        'step_two' => [
+            'title' => 'See tailored suggestions',
+            'copy' => 'We surface the programs, testimonials, and guides that resonate most.',
+        ],
+        'step_three' => [
+            'title' => 'Choose your next step',
+            'copy' => 'Book a visit, request a call, or download helpful caregiver resources.',
+        ],
+        'footer_note' => 'Takes about two minutes. All responses remain confidential and help us prepare meaningful guidance.',
+    ],
+    'labels' => [
+        'step_prefix' => 'Step',
+        'step_separator' => 'of',
+        'back' => 'Back',
+        'next' => 'Next',
+        'skip' => 'Skip for now',
+        'complete' => 'See my care plan',
+        'restart' => 'Start over',
+    ],
+    'modal' => [
+        'title' => 'Guided needs assessment',
+        'description' => 'Answer each prompt to receive a personalized care path. You can pause anytime, and we will save your progress for this visit.',
+        'placeholder_copy' => 'The interactive interface is nearly ready. In the meantime, reach out to our care advisors for immediate support.',
+    ],
+    'accessibility' => [
+        'close_label' => 'Close assessment',
+        'progress_label' => 'Assessment progress',
+    ],
+    'steps' => [
+        [
+            'id' => 'care_context',
+            'title' => 'Care context',
+            'question' => 'Who are you seeking care for?',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'mom', 'label' => 'Mom'],
+                ['value' => 'dad', 'label' => 'Dad'],
+                ['value' => 'relative', 'label' => 'Relative'],
+                ['value' => 'other', 'label' => 'Other'],
+            ],
+            'analytics_key' => 'care_context',
+        ],
+        [
+            'id' => 'support_frequency',
+            'title' => 'Support frequency',
+            'question' => 'How often do you need daytime support?',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'weekdays', 'label' => 'Weekdays'],
+                ['value' => 'selected_days', 'label' => 'Selected days'],
+                ['value' => 'occasional', 'label' => 'Occasionally'],
+                ['value' => 'unknown', 'label' => 'Not sure yet'],
+            ],
+            'analytics_key' => 'support_frequency',
+        ],
+        [
+            'id' => 'mobility',
+            'title' => 'Mobility support',
+            'question' => 'How much support does your loved one need with movement?',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'independent', 'label' => 'Independent'],
+                ['value' => 'assistance', 'label' => 'Needs some assistance'],
+            ],
+            'options_extra' => [
+                ['value' => 'full_support', 'label' => 'Requires full support'],
+            ],
+            'analytics_key' => 'mobility',
+        ],
+        [
+            'id' => 'cognitive_support',
+            'title' => 'Cognitive support',
+            'question' => 'How would you describe memory support needs?',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'engaged', 'label' => 'Engaged & social'],
+                ['value' => 'mild_changes', 'label' => 'Mild memory changes'],
+                ['value' => 'dementia', 'label' => 'Specialised dementia care'],
+            ],
+            'analytics_key' => 'cognitive_support',
+        ],
+        [
+            'id' => 'health_considerations',
+            'title' => 'Health considerations',
+            'question' => 'Any specific health considerations we should prepare for?',
+            'type' => 'multi',
+            'options' => [
+                ['value' => 'diabetes', 'label' => 'Diabetes'],
+                ['value' => 'cardiac', 'label' => 'Cardiac care'],
+                ['value' => 'stroke', 'label' => 'Stroke recovery'],
+                ['value' => 'mobility_aids', 'label' => 'Uses mobility aids'],
+                ['value' => 'other', 'label' => 'Other considerations'],
+            ],
+            'analytics_key' => 'health_considerations',
+        ],
+        [
+            'id' => 'transportation',
+            'title' => 'Transportation',
+            'question' => 'Do you need door-to-door transport?',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'yes', 'label' => 'Yes'],
+                ['value' => 'sometimes', 'label' => 'Sometimes'],
+                ['value' => 'no', 'label' => 'No'],
+            ],
+            'analytics_key' => 'transportation',
+        ],
+        [
+            'id' => 'caregiver_goals',
+            'title' => 'Caregiver goals',
+            'question' => 'What do you hope this program provides for your family?',
+            'type' => 'multi',
+            'options' => [
+                ['value' => 'engagement', 'label' => 'Daytime engagement'],
+                ['value' => 'clinical', 'label' => 'Clinical oversight'],
+                ['value' => 'respite', 'label' => 'Respite for caregivers'],
+                ['value' => 'therapy', 'label' => 'Therapy services'],
+                ['value' => 'community', 'label' => 'Community connection'],
+            ],
+            'analytics_key' => 'caregiver_goals',
+        ],
+        [
+            'id' => 'contact_preference',
+            'title' => 'Follow-up preference',
+            'question' => 'How would you like us to follow up?',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'book_now', 'label' => 'Book consultation now'],
+                ['value' => 'email_me', 'label' => 'Email me details'],
+                ['value' => 'browsing', 'label' => 'Just browsing for now'],
+            ],
+            'analytics_key' => 'contact_preference',
+        ],
+    ],
+    'segments' => [
+        'active_day' => [
+            'name' => 'Active day engagement',
+            'description' => 'Your loved one thrives with vibrant social programming and meaningful experiences.',
+            'programs' => ['Day Programs', 'Community Circles'],
+            'highlights' => [
+                'Preview daily enrichment calendar and cultural activities.',
+                'Meet our engagement specialists who facilitate purposeful routines.',
+            ],
+            'cta_label' => 'Schedule a discovery visit',
+            'cta_href' => '#booking',
+        ],
+        'supportive_care' => [
+            'name' => 'Supportive clinical care',
+            'description' => 'Consistent clinical oversight and therapy-driven schedules will bring your family confidence.',
+            'programs' => ['Wellness Support', 'Therapy & Rehab'],
+            'highlights' => [
+                'Tour therapy gyms, sensory rooms, and consult with licensed clinicians.',
+                'Receive a customised care outline within 24 hours of your visit.',
+            ],
+            'cta_label' => 'Plan a tailored care visit',
+            'cta_href' => '#booking',
+        ],
+        'memory_care' => [
+            'name' => 'Memory care focus',
+            'description' => 'Specialised dementia programming offers safety, reassurance, and moments of joy.',
+            'programs' => ['Memories & Moments', 'Family Coaching'],
+            'highlights' => [
+                'Explore secure sensory gardens and small-group memory workspaces.',
+                'Receive guidance on family routines and cognitive enrichment at home.',
+            ],
+            'cta_label' => 'Book a memory care consultation',
+            'cta_href' => '#booking',
+        ],
+        'respite_support' => [
+            'name' => 'Respite & logistics support',
+            'description' => 'Flexible scheduling and transport services help your household breathe easier.',
+            'programs' => ['Flexible Care Pass', 'Door-to-Door Support'],
+            'highlights' => [
+                'Discuss transport routes, schedules, and caregiver respite resources.',
+                'Bundle services that adapt to changing weekly needs.',
+            ],
+            'cta_label' => 'Build your flexible schedule',
+            'cta_href' => '#booking',
+        ],
+        'exploration' => [
+            'name' => 'Explore at your own pace',
+            'description' => 'Take time to review our stories and resources before speaking with a care advisor.',
+            'programs' => ['Caregiver Resource Hub', 'Family Testimonials'],
+            'highlights' => [
+                'Download caregiver checklists and planning guides.',
+                'Subscribe to monthly updates crafted for families starting their journey.',
+            ],
+            'cta_label' => 'Send me caregiver resources',
+            'cta_href' => '#newsletter',
+        ],
+    ],
+    'summary' => [
+        'title' => 'Your personalized care path',
+        'intro' => 'Based on your answers, here is what we recommend next:',
+        'programs_heading' => 'Recommended programs',
+        'highlights_heading' => 'What to expect next',
+        'cta_fallback' => 'Book a visit',
+    ],
+    'analytics' => [
+        'event_namespace' => 'assessment',
+    ],
+];

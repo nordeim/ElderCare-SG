@@ -1,0 +1,220 @@
+<?php
+
+return [
+    'pill_label' => '需求评估',
+    'headline' => '为您的家人找到最合适的照护方案',
+    'description' => '回答几个贴心的问题，我们将为您推荐最匹配的日托项目、护理团队与后续安排。',
+    'cta_label' => '开始快速评估',
+    'secondary_link' => '先浏览项目',
+    'benefits' => [
+        'personalized_programs' => '根据您的回答即时呈现个性化项目建议。',
+        'clinical_insights' => '了解护理与治疗团队如何支持特定健康需求。',
+        'follow_up' => '选择最适合的下一步——预约参观或获取照护资源。',
+    ],
+    'preview' => [
+        'step_one' => [
+            'title' => '分享照护重点',
+            'copy' => '说明移动能力、记忆照护及所需时段。',
+        ],
+        'step_two' => [
+            'title' => '查看专属建议',
+            'copy' => '我们为您呈现最贴近需求的项目、家庭故事与指南。',
+        ],
+        'step_three' => [
+            'title' => '选择下一步',
+            'copy' => '预约参观、请求回电或下载照护指南。',
+        ],
+        'footer_note' => '大约需要两分钟。所有回答仅用于提供更贴心的建议，并保持严格保密。',
+    ],
+    'labels' => [
+        'step_prefix' => '步骤',
+        'step_separator' => '／共',
+        'back' => '上一步',
+        'next' => '下一步',
+        'skip' => '稍后再说',
+        'complete' => '查看个性化方案',
+        'restart' => '重新开始',
+    ],
+    'modal' => [
+        'title' => '需求评估问卷',
+        'description' => '逐步回答问题即可获得个性化照护建议。您可随时暂停，我们会保存当前进度。',
+        'placeholder_copy' => '互动评估界面即将推出。若需即时协助，欢迎联系照护顾问。',
+    ],
+    'accessibility' => [
+        'close_label' => '关闭评估',
+        'progress_label' => '评估进度',
+    ],
+    'steps' => [
+        [
+            'id' => 'care_context',
+            'title' => '照护对象',
+            'question' => '您正在为哪位家人寻找照护？',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'mom', 'label' => '母亲'],
+                ['value' => 'dad', 'label' => '父亲'],
+                ['value' => 'relative', 'label' => '亲戚'],
+                ['value' => 'other', 'label' => '其他'],
+            ],
+            'analytics_key' => 'care_context',
+        ],
+        [
+            'id' => 'support_frequency',
+            'title' => '照护频率',
+            'question' => '您希望每周提供几天的日托照护？',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'weekdays', 'label' => '平日每天'],
+                ['value' => 'selected_days', 'label' => '特定日子'],
+                ['value' => 'occasional', 'label' => '偶尔'],
+                ['value' => 'unknown', 'label' => '尚未确定'],
+            ],
+            'analytics_key' => 'support_frequency',
+        ],
+        [
+            'id' => 'mobility',
+            'title' => '行动能力',
+            'question' => '您的家人在行动方面需要多少协助？',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'independent', 'label' => '可自行行动'],
+                ['value' => 'assistance', 'label' => '需要部分协助'],
+            ],
+            'options_extra' => [
+                ['value' => 'full_support', 'label' => '需要全程协助'],
+            ],
+            'analytics_key' => 'mobility',
+        ],
+        [
+            'id' => 'cognitive_support',
+            'title' => '认知支持',
+            'question' => '请描述目前的记忆照护需求。',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'engaged', 'label' => '精神活跃、喜欢社交'],
+                ['value' => 'mild_changes', 'label' => '轻度记忆变化'],
+                ['value' => 'dementia', 'label' => '需要失智专业照护'],
+            ],
+            'analytics_key' => 'cognitive_support',
+        ],
+        [
+            'id' => 'health_considerations',
+            'title' => '健康考量',
+            'question' => '是否有特别需要我们提前准备的健康状况？',
+            'type' => 'multi',
+            'options' => [
+                ['value' => 'diabetes', 'label' => '糖尿病'],
+                ['value' => 'cardiac', 'label' => '心脏照护'],
+                ['value' => 'stroke', 'label' => '中风复健'],
+                ['value' => 'mobility_aids', 'label' => '使用行动辅助器'],
+                ['value' => 'other', 'label' => '其他注意事项'],
+            ],
+            'analytics_key' => 'health_considerations',
+        ],
+        [
+            'id' => 'transportation',
+            'title' => '交通需求',
+            'question' => '是否需要门到门接送服务？',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'yes', 'label' => '需要'],
+                ['value' => 'sometimes', 'label' => '偶尔需要'],
+                ['value' => 'no', 'label' => '不需要'],
+            ],
+            'analytics_key' => 'transportation',
+        ],
+        [
+            'id' => 'caregiver_goals',
+            'title' => '家庭期待',
+            'question' => '您希望日托项目为家庭带来哪些支持？',
+            'type' => 'multi',
+            'options' => [
+                ['value' => 'engagement', 'label' => '丰富的日间活动'],
+                ['value' => 'clinical', 'label' => '医疗护理监管'],
+                ['value' => 'respite', 'label' => '照护者喘息'],
+                ['value' => 'therapy', 'label' => '治疗与复健服务'],
+                ['value' => 'community', 'label' => '社区连结'],
+            ],
+            'analytics_key' => 'caregiver_goals',
+        ],
+        [
+            'id' => 'contact_preference',
+            'title' => '后续联络',
+            'question' => '您希望我们如何跟进？',
+            'type' => 'single',
+            'options' => [
+                ['value' => 'book_now', 'label' => '马上预约参观'],
+                ['value' => 'email_me', 'label' => '发送完整资讯'],
+                ['value' => 'browsing', 'label' => '先浏览资料即可'],
+            ],
+            'analytics_key' => 'contact_preference',
+        ],
+    ],
+    'segments' => [
+        'active_day' => [
+            'name' => '活力社交型',
+            'description' => '丰富的社交互动与主题活动能让家人展现最佳状态。',
+            'programs' => ['日间活力计划', '社区连结圈'],
+            'highlights' => [
+                '预览每日主题活动与文化体验。',
+                '认识引导有意义日程的活动伙伴。',
+            ],
+            'cta_label' => '预约体验行程',
+            'cta_href' => '#booking',
+        ],
+        'supportive_care' => [
+            'name' => '临床照护型',
+            'description' => '稳定的专业照护与治疗排程，为家人建立安心节奏。',
+            'programs' => ['健康照护计划', '治疗与复健'],
+            'highlights' => [
+                '参观治疗空间、感觉统合室，并与专业团队交流。',
+                '参访后 24 小时内提供专属照护建议。',
+            ],
+            'cta_label' => '规划专属参观',
+            'cta_href' => '#booking',
+        ],
+        'memory_care' => [
+            'name' => '记忆照护型',
+            'description' => '专为失智长者打造的安全与安心体验，让家人放心。',
+            'programs' => ['回忆花园计划', '家庭教练支持'],
+            'highlights' => [
+                '探索安全的感官花园与小组记忆空间。',
+                '获取家庭日常照护与认知刺激建议。',
+            ],
+            'cta_label' => '预约记忆照护咨询',
+            'cta_href' => '#booking',
+        ],
+        'respite_support' => [
+            'name' => '喘息后勤型',
+            'description' => '灵活的时段与交通协助，让家庭获取喘息空间。',
+            'programs' => ['弹性照护套票', '门到门接送'],
+            'highlights' => [
+                '讨论接送路线、时段与照护者喘息资源。',
+                '规划可随家庭需求调整的服务组合。',
+            ],
+            'cta_label' => '打造弹性时段',
+            'cta_href' => '#booking',
+        ],
+        'exploration' => [
+            'name' => '自主探索型',
+            'description' => '您可以先深入了解我们的故事与资源，再决定下一步。',
+            'programs' => ['照护资源中心', '家庭见证故事'],
+            'highlights' => [
+                '下载照护检查表与规划指南。',
+                '订阅专为新手家庭筹备的月度简报。',
+            ],
+            'cta_label' => '发送照护资源给我',
+            'cta_href' => '#newsletter',
+        ],
+    ],
+    'summary' => [
+        'title' => '专属照护建议',
+        'intro' => '根据您的回答，我们建议以下方向：',
+        'programs_heading' => '推荐项目',
+        'highlights_heading' => '下一步重点',
+        'cta_fallback' => '预约参观',
+    ],
+    'analytics' => [
+        'event_namespace' => 'assessment',
+    ],
+];

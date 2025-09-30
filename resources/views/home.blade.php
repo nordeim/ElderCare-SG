@@ -5,6 +5,8 @@
 @section('content')
     <x-hero :primary-cta="['href' => $bookingUrl, 'label' => 'Book a visit']" />
 
+    <x-assessment infoHref="#programs" />
+
     <section id="programs" class="bg-canvas py-16">
         <div class="mx-auto max-w-section px-6">
             <div class="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
