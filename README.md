@@ -43,7 +43,7 @@ app/Http, app/Models, app/Services, app/Jobs, app/Support
 
 This project is crafted using a UI/UX-first approach, where visuals and accessibility are core to success.
 
-📄 Read the full Project Requirements Document (PRD) → [PRD.md](./docs/PRD.md)
+📄 Read the full Project Requirements Document → [(PRD)](./Project_Requirements_Document.md)
 
 ✨ Visual Language:
 
