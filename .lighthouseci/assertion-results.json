@@ -32,9 +32,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.59,
+    "actual": 0.46,
     "values": [
-      0.59
+      0.46
     ],
     "operator": ">=",
     "passed": false,
@@ -47,9 +47,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.81,
+    "actual": 0.62,
     "values": [
-      0.81
+      0.62
     ],
     "operator": ">=",
     "passed": false,
@@ -74,6 +74,21 @@
     "url": "http://localhost:8000/",
     "auditTitle": "Largest Contentful Paint image was not lazily loaded",
     "auditDocumentationLink": "https://web.dev/articles/lcp-lazy-loading"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.08,
+    "values": [
+      0.08
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditId": "max-potential-fid",
+    "level": "warn",
+    "url": "http://localhost:8000/",
+    "auditTitle": "Max Potential First Input Delay",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/lighthouse-max-potential-fid/"
   },
   {
     "name": "minScore",
@@ -181,5 +196,19 @@
     "url": "http://localhost:8000/",
     "auditTitle": "Enable text compression",
     "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/uses-text-compression/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.85,
+    "actual": 0.76,
+    "values": [
+      0.76
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditProperty": "performance",
+    "auditId": "categories",
+    "level": "warn",
+    "url": "http://localhost:8000/"
   }
 ]

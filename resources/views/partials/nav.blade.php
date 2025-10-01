@@ -1,7 +1,7 @@
 <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
     <nav class="mx-auto flex max-w-section items-center justify-between px-4 py-4 lg:px-6" x-data="{ open: false }">
         <a href="/" class="flex items-center gap-2 text-lg font-heading text-trust">
-            <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold/20 text-gold">EC</span>
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold text-trust shadow-sm">EC</span>
             <span class="hidden font-semibold uppercase tracking-wider sm:inline">ElderCare SG</span>
         </a>
 

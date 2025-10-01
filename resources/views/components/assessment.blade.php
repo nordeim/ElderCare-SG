@@ -61,21 +61,21 @@
 
             <div class="section-card space-y-4" aria-live="polite">
                 <div class="flex items-center gap-3">
-                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold/20 text-gold">01</span>
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold text-trust">01</span>
                     <div>
                         <p class="text-sm font-semibold uppercase tracking-wide text-trust">{{ __('assessment.preview.step_one.title') }}</p>
                         <p class="text-sm text-slate">{{ __('assessment.preview.step_one.copy') }}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold/20 text-gold">02</span>
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold text-trust">02</span>
                     <div>
                         <p class="text-sm font-semibold uppercase tracking-wide text-trust">{{ __('assessment.preview.step_two.title') }}</p>
                         <p class="text-sm text-slate">{{ __('assessment.preview.step_two.copy') }}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold/20 text-gold">03</span>
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold text-trust">03</span>
                     <div>
                         <p class="text-sm font-semibold uppercase tracking-wide text-trust">{{ __('assessment.preview.step_three.title') }}</p>
                         <p class="text-sm text-slate">{{ __('assessment.preview.step_three.copy') }}</p>
@@ -121,7 +121,7 @@
                     <div class="space-y-6">
                         <div class="flex items-center justify-between text-sm font-medium text-slate" role="status" aria-live="polite">
                             <span x-text="progressLabel"></span>
-                            <button type="button" class="text-gold hover:text-gold/80" @click="skip()">{{ __('assessment.labels.skip') }}</button>
+                            <button type="button" class="text-trust underline decoration-2 underline-offset-4 hover:text-gold" @click="skip()">{{ __('assessment.labels.skip') }}</button>
                         </div>
 
                         <template x-if="currentStep">
@@ -137,18 +137,18 @@
                                         <button
                                             type="button"
                                             class="flex w-full items-center justify-between rounded-2xl border px-5 py-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-                                            :class="isSelected(option.value) ? 'border-gold bg-amber/30 text-trust' : 'border-slate/15 hover:border-gold/40'"
+                                            :class="isSelected(option.value) ? 'border-gold bg-gold text-trust' : 'border-slate/15 hover:border-gold/40'"
                                             :aria-pressed="isSelected(option.value)"
                                             @click="toggleOption(option.value)"
                                         >
                                             <span class="font-medium" x-text="option.label"></span>
                                             <template x-if="currentStep.type === 'multi'">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" :class="isSelected(option.value) ? 'text-gold' : 'text-slate/60'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" :class="isSelected(option.value) ? 'text-trust' : 'text-slate/60'">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m4.5 12.75 6 6 9-13.5" />
                                                 </svg>
                                             </template>
                                             <template x-if="currentStep.type === 'single'">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" :class="isSelected(option.value) ? 'text-gold' : 'text-slate/60'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" :class="isSelected(option.value) ? 'text-trust' : 'text-slate/60'">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.75a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5Z" />
                                                     <circle cx="12" cy="12" r="2.25" fill="currentColor" x-show="isSelected(option.value)"></circle>
                                                 </svg>

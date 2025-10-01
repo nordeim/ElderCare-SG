@@ -6,7 +6,7 @@
         "build": "vite build",
         "dev": "vite",
         "dev:analyze": "ANALYTICS_DRIVER=plausible vite",
-        "lint:accessibility": "concurrently -k -s first \"php artisan serve --host=127.0.0.1 --port=8000 --no-reload\" \"wait-on http://127.0.0.1:8000 && axe http://127.0.0.1:8000 --exit --load-delay 2000\"",
+        "lint:accessibility": "concurrently -k -s first \"php artisan serve --host=127.0.0.1 --port=8081 --no-reload\" \"wait-on http://127.0.0.1:8081 && axe http://127.0.0.1:8081 --exit --load-delay 2000\"",
         "lighthouse": "lhci autorun"
     },
     "devDependencies": {

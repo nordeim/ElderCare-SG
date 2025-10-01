@@ -60,7 +60,7 @@
     }
 
     .pill-tag {
-        @apply inline-flex items-center rounded-full bg-amber/60 px-3 py-1 text-sm font-medium text-trust;
+        @apply inline-flex items-center rounded-full bg-trust px-3 py-1 text-sm font-medium text-white shadow-sm;
     }
 
     .section-card {

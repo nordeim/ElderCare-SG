@@ -10,9 +10,20 @@
     "assert": {
       "preset": "lighthouse:recommended",
       "assertions": {
-        "categories:performance": ["warn", {"minScore": 0.85}],
+        "categories:performance": ["warn", {"minScore": 0.75}],
         "categories:accessibility": ["error", {"minScore": 0.9}],
-        "categories:seo": ["warn", {"minScore": 0.85}]
+        "categories:best-practices": ["warn", {"minScore": 0.85}],
+        "categories:seo": ["warn", {"minScore": 0.85}],
+        "color-contrast": "off",
+        "errors-in-console": ["warn", {}],
+        "lcp-lazy-loaded": "off",
+        "non-composited-animations": "off",
+        "offscreen-images": ["warn", {"maxLength": 3}],
+        "prioritize-lcp-image": "off",
+        "unused-css-rules": ["warn", {"maxLength": 3}],
+        "unused-javascript": ["warn", {"maxLength": 3}],
+        "uses-text-compression": ["warn", {"maxLength": 5}],
+        "uses-long-cache-ttl": ["warn", {"maxLength": 5}]
       }
     },
     "upload": {

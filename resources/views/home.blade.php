@@ -61,15 +61,14 @@
                             </template>
                         </ul>
                     </div>
-                </div>
             </div>
 
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 @forelse ($programs as $program)
                     <article class="section-card fade-in-up" data-animate>
-                        <div class="flex items-center gap-3 text-sm uppercase tracking-wide text-gold">
+                        <div class="flex items-center gap-3 text-sm uppercase tracking-wide text-trust">
                             @if ($program->icon)
-                                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gold/15 text-gold">
+                                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gold text-trust shadow-sm">
                                     {{ $program->icon }}
                                 </span>
                             @endif

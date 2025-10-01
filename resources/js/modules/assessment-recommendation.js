@@ -1,16 +1,12 @@
 import Alpine from 'alpinejs';
 
-const defaultState = () => ({
+const createStore = () => ({
     segmentKey: null,
     segment: null,
     summary: null,
     updatedAt: null,
     fallbackLabel: 'Book a visit',
     fallbackHref: '#booking',
-});
-
-const store = {
-    ...defaultState(),
     setFallback(summary) {
         if (!summary) {
             return;
@@ -40,12 +36,12 @@ const store = {
         this.updatedAt = new Date().toISOString();
     },
     reset() {
-        const fallbackLabel = this.fallbackLabel;
-        const fallbackHref = this.fallbackHref;
-
-        Object.assign(this, defaultState());
-        this.fallbackLabel = fallbackLabel;
-        this.fallbackHref = fallbackHref;
+        Object.assign(this, {
+            segmentKey: null,
+            segment: null,
+            summary: null,
+            updatedAt: null,
+        });
     },
     get hasRecommendation() {
         return Boolean(this.segmentKey && this.segment);
@@ -62,11 +58,13 @@ const store = {
     get highlights() {
         return Array.isArray(this.segment?.highlights) ? this.segment.highlights : [];
     },
-};
+});
 
-const registerStore = () => {
-    if (!Alpine.store('assessmentRecommendation')) {
-        Alpine.store('assessmentRecommendation', store);
+const registerListeners = () => {
+    const recommendationStore = Alpine.store('assessmentRecommendation');
+
+    if (!recommendationStore) {
+        return;
     }
 
     const applyDetail = (detail) => {
@@ -75,16 +73,16 @@ const registerStore = () => {
         }
 
         if (detail.summary) {
-            Alpine.store('assessmentRecommendation').setFallback(detail.summary);
+            recommendationStore.setFallback(detail.summary);
         }
 
         if (detail.segmentKey && detail.segment) {
-            Alpine.store('assessmentRecommendation').apply(detail);
+            recommendationStore.apply(detail);
         }
     };
 
     const resetStore = () => {
-        Alpine.store('assessmentRecommendation').reset();
+        recommendationStore.reset();
     };
 
     window.addEventListener('assessment.complete', (event) => applyDetail(event.detail));
@@ -96,5 +94,11 @@ const registerStore = () => {
 };
 
 if (typeof window !== 'undefined') {
-    document.addEventListener('alpine:init', registerStore, { once: true });
+    document.addEventListener('alpine:init', () => {
+        if (!Alpine.store('assessmentRecommendation')) {
+            Alpine.store('assessmentRecommendation', createStore());
+        }
+
+        registerListeners();
+    }, { once: true });
 }

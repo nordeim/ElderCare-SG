@@ -47,9 +47,9 @@
             <div class="space-y-4">
                 <h2 class="text-lg font-semibold uppercase tracking-wider text-trust">Trusted by</h2>
                 <ul class="flex flex-wrap items-center gap-4 text-sm text-slate">
-                    <li class="flex items-center gap-2 rounded-full bg-amber/40 px-3 py-1">MOH Certified</li>
-                    <li class="flex items-center gap-2 rounded-full bg-amber/40 px-3 py-1">SG Care Alliance</li>
-                    <li class="flex items-center gap-2 rounded-full bg-amber/40 px-3 py-1">ISO 9001</li>
+                    <li class="flex items-center gap-2 rounded-full bg-trust px-3 py-1 font-semibold text-white shadow-sm">MOH Certified</li>
+                    <li class="flex items-center gap-2 rounded-full bg-trust px-3 py-1 font-semibold text-white shadow-sm">SG Care Alliance</li>
+                    <li class="flex items-center gap-2 rounded-full bg-trust px-3 py-1 font-semibold text-white shadow-sm">ISO 9001</li>
                 </ul>
                 <div class="text-xs text-slate">
                     <p>© {{ now()->year }} ElderCare SG. All rights reserved.</p>
