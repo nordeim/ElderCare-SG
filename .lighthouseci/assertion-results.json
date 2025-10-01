@@ -17,9 +17,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.44,
+    "actual": 0.43,
     "values": [
-      0.44
+      0.43
     ],
     "operator": ">=",
     "passed": false,
@@ -32,9 +32,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.6,
+    "actual": 0.55,
     "values": [
-      0.6
+      0.55
     ],
     "operator": ">=",
     "passed": false,
@@ -47,9 +47,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.17,
+    "actual": 0.13,
     "values": [
-      0.17
+      0.13
     ],
     "operator": ">=",
     "passed": false,
@@ -58,5 +58,34 @@
     "url": "http://localhost:8000/",
     "auditTitle": "Max Potential First Input Delay",
     "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/lighthouse-max-potential-fid/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.89,
+    "values": [
+      0.89
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditId": "interactive",
+    "level": "warn",
+    "url": "http://localhost:8000/",
+    "auditTitle": "Time to Interactive",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/interactive/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.75,
+    "actual": 0.73,
+    "values": [
+      0.73
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditProperty": "performance",
+    "auditId": "categories",
+    "level": "warn",
+    "url": "http://localhost:8000/"
   }
 ]
