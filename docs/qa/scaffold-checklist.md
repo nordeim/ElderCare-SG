@@ -37,6 +37,7 @@
 - [ ] Newsletter form logs fallback when Mailchimp credentials absent.
 - [ ] `/assessment-insights` endpoint logs segment and answers payload without sensitive data exposure.
 - [ ] Plausible dashboard registers `assessment.complete` and `assessment.submitted` events with expected properties.
+- [ ] Playwright `npm run test:playwright` analytics smoke passes (captures `estimator.update`, `faq.expand`, `resource.download`, `assessment.prompt_click`).
 
 ## Logging & Services
 - [ ] `storage/logs/laravel.log` captures booking CTA events via `BookingService`.

@@ -45,6 +45,7 @@
                         @endif
                         data-analytics-id="resource-download"
                         data-resource-slug="{{ $resource->slug }}"
+                        onclick="if (!this.dataset.disabled) { window.eldercareAnalytics?.emit?.('resource.download', { slug: this.dataset.resourceSlug }); }"
                     >
                         <span>Download guide</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
