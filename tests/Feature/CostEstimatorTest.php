@@ -49,7 +49,7 @@ class CostEstimatorTest extends TestCase
 
     private function extractJsonParsePayload(string $html, string $key): array
     {
-        $pattern = sprintf('/%s:\s*JSON\\.parse\(\'((?:\\\\\'|[^\'])*)\'\)/', preg_quote($key, '/'));
+        $pattern = sprintf('/%s:\s*JSON\\.parse\(\s*\'((?:\\\\\'|[^\'])*)\'\s*\)/s', preg_quote($key, '/'));
 
         $this->assertMatchesRegularExpression($pattern, $html);
 
@@ -58,11 +58,9 @@ class CostEstimatorTest extends TestCase
         $this->assertNotEmpty($matches[1] ?? null, sprintf('JSON.parse payload for %s not found', $key));
 
         $json = str_replace(['\\u0022', '\\u0027'], ['"', "'"], $matches[1]);
-        $json = str_replace('\\/', '/', $json);
+        $json = str_replace(['\\\'','\\/'], ["'", '/' ], $json);
 
-        $decoded = json_decode($json, true);
-
-        $this->assertIsArray($decoded, sprintf('Unable to decode JSON.parse payload for %s', $key));
+        $decoded = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
 
         return $decoded;
     }
