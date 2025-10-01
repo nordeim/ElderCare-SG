@@ -23,14 +23,15 @@
 
 ## Performance
 - [ ] Lighthouse desktop score ≥ 85 (baseline before optimization). *(Pending — script executes `lhci` but requires Lighthouse to be installed; rerun after review)*
-- [x] Verify Tailwind purge reducing CSS bundle size in production build (`npm run build`). *(2025-09-30 — build succeeded)*
 - [ ] Resolve hero/video asset fallbacks to avoid blocking media. *(2025-10-01 — fallback logic in place; monitor once final assets delivered)*
 - [ ] Improve FCP/LCP/TTI from latest run (FCP 3.83s, LCP/TTI 4.39s, MPFID 728ms, score 0.66). Focus areas: lazy-load hero media, defer non-critical Alpine stores, audit CSS layout cost.
 - [ ] Investigate main-thread style/layout cost (~1.05s) and script evaluation (~0.5s) highlighted in `localhost-_-2025_10_01_10_05_28.report.html`.
 - [ ] Address `max-potential-fid` warning by profiling input listeners and reducing long tasks over 50 ms.
 - [ ] Configure caching & compression per `docs/notes/performance-2025-10-01.md` (immutable hashed assets, gzip/brotli, preload hints). *(Middleware scaffold added 2025-10-01; production server config pending)*
-
-## Data Integrity
+- [ ] Assessment prompts render contextual cards when assessment finishes; verify CTA deep-links and analytics events `assessment.prompt_show`/`assessment.prompt_click`.
+- [ ] Cost estimator emits `estimator.update` with correct payload when toggling add-ons and subsidies; confirm CTA anchors.
+- [ ] FAQ accordion accessible via keyboard; `faq.expand` analytics fires and JSON-LD validates.
+- [ ] Resource hub downloads work when assets present; `resource.download` events fire with slug metadata.
 - [ ] Programs seeded with correct highlights and display order.
 - [ ] Testimonials seeded with author metadata and featured flag.
 - [ ] Newsletter form logs fallback when Mailchimp credentials absent.
