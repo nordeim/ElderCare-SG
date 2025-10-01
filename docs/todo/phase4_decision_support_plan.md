@@ -44,7 +44,7 @@ _Date: 2025-10-01_
 ### 7. Testing & QA
   - [x] `tests/Feature/CostEstimatorTest.php`: Verify estimator renders with pricing data.
   - [x] `tests/Feature/FaqEndpointTest.php`: Confirm FAQs load on homepage/endpoint.
-  - [ ] *(Optional)* `resources/js/tests/cost-estimator.spec.js`: Unit test Alpine store calculations. *(Backlog idea.)*
+  - [x] *(Optional)* `resources/js/tests/cost-estimator.spec.js`: Unit test Alpine store calculations. *(Vitest suite added 2025-10-01.)*
   - [x] `docs/qa/scaffold-checklist.md`: Add manual scenarios for estimator, FAQ keyboard nav, resource downloads, analytics verification.
 
 ### 8. Documentation & Handoff

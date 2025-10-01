@@ -39,6 +39,7 @@
 - [ ] Plausible dashboard registers `assessment.complete` and `assessment.submitted` events with expected properties.
 - [ ] Playwright `npm run test:playwright` analytics smoke passes (captures `estimator.update`, `faq.expand`, `resource.download`, `assessment.prompt_click`).
 - [x] `php artisan test` feature coverage passes (`tests/Feature/CostEstimatorTest.php`, `tests/Feature/FaqEndpointTest.php`). *(2025-10-01)*
+- [x] `npm run test:js` Vitest suite covers `costEstimatorComponent` calculations and analytics emission. *(2025-10-01)*
 
 ## Logging & Services
 - [ ] `storage/logs/laravel.log` captures booking CTA events via `BookingService`.
