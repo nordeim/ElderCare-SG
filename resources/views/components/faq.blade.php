@@ -87,12 +87,13 @@
                                 <div
                                     class="faq-item__content"
                                     x-show="isOpen(item.id)"
-                                    x-collapse
+                                    x-transition.opacity.duration.200ms
+                                    x-cloak
                                     role="region"
                                     :id="`${item.id}-content`"
                                     :aria-labelledby="`${item.id}-label`"
                                 >
-                                    <p x-html="item.answer"></p>
+                                    <p class="text-sm text-slate" x-html="item.answer"></p>
                                 </div>
                             </article>
                         </template>
