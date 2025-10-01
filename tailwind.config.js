@@ -2,6 +2,14 @@ import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import animate from 'tailwindcss-animate';
 
+const withOpacityValue = (variable) => ({ opacityValue }) => {
+  if (opacityValue === undefined) {
+    return `rgb(var(${variable}))`;
+  }
+
+  return `rgb(var(${variable}) / ${opacityValue})`;
+};
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -15,14 +23,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        trust: '#1C3D5A',
-        gold: '#F0A500',
-        amber: '#FCDFA6',
-        wellness: '#3D9A74',
-        canvas: '#F7F9FC',
+        trust: withOpacityValue('--color-trust'),
+        gold: withOpacityValue('--color-gold'),
+        amber: withOpacityValue('--color-amber'),
+        wellness: withOpacityValue('--color-wellness'),
+        canvas: withOpacityValue('--color-canvas'),
         slate: {
-          DEFAULT: '#64748B',
-          dark: '#334155',
+          DEFAULT: withOpacityValue('--color-slate'),
+          dark: withOpacityValue('--color-slate-dark'),
         },
       },
       fontFamily: {

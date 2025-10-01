@@ -34,6 +34,12 @@ _Last updated: 2025-10-01_
   6. Run `npm run lighthouse` (optional nightly to keep CI fast, or gated via workflow dispatch).
   7. Collect artifacts: Playwright traces (`playwright-report/`), LHCI HTML report (`.lighthouseci/`), axe logs.
 - **Enhancements**:
-  - Add GitHub Actions job matrix for `test` (PHP + JS) vs `qa` (Playwright, Lighthouse, Axe) to parallelize runtimes.
+  - Add GitHub Actions job matrix for `test` (PHP + JS) vs `qa` (Playwright, Lighthouse, axe) to parallelize runtimes.
   - Gate merges on PHPUnit + Playwright; treat Lighthouse/Axe as informational until performance backlog is resolved.
   - Surface results via PR comments or status checks for faster triage.
+
+## Recommended Follow-up Actions
+- **CI workflow**: Add jobs running `php artisan test`, `npm run test:js`, `npm run test:playwright:serve`, `npm run lint:accessibility`, and scheduled `npm run lighthouse`, publishing artifacts (coverage, traces, LHCI reports).
+- **Performance backlog**: Reference `docs/notes/performance-2025-10-01.md` for caching, layout profiling, and Lighthouse regression tracking tasks.
+- **Security hygiene**: Run `npm audit` regularly and address low severity advisories when upgrading dependencies.
+- **Documentation sync**: Keep `docs/qa/scaffold-checklist.md` and `docs/todo/phase4_decision_support_plan.md` updated after each testing cycle to signal readiness for subsequent phases.

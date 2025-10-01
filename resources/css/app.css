@@ -5,7 +5,14 @@
 @layer base {
     :root {
         color-scheme: light;
-        background-color: theme('colors.canvas', '#F7F9FC');
+        --color-trust: 28 61 90;
+        --color-gold: 240 165 0;
+        --color-amber: 252 223 166;
+        --color-wellness: 61 154 116;
+        --color-canvas: 247 249 252;
+        --color-slate: 100 116 139;
+        --color-slate-dark: 51 65 85;
+        background-color: rgb(var(--color-canvas));
     }
 
     html {

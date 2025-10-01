@@ -5,6 +5,7 @@
         "moduleResolution": "Node",
         "strict": true,
         "allowJs": true,
+        "noEmit": true,
         "types": [
             "vitest",
             "vitest/globals",
