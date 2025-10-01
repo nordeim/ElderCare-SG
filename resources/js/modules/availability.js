@@ -1,5 +1,26 @@
 import Alpine from 'alpinejs';
 
+const getAvailabilityMessages = () => window.eldercare?.availabilityMessages ?? null;
+
+const resolveFormatterLocale = (lang) => {
+    if (!lang) {
+        return 'en-SG';
+    }
+
+    const normalized = lang.toLowerCase();
+
+    switch (normalized) {
+        case 'zh':
+        case 'zh-hans':
+        case 'zh-sg':
+            return 'zh-SG';
+        case 'en':
+        case 'en-sg':
+        default:
+            return 'en-SG';
+    }
+};
+
 const formatUpdatedLabel = (timestamp, locale = 'en-SG') => {
     if (!timestamp) {
         return '';
@@ -29,7 +50,7 @@ const createAvailabilityStore = () => ({
     isLoading: false,
     initialized: false,
     pollId: null,
-    locale: document.documentElement.lang || 'en-SG',
+    locale: resolveFormatterLocale(document.documentElement.lang || 'en'),
     init() {
         if (this.initialized) {
             return;
@@ -133,46 +154,63 @@ const createAvailabilityStore = () => ({
         return `availability-indicator--${this.statusLevel}`;
     },
     get statusLabel() {
+        const messages = getAvailabilityMessages();
+
         switch (this.statusLevel) {
             case 'loading':
-                return 'Checking availability…';
+                return messages?.status?.loading ?? 'Checking availability…';
             case 'error':
-                return 'Availability unavailable';
+                return messages?.status?.error ?? 'Availability unavailable';
             case 'fallback':
-                return 'Manual confirmation required';
+                return messages?.status?.fallback ?? 'Manual confirmation required';
             case 'high':
-                return 'Ample visit slots available';
+                return messages?.status?.high ?? 'Ample visit slots available';
             case 'medium':
-                return 'Limited slots available';
+                return messages?.status?.medium ?? 'Limited slots available';
             case 'low':
-                return 'Few slots remaining';
+                return messages?.status?.low ?? 'Few slots remaining';
             case 'none':
             default:
-                return 'Currently waitlisting';
+                return messages?.status?.none ?? 'Currently waitlisting';
         }
     },
     get statusDetail() {
+        const messages = getAvailabilityMessages();
+
         if (this.statusLevel === 'loading') {
-            return 'Hang tight while we fetch the latest visit openings.';
+            return messages?.detail?.loading ?? 'Hang tight while we fetch the latest visit openings.';
         }
 
         if (this.statusLevel === 'error') {
-            return "We're retrying the scheduling service.";
+            return messages?.detail?.error ?? "We're retrying the scheduling service.";
         }
 
         if (this.statusLevel === 'fallback') {
-            return this.fallbackMessage || 'We will confirm availability within 24 hours.';
+            const fallbackCopy = messages?.detail?.fallback ?? 'We will confirm availability within 24 hours.';
+            return this.fallbackMessage || fallbackCopy;
         }
 
         const formattedTime = formatUpdatedLabel(this.updatedAt, this.locale);
         const daysCovered = this.slots.length;
-        const slotsCopy = this.totalAvailable === 1 ? 'slot' : 'slots';
+        const slotSingle = messages?.detail?.slot_single ?? 'slot';
+        const slotPlural = messages?.detail?.slot_plural ?? 'slots';
+        const slotsCopy = this.totalAvailable === 1 ? slotSingle : slotPlural;
 
         if (!formattedTime) {
-            return `${this.totalAvailable} ${slotsCopy} in the next ${daysCovered} days.`;
+            const template = messages?.detail?.summary ?? ':total :slot_word in the next :days days.';
+            return template
+                .replace(':total', this.totalAvailable)
+                .replace(':slot_word', slotsCopy)
+                .replace(':days', daysCovered);
         }
 
-        return `${this.totalAvailable} ${slotsCopy} in the next ${daysCovered} days — updated ${formattedTime}`;
+        const template = messages?.detail?.summary_with_time ?? ':total :slot_word in the next :days days — updated :time';
+
+        return template
+            .replace(':total', this.totalAvailable)
+            .replace(':slot_word', slotsCopy)
+            .replace(':days', daysCovered)
+            .replace(':time', formattedTime);
     },
     get isHealthy() {
         return ['high', 'medium'].includes(this.statusLevel);
