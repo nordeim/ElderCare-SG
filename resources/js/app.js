@@ -5,6 +5,7 @@ import './modules/assessment-recommendation';
 import './modules/availability';
 import './modules/tour';
 import './modules/cost-estimator';
+import './modules/hero';
 
 import './modules/analytics';
 

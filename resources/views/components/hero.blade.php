@@ -32,6 +32,7 @@
 
 <section
     class="relative overflow-hidden bg-trust text-white"
+    data-hero
     x-data="{ availability: null }"
     x-init="availability = Alpine.store('availability')"
 >
@@ -41,14 +42,21 @@
                 class="h-full w-full object-cover"
                 playsinline
                 muted
-                autoplay
                 loop
                 poster="{{ $heroPoster }}"
                 preload="metadata"
+                data-hero-video
             >
                 <source src="{{ $heroVideoAssets->first() }}" type="video/mp4">
                 <source src="{{ $heroVideoAssets->last() }}" type="video/webm">
             </video>
+            <noscript>
+                <div
+                    class="h-full w-full bg-gradient-to-br from-trust via-[#22476A] to-[#183651]"
+                    style="background-image: url('{{ $heroPoster }}'); background-size: cover; background-position: center;"
+                    aria-hidden="true"
+                ></div>
+            </noscript>
         @else
             <div
                 class="h-full w-full bg-gradient-to-br from-trust via-[#22476A] to-[#183651]"
