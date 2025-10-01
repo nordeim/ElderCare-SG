@@ -13,7 +13,8 @@
 - Added `content-visibility-auto` to `#programs`, `#philosophy`, `#testimonials`, and `#booking` sections in `resources/views/home.blade.php` to defer layout/paint for offscreen content.
 - Implemented `resources/js/modules/hero.js` to lazy-load and pause hero video based on viewport intersection.
 - Added hero fallbacks to avoid missing asset console errors in `resources/views/components/hero.blade.php` and `resources/views/components/virtual-tour.blade.php`.
-- Lazy-loaded Embla carousel via dynamic import in `resources/js/modules/carousel.js`, shrinking main bundle to `app-DsoAdKCd.js` (≈99 kB raw, 35.9 kB gzip) and emitting a separate `embla-carousel.esm-*.js` chunk (≈18.5 kB raw, 7.7 kB gzip).
+- Lazy-loaded Embla carousel via dynamic import in `resources/js/modules/carousel.js`, shrinking main bundle and emitting separate `embla-carousel.esm-*.js` chunk (≈18.5 kB raw, 7.7 kB gzip).
+- Converted axios to load on demand via `window.loadAxios` helper (`resources/js/bootstrap.js`) and dynamic usage in `resources/js/modules/assessment.js`. Latest build produces `app-BAdcxmYn.js` (≈63 kB raw, 22.0 kB gzip) plus an async axios chunk `index-B0yp3bM1.js` (≈36 kB raw, 14.6 kB gzip).
 
 ## Outstanding Work
 - Investigate residual Style/Layout cost ~1.8s (possible DOM complexity in `#programs` grid and cost estimator modal).

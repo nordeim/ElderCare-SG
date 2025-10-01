@@ -250,13 +250,24 @@ export const assessmentFlow = (config) => {
             return answer === value;
         },
         async submitOutcome(segmentKey) {
-            if (typeof window.axios !== 'function') {
-                this.submissionState = 'skipped';
-                return;
-            }
-
             try {
-                await window.axios.post('/assessment-insights', {
+                const axiosLoader = typeof window.loadAxios === 'function'
+                    ? window.loadAxios()
+                    : import('axios')
+                        .then((module) => module.default ?? module)
+                        .catch((error) => {
+                            console.error('Failed to load axios for assessment submission', error);
+                            return null;
+                        });
+
+                const axiosInstance = await axiosLoader;
+
+                if (!axiosInstance) {
+                    this.submissionState = 'skipped';
+                    return;
+                }
+
+                await axiosInstance.post('/assessment-insights', {
                     answers: clone(this.answers),
                     segment_key: segmentKey,
                 });
