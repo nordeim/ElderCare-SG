@@ -107,6 +107,30 @@
     .section-card {
         @apply rounded-3xl bg-white p-8 shadow-card ring-1 ring-slate/10;
     }
+
+    .hotspot-pill {
+        @apply flex min-w-[12rem] flex-col gap-1 rounded-2xl bg-white px-4 py-3 text-left shadow-card ring-1 ring-slate/10 transition hover:bg-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold;
+    }
+
+    .hotspot-pill--active {
+        @apply bg-gold/10 ring-gold;
+    }
+
+    .staff-carousel {
+        @apply relative;
+    }
+
+    .staff-carousel__viewport {
+        @apply overflow-hidden;
+    }
+
+    .staff-carousel__container {
+        @apply flex gap-6 transition-transform;
+    }
+
+    .staff-carousel__slide {
+        @apply basis-full md:basis-2/3 lg:basis-1/2;
+    }
 }
 
 @layer utilities {

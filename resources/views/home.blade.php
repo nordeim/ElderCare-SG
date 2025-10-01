@@ -169,32 +169,19 @@
         </div>
     </section>
 
-    <section id="tour" class="bg-white py-16">
-        <div class="mx-auto max-w-section grid gap-8 px-6 lg:grid-cols-2 lg:items-center">
-            <div class="relative overflow-hidden rounded-3xl shadow-card">
-                <img src="/assets/virtual-tour-placeholder.jpg" alt="ElderCare SG facility virtual tour" class="h-full w-full object-cover">
-                <button class="absolute inset-0 flex items-center justify-center bg-trust/40 text-white transition hover:bg-trust/60">
-                    <span class="inline-flex items-center gap-3 rounded-full bg-white/90 px-5 py-3 text-sm font-semibold text-trust">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.25 5.653c0-1.392 1.5-2.257 2.708-1.544l9.512 5.347a1.785 1.785 0 0 1 0 3.09l-9.512 5.347A1.785 1.785 0 0 1 5.25 16.348z" />
-                        </svg>
-                        Watch virtual tour
-                    </span>
-                </button>
-            </div>
-            <div class="space-y-4">
-                <p class="pill-tag">Facility tour</p>
-                <h2 class="text-3xl font-semibold text-trust sm:text-4xl">Preview our spaces before you visit</h2>
-                <p class="text-slate">Explore therapy rooms, social lounges, and dining spaces in a guided virtual tour. Accessibility notes and transcripts will accompany final media assets.</p>
-                <ul class="space-y-2 text-slate">
-                    <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-gold"></span>Captioned tour with audio descriptions.</li>
-                    <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-gold"></span>Transportation and pickup lockers showcased.</li>
-                    <li class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-gold"></span>Interactive hotspots to highlight safety features.</li>
-                </ul>
-                <a href="#booking" class="cta-button">Schedule a guided visit</a>
-            </div>
-        </div>
-    </section>
+    <x-virtual-tour
+        :hotspots="$tourHotspots"
+        transcript-url="{{ $tourTranscriptUrl }}"
+        description="Explore therapy rooms, social lounges, and dining spaces in a guided virtual tour. Accessibility notes and transcripts accompany each media asset."
+        :highlights="[
+            'Captioned tour with audio descriptions.',
+            'Transportation and pickup lockers showcased.',
+            'Interactive hotspots highlight safety features.',
+        ]"
+        cta-href="#booking"
+    />
+
+    <x-staff-carousel :staff="$featuredStaff" />
 
     <section id="booking" class="bg-trust py-16 text-white">
         <div class="mx-auto max-w-section px-6 text-center">
