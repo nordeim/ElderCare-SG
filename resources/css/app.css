@@ -187,6 +187,11 @@
 }
 
 @layer utilities {
+    .content-visibility-auto {
+        content-visibility: auto;
+        contain-intrinsic-size: 960px 720px;
+    }
+
     .fade-in-up {
         @apply animate-fade-in-up;
     }

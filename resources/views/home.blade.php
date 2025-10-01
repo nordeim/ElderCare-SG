@@ -7,7 +7,7 @@
 
     <x-assessment infoHref="#programs" />
 
-    <section id="programs" class="bg-canvas py-16">
+    <section id="programs" class="bg-canvas py-16 content-visibility-auto">
         <div class="mx-auto max-w-section px-6" x-data>
             <div class="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
                 <div>
@@ -101,7 +101,7 @@
         </div>
     </section>
 
-    <section id="philosophy" class="bg-white py-16">
+    <section id="philosophy" class="bg-white py-16 content-visibility-auto">
         <div class="mx-auto max-w-section grid gap-12 px-6 lg:grid-cols-2 lg:items-center">
             <div class="space-y-4">
                 <p class="pill-tag">Our Philosophy</p>
@@ -137,7 +137,7 @@
         </div>
     </section>
 
-    <section id="testimonials" class="bg-canvas py-16">
+    <section id="testimonials" class="bg-canvas py-16 content-visibility-auto">
         <div class="mx-auto max-w-section px-6">
             <div class="mb-10 space-y-3 text-center">
                 <p class="pill-tag mx-auto">Testimonials</p>
@@ -189,7 +189,7 @@
 
     <x-resource-hub :resources="$resources" />
 
-    <section id="booking" class="bg-trust py-16 text-white">
+    <section id="booking" class="bg-trust py-16 text-white content-visibility-auto">
         <div class="mx-auto max-w-section px-6 text-center">
             <h2 class="text-3xl font-semibold sm:text-4xl">Ready to experience ElderCare SG?</h2>
             <p class="mt-4 text-white/85">Book an in-person or virtual tour. We confirm availability within 24 hours and personalise each visit to your family’s needs.</p>
