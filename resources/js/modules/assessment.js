@@ -251,6 +251,9 @@ export const assessmentFlow = (config) => {
         },
         async submitOutcome(segmentKey) {
             try {
+                this.submissionState = 'pending';
+                this.submissionError = null;
+
                 const axiosLoader = typeof window.loadAxios === 'function'
                     ? window.loadAxios()
                     : import('axios')

@@ -221,5 +221,6 @@ return [
         'pending' => 'Saving your preferences…',
         'success' => 'Thank you! A care advisor can now tailor their follow-up.',
         'error' => 'Something went wrong while saving your responses.',
+        'skipped' => 'We could not reach our servers. Your answers remain local.',
     ],
 ];

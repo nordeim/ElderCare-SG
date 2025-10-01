@@ -248,6 +248,9 @@
                         <template x-if="submissionState === 'success'">
                             <p class="text-sm text-wellness" role="status">{{ __('assessment.submission.success') }}</p>
                         </template>
+                        <template x-if="submissionState === 'skipped'">
+                            <p class="text-sm text-amber-600" role="alert">{{ __('assessment.submission.skipped') }}</p>
+                        </template>
                         <template x-if="submissionState === 'error'">
                             <p class="text-sm text-red-600" role="alert">
                                 {{ __('assessment.submission.error') }}
