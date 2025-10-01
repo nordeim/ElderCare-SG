@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use App\Models\Program;
+use App\Models\Resource;
 use App\Models\Staff;
 use App\Models\Testimonial;
 use App\Services\BookingService;
@@ -16,6 +18,8 @@ class HomeController extends Controller
         $programs = Program::active()->orderBy('display_order')->get();
         $testimonials = Testimonial::active()->orderBy('display_order')->get();
         $featuredStaff = Staff::query()->where('is_featured', true)->orderBy('name')->get();
+        $faqs = Faq::active()->orderBy('display_order')->get();
+        $resources = Resource::query()->where('is_active', true)->orderBy('display_order')->get();
 
         $tourHotspots = $this->loadTourHotspots();
         $tourTranscriptUrl = File::exists(public_path('media/transcripts/tour-main.md'))
@@ -29,6 +33,8 @@ class HomeController extends Controller
             'tourHotspots' => $tourHotspots,
             'tourTranscriptUrl' => $tourTranscriptUrl,
             'featuredStaff' => $featuredStaff,
+            'faqs' => $faqs,
+            'resources' => $resources,
         ]);
     }
 

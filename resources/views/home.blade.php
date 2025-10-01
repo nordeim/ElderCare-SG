@@ -183,6 +183,12 @@
 
     <x-staff-carousel :staff="$featuredStaff" />
 
+    <x-cost-estimator />
+
+    <x-faq :faqs="$faqs" />
+
+    <x-resource-hub :resources="$resources" />
+
     <section id="booking" class="bg-trust py-16 text-white">
         <div class="mx-auto max-w-section px-6 text-center">
             <h2 class="text-3xl font-semibold sm:text-4xl">Ready to experience ElderCare SG?</h2>
