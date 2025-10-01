@@ -68,7 +68,7 @@ class AvailabilityServiceTest extends TestCase
 
     public function test_refresh_returns_fallback_when_provider_fails(): void
     {
-        CarbonImmutable::setTestNow('2025-10-01 08:00:00', 'Asia/Singapore');
+        CarbonImmutable::setTestNow(CarbonImmutable::parse('2025-10-01 08:00:00', 'Asia/Singapore'));
 
         $provider = new class implements AvailabilityProvider {
             public function fetch(): array
