@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use App\Services\AssessmentService;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Illuminate\Support\Facades\Log;
+use Mockery;
 use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
@@ -70,19 +70,22 @@ class AssessmentServiceTest extends TestCase
 
     public function test_log_outcome_writes_to_logger(): void
     {
-        Log::fake();
+        $logger = Mockery::mock(LoggerInterface::class);
 
-        $service = $this->makeService(Log::getFacadeRoot());
+        $logger->shouldReceive('info')
+            ->once()
+            ->withArgs(function (string $message, array $context): bool {
+                return $message === 'Assessment outcome recorded'
+                    && ($context['segment'] ?? null) === 'active_day'
+                    && ($context['answers']['mobility'] ?? null) === 'independent'
+                    && isset($context['timestamp']);
+            });
+
+        $service = $this->makeService($logger);
 
         $service->logOutcome([
             'segment_key' => 'active_day',
             'answers' => ['mobility' => 'independent'],
         ]);
-
-        Log::assertLogged('info', function ($message) {
-            return $message->message === 'Assessment outcome recorded'
-                && ($message->context['segment'] ?? null) === 'active_day'
-                && ($message->context['answers']['mobility'] ?? null) === 'independent';
-        });
     }
 }
