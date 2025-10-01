@@ -42,8 +42,8 @@ _Date: 2025-10-01_
   - [x] `resources/js/modules/analytics.js`: Ensure emitter handles new events if additional helpers needed.
 
 ### 7. Testing & QA
-  - [ ] `tests/Feature/CostEstimatorTest.php`: Verify estimator renders with pricing data. *(Pending — add feature coverage or mark as future work.)*
-  - [ ] `tests/Feature/FaqEndpointTest.php`: Confirm FAQs load on homepage/endpoint. *(Pending — consider feature test or controller coverage.)*
+  - [x] `tests/Feature/CostEstimatorTest.php`: Verify estimator renders with pricing data.
+  - [x] `tests/Feature/FaqEndpointTest.php`: Confirm FAQs load on homepage/endpoint.
   - [ ] *(Optional)* `resources/js/tests/cost-estimator.spec.js`: Unit test Alpine store calculations. *(Backlog idea.)*
   - [x] `docs/qa/scaffold-checklist.md`: Add manual scenarios for estimator, FAQ keyboard nav, resource downloads, analytics verification.
 
