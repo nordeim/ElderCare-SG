@@ -51,9 +51,9 @@ class VirtualTourTest extends TestCase
                     return $hotspot['id'] === 'welcome_lounge';
                 });
             })
+            ->assertViewHas('tourTranscriptUrl', '/media/transcripts/tour-main.md')
             ->assertSee('Welcome Lounge', false)
             ->assertSee('Test Guide', false)
-            ->assertSee('Experience Lead', false)
-            ->assertSee('/media/transcripts/tour-main.md', false);
+            ->assertSee('Experience Lead', false);
     }
 }
