@@ -8,3 +8,4 @@ Alpine.start();
 
 import './modules/carousel';
 import './modules/assessment';
+import './modules/assessment-recommendation';

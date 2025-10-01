@@ -11,7 +11,7 @@
     ],
 ])
 
-<section class="relative overflow-hidden bg-trust text-white">
+<section class="relative overflow-hidden bg-trust text-white" x-data>
     <div class="absolute inset-0">
         <video
             class="h-full w-full object-cover"
@@ -34,7 +34,11 @@
         </div>
 
         <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-            <a href="{{ $primaryCta['href'] }}" class="cta-button">
+            <a
+                :href="Alpine.store('assessmentRecommendation')?.primaryCtaHref ?? @js($primaryCta['href'])"
+                class="cta-button"
+                x-text="Alpine.store('assessmentRecommendation')?.primaryCtaLabel ?? @js($primaryCta['label'])"
+            >
                 {{ $primaryCta['label'] }}
             </a>
             <a href="{{ $secondaryCta['href'] }}" class="inline-flex items-center gap-2 rounded-full border border-white/60 px-6 py-3 text-sm font-medium uppercase tracking-wide text-white transition hover:border-white">

@@ -27,22 +27,8 @@ _Date: 2025-10-01_
 | **Respite & Logistics** | Transportation `Yes` OR Caregiver Goals include `Respite for caregivers` | `Flexible Care Pass`, `Door-to-Door Support` | `Build your flexible schedule` | Emphasize transport, flexible bookings |
 | **Exploration Mode** | Contact Preference `Just browsing` | Newsletter, testimonials, resource guides | `Send me caregiver resources` | Provide educational content before sales |
 
-## 4. UX & Accessibility Requirements
-- Keyboard navigable button groups with `role="radiogroup"` or `role="group"` semantics.
-- Ensure focus management between steps; trap focus within modal if rendered as overlay.
-- Provide progress indicator (e.g., "Step 3 of 8") with aria-live updates.
-- Offer "Skip for now" link at every step to reduce abandonment friction.
-- Provide `prefers-reduced-motion` fallback (no sliding transitions).
-- Support English and Mandarin content strings via localization files.
-
-## 5. Data Handling & Analytics
-- Store assessment answers client-side only until submission; on completion, POST to `/assessment-insights` endpoint for optional analytics logging.
-- Analytics events to emit: `assessment.start`, `assessment.step`, `assessment.complete`, `assessment.exit` with payload (step, persona segment, CTA chosen).
-- Log personalization outcome for analysis via `AssessmentService::logOutcome()` (new service) queued for async processing.
-
 ## 6. Integration Touchpoints
 - **Blade Integration**: Insert `<x-assessment />` component within `home.blade.php`, passing initial data such as programs and testimonials.
-- **Services**: Create `App/Services/AssessmentService` to handle persona mapping, CTA label generation, logging.
 - **Localization**: Add `lang/en/assessment.php` & `lang/zh/assessment.php` with question copy and CTAs.
 - **Database (Future)**: Consider storing aggregated assessment stats in `assessment_insights` table (optional Phase 6).
 
@@ -58,6 +44,7 @@ _Date: 2025-10-01_
 - [x] Alpine store & component scaffolding created. *(2025-10-01)*
 - [x] Persona mapping unit tests for `AssessmentService`. *(2025-10-01)*
 - [x] Backend logging endpoint wired via `/assessment-insights`. *(2025-10-01)*
+- [x] Hero CTA & programs section personalize via recommendation store. *(2025-10-01)*
 - [ ] Accessibility audit (axe CLI) on assessment modal.
 - [ ] Analytics event QA with Plausible.
 

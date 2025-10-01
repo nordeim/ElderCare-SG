@@ -8,13 +8,60 @@
     <x-assessment infoHref="#programs" />
 
     <section id="programs" class="bg-canvas py-16">
-        <div class="mx-auto max-w-section px-6">
+        <div class="mx-auto max-w-section px-6" x-data>
             <div class="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
                 <div>
-                    <p class="pill-tag">Programs</p>
-                    <h2 class="mt-4 text-3xl font-semibold text-trust sm:text-4xl">Holistic daytime care tailored for Singaporean seniors</h2>
+                    <p class="pill-tag" x-text="Alpine.store('assessmentRecommendation')?.hasRecommendation ? 'Recommended for you' : 'Programs'"></p>
+                    <h2 class="mt-4 text-3xl font-semibold text-trust sm:text-4xl" x-text="Alpine.store('assessmentRecommendation')?.segment?.name ?? 'Holistic daytime care tailored for Singaporean seniors'"></h2>
+                    <p class="mt-3 text-slate" x-show="Alpine.store('assessmentRecommendation')?.segment" x-text="Alpine.store('assessmentRecommendation')?.segment?.description"></p>
                 </div>
-                <a href="#booking" class="cta-button">Book a consultation</a>
+                <a
+                    :href="Alpine.store('assessmentRecommendation')?.primaryCtaHref ?? '#booking'"
+                    class="cta-button"
+                    x-text="Alpine.store('assessmentRecommendation')?.primaryCtaLabel ?? 'Book a consultation'"
+                >Book a consultation</a>
+            </div>
+
+            <div
+                class="mb-12 grid gap-6 rounded-3xl bg-white p-6 shadow-card"
+                x-show="Alpine.store('assessmentRecommendation')?.hasRecommendation"
+                x-transition
+            >
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <p class="pill-tag inline-flex">Personalized highlights</p>
+                        <h3 class="mt-2 text-2xl font-semibold text-trust" x-text="Alpine.store('assessmentRecommendation')?.segment?.name"></h3>
+                    </div>
+                    <a
+                        :href="Alpine.store('assessmentRecommendation')?.primaryCtaHref ?? '#booking'"
+                        class="cta-button"
+                        x-text="Alpine.store('assessmentRecommendation')?.primaryCtaLabel ?? 'Book now'"
+                    >Book now</a>
+                </div>
+                <div class="grid gap-6 md:grid-cols-2">
+                    <div>
+                        <h4 class="text-sm font-semibold uppercase tracking-wide text-trust">Programs to explore</h4>
+                        <ul class="mt-3 space-y-2 text-sm text-slate">
+                            <template x-for="program in Alpine.store('assessmentRecommendation')?.programs" :key="program">
+                                <li class="flex items-center gap-2">
+                                    <span class="h-2 w-2 rounded-full bg-gold"></span>
+                                    <span x-text="program"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-semibold uppercase tracking-wide text-trust">Why we recommend this</h4>
+                        <ul class="mt-3 space-y-2 text-sm text-slate">
+                            <template x-for="highlight in Alpine.store('assessmentRecommendation')?.highlights" :key="highlight">
+                                <li class="flex items-start gap-2">
+                                    <span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>
+                                    <span x-text="highlight"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

@@ -57,15 +57,7 @@ _Date: 2025-10-01_
   - Needs: Event schema, consent prompts, PDPA alignment.
 
 ## 5. Content & Asset Inventory Tracker
-| Asset Type | Existing | Gap | Owner | Action |
-| --- | --- | --- | --- | --- |
-| Hero availability copy | Placeholder | Needs real-time messaging variants | Product | Draft localized copy post data integration |
-| Assessment questions | Not authored | Requires SME workshop | Clinical Lead | Schedule discovery session |
-| Virtual tour media | Static placeholder | Need high-res video, hotspots | Creative | Curate footage, confirm licenses |
-| Staff spotlight bios | Partial (internal doc) | Requires public-ready copy/photos | HR | Secure permissions, editing |
-| FAQ entries | Legacy FAQ deck | Needs update for new services | Care Ops | Provide revised answers, regulatory citations |
-| Cost/pricing tables | Finance sheet | Map to estimator inputs | Finance | Share structured data extract |
-| Translations (ZH) | None | Full content localization | Localization Vendor | Scope translation timeline |
+See detailed tracker in `docs/plans/asset_inventory.md` for owners, due dates, and outstanding gaps.
 
 ## 6. Risks & Mitigations
 - **Content Bottlenecks**: Critical assets (tour media, pricing) delay feature dev.
@@ -77,11 +69,10 @@ _Date: 2025-10-01_
 - **Accessibility Compliance**: Late addition of transcripts/captions risks launch slip.
   - *Mitigation*: Embed accessibility acceptance criteria into asset delivery; partner with compliance expert.
 
-## 7. Deliverables & Success Criteria
 - **Deliverables**
   - Approved assessment flowchart and question bank (stored in `docs/ux/assessment.md`).
-  - Asset inventory spreadsheet with owners and due dates (to be shared via PM tool, reference in `docs/plans/asset_inventory.md`).
-  - Data integration brief summarizing endpoints, auth, and caching strategy (`docs/architecture/data-integrations.md`).
+  - Asset inventory tracker `docs/plans/asset_inventory.md` (created 2025-10-01).
+  - Data integration brief `docs/architecture/data-integrations.md` (created 2025-10-01).
   - Updated backlog issues/story cards referencing this brief (GitHub project).
 - **Success Criteria**
   - Stakeholder sign-off on personas, data sources, and content responsibilities.
@@ -96,10 +87,10 @@ _Date: 2025-10-01_
 
 ## 9. Next Steps Checklist
 - [ ] Schedule stakeholder workshops (Product, Clinical, Care Ops, Creative, Localization, Engineering).
-- [ ] Compile existing assets into shared drive; link references here.
-- [ ] Draft initial assessment questionnaire outline for review.
+- [x] Compile existing assets into shared drive; link references here. *(2025-10-01 via `docs/plans/asset_inventory.md`)*
+- [x] Draft initial assessment questionnaire outline for review. *(2025-10-01 via `docs/ux/assessment.md`)*
 - [ ] Initiate booking API discovery with provider (auth, rate limits, formats).
-- [ ] Document analytics event taxonomy draft for approval.
+- [x] Document analytics event taxonomy draft for approval. *(2025-10-01 via `docs/architecture/data-integrations.md` & `docs/ux/assessment.md`)*
 
 ---
 **Reference**: Aligns with `docs/plans/master_todo_roadmap.md` Phase 0 objectives and prepares workstreams for Phase 1 execution.

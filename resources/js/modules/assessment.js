@@ -61,6 +61,7 @@ const createSummary = (segmentKey, segmentsConfig, summaryConfig) => {
     const segment = segmentsConfig[segmentKey] ?? segmentsConfig[fallbackSegmentKey];
 
     return {
+        segmentKey,
         segment,
         fallbackLabel: summaryConfig.cta_fallback,
         fallbackCta: '#booking',
@@ -127,7 +128,7 @@ export const assessmentFlow = (config) => {
             this.summary = null;
             this.submissionState = 'idle';
             this.submissionError = null;
-            emitter('open');
+            emitter('open', { segmentKey: null });
         },
         close() {
             this.isOpen = false;
@@ -137,7 +138,7 @@ export const assessmentFlow = (config) => {
             this.summary = null;
             this.submissionState = 'idle';
             this.submissionError = null;
-            emitter('close');
+            emitter('close', { segmentKey: null });
         },
         start() {
             this.state = 'questions';
@@ -148,16 +149,27 @@ export const assessmentFlow = (config) => {
             this.state = 'summary';
             const segmentKey = determineSegmentKey(this.answers);
             this.summary = createSummary(segmentKey, config.segments, config.summary);
-            emitter('skip');
+            emitter('skip', {
+                segmentKey,
+                summary: this.summary,
+                segment: this.summary.segment,
+                answers: clone(this.answers),
+            });
         },
         restart() {
+            const previousSegmentKey = this.summary?.segmentKey ?? null;
+            const previousSegment = this.summary?.segment ?? null;
             this.state = 'questions';
             this.currentIndex = 0;
             this.answers = buildInitialAnswers(steps);
             this.summary = null;
             this.submissionState = 'idle';
             this.submissionError = null;
-            emitter('restart', { step: steps[0]?.id });
+            emitter('restart', {
+                step: steps[0]?.id,
+                previousSegmentKey,
+                previousSegment,
+            });
         },
         back() {
             if (this.currentIndex === 0) {
@@ -195,7 +207,9 @@ export const assessmentFlow = (config) => {
             this.submissionError = null;
 
             emitter('complete', {
-                segment: segmentKey,
+                segmentKey,
+                summary: this.summary,
+                segment: this.summary.segment,
                 answers: clone(this.answers),
             });
 
@@ -248,12 +262,16 @@ export const assessmentFlow = (config) => {
                 });
 
                 this.submissionState = 'success';
-                emitter('submitted', { segment: segmentKey });
+                emitter('submitted', {
+                    segmentKey,
+                    summary: this.summary,
+                    segment: this.summary?.segment,
+                });
             } catch (error) {
                 this.submissionState = 'error';
                 this.submissionError = error?.message ?? 'Submission failed';
                 emitter('submit_error', {
-                    segment: segmentKey,
+                    segmentKey,
                     error: this.submissionError,
                 });
             }

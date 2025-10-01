@@ -12,6 +12,8 @@
 - [ ] Footer newsletter form includes accessible labels and aria-live messaging.
 - [ ] Guided assessment modal trap focus, announces progress, and allows Escape closure.
 - [ ] Assessment summary reflects persona-driven CTA text and displays submission status messaging.
+- [ ] Hero primary CTA updates label/href after completing assessment segment.
+- [ ] Programs section shows "Personalized highlights" panel aligned with selected segment.
 
 ## Performance
 - [ ] Lighthouse desktop score ≥ 85 (baseline before optimization). *(Pending — script executes `lhci` but requires Lighthouse to be installed; rerun after review)*
@@ -22,6 +24,7 @@
 - [ ] Testimonials seeded with author metadata and featured flag.
 - [ ] Newsletter form logs fallback when Mailchimp credentials absent.
 - [ ] `/assessment-insights` endpoint logs segment and answers payload without sensitive data exposure.
+- [ ] Plausible dashboard registers `assessment.complete` and `assessment.submitted` events with expected properties.
 
 ## Logging & Services
 - [ ] `storage/logs/laravel.log` captures booking CTA events via `BookingService`.
