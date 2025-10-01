@@ -26,7 +26,19 @@
 Illuminate\Foundation\Http\Middleware\CompressResponse` or reverse proxy config) to satisfy `uses-text-compression`.
 - Consider HTTP/2 server push replacement using `<link rel="preload">` hints in Blade layouts for `app.css` and `app.js` once compression is active.
 
+### Implementation Steps
+1. Update web server or Laravel `app/Http/Middleware` to set immutable cache headers for `public/build/*` while keeping short TTL for HTML responses.
+2. Enable gzip/brotli at the reverse proxy (e.g., Nginx `gzip on;` / `brotli on;`) and verify via `curl -I --compressed` that compression is served.
+3. After compression is live, add `<link rel="preload">` hints for the hashed CSS/JS bundles in `resources/views/layouts/app.blade.php` to maintain performance budgets.
+
 ## Next Performance Experiments
 - Evaluate splitting `app.js` bundle by lazy importing Alpine stores (e.g. cost estimator, tour) and ensure globals remain accessible.
-- Run `npx source-map-explorer public/build/assets/app-*.js` (requires temporary source maps) because `vite build --analyze` is unavailable in current toolchain.
+- Integrate `rollup-plugin-visualizer` (or `vite-plugin-visualizer`) to generate bundle treemaps since `vite build --analyze` is unavailable.
+- Run `npx source-map-explorer public/build/assets/app-*.js` with `--html` after adjusting Vite sourcemap options; note current attempt fails due to `generated column Infinity` in Vite map.
 - Collect Chrome Performance trace focusing on `#programs` section layout to identify expensive selectors or repeated DOM measurements.
+
+## Prioritized Follow-ups
+- **Caching**: Complete steps above so CDN/browser warnings clear and bandwidth drops.
+- **Bundle splitting**: Prototype lazy imports for cost estimator and tour stores after treemap insight.
+- **Layout audit**: Use Chrome trace to refactor `#programs` grid and cost estimator DOM to trim ~1.8 s style/layout cost.
+- **Monitoring**: Automate Lighthouse + Axe in CI once performance budget stabilizes.
