@@ -3,18 +3,16 @@
 namespace Tests\Unit;
 
 use App\Services\AssessmentService;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Support\Facades\Log;
+use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 class AssessmentServiceTest extends TestCase
 {
-    protected AssessmentService $service;
-
-    protected function setUp(): void
+    protected function makeService(?LoggerInterface $logger = null): AssessmentService
     {
-        parent::setUp();
-
-        $this->service = app(AssessmentService::class);
+        return new AssessmentService(app(ConfigRepository::class), $logger ?? app(LoggerInterface::class));
     }
 
     public function test_memory_care_segment_selected_when_dementia_flagged(): void
@@ -24,7 +22,7 @@ class AssessmentServiceTest extends TestCase
             'cognitive_support' => 'dementia',
         ];
 
-        $segmentKey = $this->service->determineSegmentKey($answers);
+        $segmentKey = $this->makeService()->determineSegmentKey($answers);
 
         $this->assertSame('memory_care', $segmentKey);
     }
@@ -37,7 +35,7 @@ class AssessmentServiceTest extends TestCase
             'health_considerations' => ['mobility_aids'],
         ];
 
-        $segmentKey = $this->service->determineSegmentKey($answers);
+        $segmentKey = $this->makeService()->determineSegmentKey($answers);
 
         $this->assertSame('supportive_care', $segmentKey);
     }
@@ -45,12 +43,13 @@ class AssessmentServiceTest extends TestCase
     public function test_fallback_segment_used_when_no_rules_match(): void
     {
         $answers = [
-            'mobility' => 'independent',
-            'cognitive_support' => 'engaged',
+            'mobility' => null,
+            'cognitive_support' => 'mild_changes',
             'transportation' => 'no',
+            'caregiver_goals' => [],
         ];
 
-        $segmentKey = $this->service->determineSegmentKey($answers);
+        $segmentKey = $this->makeService()->determineSegmentKey($answers);
 
         $this->assertSame('exploration', $segmentKey);
     }
@@ -62,7 +61,7 @@ class AssessmentServiceTest extends TestCase
             'cognitive_support' => 'engaged',
         ];
 
-        $summary = $this->service->createSummary($answers);
+        $summary = $this->makeService()->createSummary($answers);
 
         $this->assertSame('active_day', $summary['segment_key']);
         $this->assertIsArray($summary['segment']);
@@ -71,17 +70,19 @@ class AssessmentServiceTest extends TestCase
 
     public function test_log_outcome_writes_to_logger(): void
     {
-        Log::shouldReceive('info')
-            ->once()
-            ->withArgs(function (string $message, array $context): bool {
-                return $message === 'Assessment outcome recorded'
-                    && $context['segment'] === 'active_day'
-                    && ($context['answers']['mobility'] ?? null) === 'independent';
-            });
+        Log::fake();
 
-        $this->service->logOutcome([
+        $service = $this->makeService(Log::getFacadeRoot());
+
+        $service->logOutcome([
             'segment_key' => 'active_day',
             'answers' => ['mobility' => 'independent'],
         ]);
+
+        Log::assertLogged('info', function ($message) {
+            return $message->message === 'Assessment outcome recorded'
+                && ($message->context['segment'] ?? null) === 'active_day'
+                && ($message->context['answers']['mobility'] ?? null) === 'independent';
+        });
     }
 }

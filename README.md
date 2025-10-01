@@ -190,6 +190,7 @@ The `Makefile` provides shortcuts for common development tasks.
 | `make migrate` | Run database migrations. |
 | `make migrate-fresh` | Drop all tables and re-run migrations and seeds. |
 | `make test` | Run the PHPUnit test suite. |
+| `composer phpunit` | Execute PHPUnit via the project’s bundled runner. |
 | `make npm-build` | Build frontend assets for production. |
 | `make npm-dev` | Start the Vite development server with HMR. |
 
