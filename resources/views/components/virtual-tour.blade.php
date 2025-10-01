@@ -14,13 +14,47 @@
 
 @php
     $highlights = array_filter($highlights);
+
+    $resolvePublicAsset = function (?string $path, string $fallback) {
+        if (! $path) {
+            return $fallback;
+        }
+
+        $normalized = ltrim($path, '/');
+
+        return file_exists(public_path($normalized)) ? '/' . $normalized : $fallback;
+    };
+
+    $resolvedPreviewImage = $resolvePublicAsset($previewImage, 'https://placehold.co/800x450?text=Tour+Preview');
+
+    $resolvedHotspots = collect($hotspots)->map(function ($hotspot) use ($resolvePublicAsset) {
+        if (! isset($hotspot['media'])) {
+            return $hotspot;
+        }
+
+        $media = $hotspot['media'];
+
+        if (($media['type'] ?? 'image') === 'image') {
+            $media['src'] = $resolvePublicAsset($media['src'] ?? null, 'https://placehold.co/800x450?text=Hotspot');
+        }
+
+        if (($media['type'] ?? null) === 'video') {
+            $media['poster'] = $resolvePublicAsset($media['poster'] ?? null, 'https://placehold.co/800x450?text=Video');
+            $media['src'] = $resolvePublicAsset($media['src'] ?? null, '');
+            $media['captions'] = $resolvePublicAsset($media['captions'] ?? null, '');
+        }
+
+        $hotspot['media'] = $media;
+
+        return $hotspot;
+    })->all();
 @endphp
 
 <section
     id="{{ $sectionId }}"
     class="bg-white py-16"
     x-data="tourComponent({
-        hotspots: @js($hotspots),
+        hotspots: @js($resolvedHotspots),
         transcriptUrl: @js($transcriptUrl),
         analyticsNamespace: 'tour',
     })"
@@ -29,7 +63,7 @@
     <div class="mx-auto max-w-section grid gap-8 px-6 lg:grid-cols-2 lg:items-center">
         <div class="relative overflow-hidden rounded-3xl shadow-card">
             <img
-                src="{{ $previewImage }}"
+                src="{{ $resolvedPreviewImage }}"
                 alt="{{ $previewAlt }}"
                 class="h-full w-full object-cover"
             >

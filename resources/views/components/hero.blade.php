@@ -11,23 +11,51 @@
     ],
 ])
 
+@php
+    $heroPosterPath = 'assets/hero-fallback.jpg';
+    $heroPosterExists = file_exists(public_path($heroPosterPath));
+    $heroPosterSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="ElderCare SG hero placeholder"><rect width="800" height="600" fill="#1C3D5A"/><text x="50%" y="50%" fill="#F0A500" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="600" text-anchor="middle" dominant-baseline="middle">ElderCare SG</text></svg>';
+    $heroPoster = $heroPosterExists
+        ? asset($heroPosterPath)
+        : 'data:image/svg+xml,' . rawurlencode($heroPosterSvg);
+
+    $heroVideoSources = collect([
+        'assets/hero-video.mp4',
+        'assets/hero-video.webm',
+    ]);
+
+    $heroHasVideo = $heroVideoSources->every(fn ($path) => file_exists(public_path($path)));
+    $heroVideoAssets = $heroHasVideo
+        ? $heroVideoSources->map(fn ($path) => asset($path))->values()
+        : collect();
+@endphp
+
 <section
     class="relative overflow-hidden bg-trust text-white"
     x-data="{ availability: null }"
     x-init="availability = Alpine.store('availability')"
 >
     <div class="absolute inset-0">
-        <video
-            class="h-full w-full object-cover"
-            playsinline
-            muted
-            autoplay
-            loop
-            poster="/assets/hero-fallback.jpg"
-        >
-            <source src="/assets/hero-video.mp4" type="video/mp4">
-            <source src="/assets/hero-video.webm" type="video/webm">
-        </video>
+        @if ($heroHasVideo)
+            <video
+                class="h-full w-full object-cover"
+                playsinline
+                muted
+                autoplay
+                loop
+                poster="{{ $heroPoster }}"
+                preload="metadata"
+            >
+                <source src="{{ $heroVideoAssets->first() }}" type="video/mp4">
+                <source src="{{ $heroVideoAssets->last() }}" type="video/webm">
+            </video>
+        @else
+            <div
+                class="h-full w-full bg-gradient-to-br from-trust via-[#22476A] to-[#183651]"
+                style="background-image: url('{{ $heroPoster }}'); background-size: cover; background-position: center;"
+                aria-hidden="true"
+            ></div>
+        @endif
         <div class="absolute inset-0 bg-trust/70"></div>
     </div>
 

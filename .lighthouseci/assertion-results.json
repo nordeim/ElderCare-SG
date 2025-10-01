@@ -2,24 +2,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0,
+    "actual": 0.27,
     "values": [
-      0
-    ],
-    "operator": ">=",
-    "passed": false,
-    "auditId": "errors-in-console",
-    "level": "warn",
-    "url": "http://localhost:8000/",
-    "auditTitle": "Browser errors were logged to the console",
-    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/best-practices/errors-in-console/"
-  },
-  {
-    "name": "minScore",
-    "expected": 0.9,
-    "actual": 0.39,
-    "values": [
-      0.39
+      0.27
     ],
     "operator": ">=",
     "passed": false,
@@ -32,9 +17,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.56,
+    "actual": 0.4,
     "values": [
-      0.56
+      0.4
     ],
     "operator": ">=",
     "passed": false,
@@ -47,9 +32,24 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.5,
+    "actual": 0,
     "values": [
-      0.5
+      0
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditId": "mainthread-work-breakdown",
+    "level": "warn",
+    "url": "http://localhost:8000/",
+    "auditTitle": "Minimize main-thread work",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/mainthread-work-breakdown/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.01,
+    "values": [
+      0.01
     ],
     "operator": ">=",
     "passed": false,
@@ -58,5 +58,49 @@
     "url": "http://localhost:8000/",
     "auditTitle": "Max Potential First Input Delay",
     "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/lighthouse-max-potential-fid/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.83,
+    "values": [
+      0.83
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditId": "speed-index",
+    "level": "warn",
+    "url": "http://localhost:8000/",
+    "auditTitle": "Speed Index",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/speed-index/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.83,
+    "values": [
+      0.83
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditId": "interactive",
+    "level": "warn",
+    "url": "http://localhost:8000/",
+    "auditTitle": "Time to Interactive",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/interactive/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.75,
+    "actual": 0.66,
+    "values": [
+      0.66
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditProperty": "performance",
+    "auditId": "categories",
+    "level": "warn",
+    "url": "http://localhost:8000/"
   }
 ]
