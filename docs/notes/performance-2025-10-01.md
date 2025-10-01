@@ -55,9 +55,20 @@ Illuminate\Foundation\Http\Middleware\CompressResponse` or reverse proxy config)
 3. Use the Elements panel `Layout Shift Regions` overlay to visualize reflows when toggling assessment recommendations.
 4. Capture Coverage (`Ctrl+Shift+P` → “Coverage”) post-load to measure unused CSS from Tailwind utility combinations.
 5. Export the trace (`.json`) and attach findings to the performance backlog for repeatability.
+6. Prioritize fixes: (a) simplify `#programs` card DOM (high impact), (b) batch cost estimator Alpine updates (medium), (c) defer testimonial carousel setup until Idle (medium).
 
 ## Prioritized Follow-ups
 - **Caching**: Complete steps above so CDN/browser warnings clear and bandwidth drops.
 - **Bundle splitting**: Prototype lazy imports for cost estimator and tour stores after treemap insight.
 - **Layout audit**: Use Chrome trace to refactor `#programs` grid and cost estimator DOM to trim ~1.8 s style/layout cost.
 - **Monitoring**: Automate Lighthouse + Axe in CI once performance budget stabilizes.
+
+## Performance Backlog Snapshot (2025-10-01)
+- **High**: Implement immutable caching + gzip/brotli in production; run Chrome layout trace and ship DOM refinements for `#programs`.
+- **Medium**: Defer cost estimator/tour Alpine stores via dynamic import; integrate source-map analysis once sourcemap config fixed.
+- **Low**: Add CI guard ensuring `stats.html` exists, explore analytics idle loading, evaluate Tailwind tree-shaking metrics post refactor.
+
+## Immediate Next Steps
+- Capture Chrome Performance trace following the checklist above and log findings (CSS selectors, DOM nodes) in a new ticket before refactoring.
+- Draft Nginx/Apache snippet applying immutable headers + gzip/brotli, referencing `CacheImmutableAssets` middleware as fallback.
+- Schedule follow-up Lighthouse run post layout tweaks and caching deployment to compare against `localhost-_-2025_10_01_13_00_46.report.json`.

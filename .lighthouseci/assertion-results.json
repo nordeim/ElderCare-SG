@@ -2,9 +2,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.46,
+    "actual": 0.44,
     "values": [
-      0.46
+      0.44
     ],
     "operator": ">=",
     "passed": false,
@@ -17,9 +17,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.6,
+    "actual": 0.55,
     "values": [
-      0.6
+      0.55
     ],
     "operator": ">=",
     "passed": false,
@@ -32,9 +32,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.4,
+    "actual": 0.33,
     "values": [
-      0.4
+      0.33
     ],
     "operator": ">=",
     "passed": false,
@@ -47,9 +47,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.89,
+    "actual": 0.88,
     "values": [
-      0.89
+      0.88
     ],
     "operator": ">=",
     "passed": false,
@@ -58,5 +58,20 @@
     "url": "http://localhost:8000/",
     "auditTitle": "Speed Index",
     "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/speed-index/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.89,
+    "values": [
+      0.89
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditId": "interactive",
+    "level": "warn",
+    "url": "http://localhost:8000/",
+    "auditTitle": "Time to Interactive",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/interactive/"
   }
 ]
