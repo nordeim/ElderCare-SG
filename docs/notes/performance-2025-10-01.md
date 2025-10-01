@@ -42,6 +42,13 @@ Illuminate\Foundation\Http\Middleware\CompressResponse` or reverse proxy config)
 2. Open `stats.html` in a browser to inspect module treemap (gzip/brotli sizes included).
 3. For deterministic CI checks, consider adding a script that runs `npm run build` with `visualizer({ open: false })` and verifies the existence/size of `stats.html`; fail the job if the file is missing or empty.
 
+### Layout Profiling Checklist
+1. In Chrome DevTools Performance tab, record a trace while loading the homepage and interacting with the `#programs` cards.
+2. Filter long tasks >50 ms and inspect `Layout`/`Recalculate Style` events to identify elements with heavy invalidations (expectations: large grid in `#programs`, cost estimator modal).
+3. Use the Elements panel `Layout Shift Regions` overlay to visualize reflows when toggling assessment recommendations.
+4. Capture Coverage (`Ctrl+Shift+P` → “Coverage”) post-load to measure unused CSS from Tailwind utility combinations.
+5. Export the trace (`.json`) and attach findings to the performance backlog for repeatability.
+
 ## Prioritized Follow-ups
 - **Caching**: Complete steps above so CDN/browser warnings clear and bandwidth drops.
 - **Bundle splitting**: Prototype lazy imports for cost estimator and tour stores after treemap insight.
