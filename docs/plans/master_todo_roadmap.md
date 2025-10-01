@@ -84,16 +84,16 @@ _Date: 2025-10-01_
 - **Objectives**
   - Deliver tools helping families evaluate fit: cost estimator, FAQ accordion, resource downloads, newsletter prompts.
 - **Implementation Steps**
-  - **Cost Estimator**: Create `components/cost-estimator.blade.php` with form inputs, slider controls, and computed monthly totals; use Alpine for calculations.
-  - **FAQ Accordion**: Build `components/faq.blade.php` with searchable, keyboard-accessible collapsible items loaded from `faqs` table.
-  - **Download Hub**: Provide cards linking to caregiver guides stored in `storage/app/public/resources`; ensure `artisan storage:link` used in deployment.
-  - **Contextual Prompts**: Add inline prompts triggered by assessment outcomes encouraging newsletter signup or booking.
-  - **Schema Markup**: Embed `FAQPage` structured data in the FAQ component.
-  - **Performance Remediation**: Optimize hero media loading, defer non-critical Alpine stores, and reduce layout cost to raise Lighthouse Performance score ≥0.85 (current 0.66; see `localhost-_-2025_10_01_10_05_28.report.html`).
+  - **Cost Estimator**: ✅ `components/cost-estimator.blade.php` and `resources/js/modules/cost-estimator.js` live with analytics + UX doc (`docs/ux/cost_estimator.md`). Follow-up: consider moving pricing config to service.
+  - **FAQ Accordion**: ✅ `components/faq.blade.php` ships with search, ARIA wiring, schema markup, and events `faq.expand`.
+  - **Download Hub**: ✅ `components/resource-hub.blade.php` renders seeded guides; placeholder PDFs added under `storage/app/public/resources/` with `storage:link` enabled.
+  - **Contextual Prompts**: ✅ `components/assessment-prompts.blade.php` tied to assessment store; emits `assessment.prompt_show` / `assessment.prompt_click` and drives estimator/resources CTAs.
+  - **Schema Markup**: ✅ Included in FAQ component; Rich Results validation pending QA.
+  - **Performance Remediation**: In progress — hero lazy loading + dynamic imports landed, but Lighthouse score at 0.79; remaining layout/caching tasks tracked in `docs/notes/performance-2025-10-01.md`.
 - **Success Criteria**
-  - Tools validated for accuracy (QA scenarios) and accessibility.
-  - Structured data passes Google Rich Results test.
-  - Newsletter conversions attributable to prompts tracked via analytics.
+  - Tools validated for accuracy (QA scenarios) and accessibility. *(QA checklist updated — execution pending)*
+  - Structured data passes Google Rich Results test. *(To run after QA)*
+  - Newsletter conversions attributable to prompts tracked via analytics. *(Need follow-up dashboards)*
 
 ## Phase 5 – Design System & Component Documentation (Week 6)
 - **Objectives**
