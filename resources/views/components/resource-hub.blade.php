@@ -32,8 +32,8 @@
                     </div>
 
                     <div class="resource-card__meta">
-                        <span class="text-xs uppercase tracking-wide text-slate">PDF download</span>
-                        <span class="text-xs text-slate/70">Updated {{ $resource->updated_at?->format('M Y') ?? now()->format('M Y') }}</span>
+                        <span class="text-xs uppercase tracking-wide text-slate-dark">PDF download</span>
+                        <span class="text-xs text-slate">Updated {{ $resource->updated_at?->format('M Y') ?? now()->format('M Y') }}</span>
                     </div>
 
                     <a
