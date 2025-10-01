@@ -10,7 +10,7 @@ class LocaleSwitchTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function user_can_switch_to_supported_locale_and_persist_preference(): void
     {
         $this->from(route('home'))
@@ -22,7 +22,7 @@ class LocaleSwitchTest extends TestCase
         $this->assertSame('zh', App::getLocale());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function unsupported_locale_falls_back_to_default(): void
     {
         $this->from(route('home'))

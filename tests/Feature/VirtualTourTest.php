@@ -12,7 +12,7 @@ class VirtualTourTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function homepage_renders_virtual_tour_hotspots_and_staff_carousel(): void
     {
         Program::create([
