@@ -40,6 +40,14 @@ Events dispatch via `assessment.js` emitter and relay to Plausible automatically
   - Payload: `{ slug: string }`
   - Fired by analytics module when `data-analytics-id="resource-download"` elements are activated.
 
+### Assessment Prompts
+- **`assessment.prompt_show`** — Contextual prompt rendered for a segment.
+  - Payload: `{ slug: string, segmentKey: string }`
+  - Emitted once per prompt slug in `resources/views/components/assessment-prompts.blade.php`.
+- **`assessment.prompt_click`** — User clicked a contextual prompt CTA.
+  - Payload: `{ slug: string, segmentKey: string, destination: string|null }`
+  - Helps attribute follow-up actions (estimator, booking, resources) to assessment guidance.
+
 ### Locale Switching
 - **`locale.changed`** — User chose an alternate language.
   - Payload: `{ locale: 'en'|'zh' }`

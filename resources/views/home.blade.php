@@ -7,6 +7,8 @@
 
     <x-assessment infoHref="#programs" />
 
+    <x-assessment-prompts />
+
     <section id="programs" class="bg-canvas py-16 content-visibility-auto">
         <div class="mx-auto max-w-section px-6" x-data>
             <div class="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
