@@ -19,13 +19,26 @@ This document tracks front-end and back-end analytics events introduced during P
 
 Events dispatch via `assessment.js` emitter and relay to Plausible automatically.
 
-### Availability Badge
-- **`availability.loaded`** — Fired after `/api/availability` returns successfully.
-  - Payload: `{ force: boolean, status: string, total: number, isStale: boolean, fallbackUsed: boolean, updatedAt: string|null, locale: string, message: string|null }`
+### Estimator
+- **`estimator.open`** — Cost estimator section enters viewport.
+  - Payload: `{ source: 'auto' | 'cta' }`
+- **`estimator.update`** — User changes estimator inputs.
+  - Payload: `{ daysPerWeek: number, transport: boolean, addOns: string[], subsidyKey: string }`
+- **`estimator.submit`** — Estimator form submitted.
+  - Payload: `{ daysPerWeek: number, transport: boolean, addOns: string[], subsidyKey: string }`
+- **`estimator.submit_error`** — Submission failed.
+  - Payload: `{ daysPerWeek: number, transport: boolean, addOns: string[], subsidyKey: string, error: string }`
   - Use to chart demand trends and detect stale data ratios.
-- **`availability.error`** — Availability request failed or timed out.
-  - Payload: `{ force: boolean, statusCode: number|null, message: string, locale: string }`
-  - Configure alert thresholds when failure count exceeds 3 per minute.
+
+### FAQ Accordion
+- **`faq.expand`** — FAQ accordion item opened.
+  - Payload: `{ faqId: string }`
+  - Emitted from `faqAccordion.toggle()` after expanding.
+
+### Resource Hub
+- **`resource.download`** — Resource hub CTA clicked.
+  - Payload: `{ slug: string }`
+  - Fired by analytics module when `data-analytics-id="resource-download"` elements are activated.
 
 ### Locale Switching
 - **`locale.changed`** — User chose an alternate language.
