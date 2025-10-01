@@ -69,8 +69,8 @@
 
     <div class="relative mx-auto flex max-w-section flex-col gap-6 px-6 py-24 md:py-32">
         <div class="max-w-2xl space-y-4">
-            <h1 class="text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">{{ $headline }}</h1>
-            <p class="text-lg text-white/85 sm:text-xl">{{ $subheadline }}</p>
+            <h1 class="font-semibold leading-tight text-display-lg">{{ $headline }}</h1>
+            <p class="text-body-lg text-white/85">{{ $subheadline }}</p>
 
             <div x-cloak x-show="availability" class="mt-2">
                 <div class="availability-badge w-full flex-wrap rounded-2xl border border-white/30 bg-white/10 p-4 text-left sm:w-auto sm:flex-nowrap" role="status" aria-live="polite">

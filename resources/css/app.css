@@ -20,7 +20,7 @@
     }
 
     body {
-        @apply bg-canvas font-body text-slate-dark antialiased;
+        @apply bg-canvas font-body text-body-md text-slate-dark antialiased;
     }
 
     h1,

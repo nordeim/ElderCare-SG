@@ -33,6 +33,17 @@ export default {
           dark: withOpacityValue('--color-slate-dark'),
         },
       },
+      fontSize: {
+        'display-lg': ['clamp(2.75rem, 2.25rem + 1.5vw, 3.5rem)', { lineHeight: '1.05' }],
+        'display-md': ['clamp(2.25rem, 2rem + 1vw, 3rem)', { lineHeight: '1.1' }],
+        'heading-xl': ['clamp(1.75rem, 1.5rem + 0.8vw, 2.25rem)', { lineHeight: '1.2' }],
+        'heading-lg': ['clamp(1.5rem, 1.35rem + 0.6vw, 2rem)', { lineHeight: '1.3' }],
+        'heading-md': ['clamp(1.25rem, 1.15rem + 0.4vw, 1.6rem)', { lineHeight: '1.4' }],
+        'body-lg': ['clamp(1.125rem, 1.05rem + 0.2vw, 1.25rem)', { lineHeight: '1.6' }],
+        'body-md': ['1rem', { lineHeight: '1.65' }],
+        'body-sm': ['0.9375rem', { lineHeight: '1.6' }],
+        'body-xs': ['0.875rem', { lineHeight: '1.5' }],
+      },
       fontFamily: {
         heading: ['"Playfair Display"', 'serif'],
         body: ['Inter', 'sans-serif'],
@@ -65,6 +76,17 @@ export default {
       },
     },
   },
-  plugins: [forms, typography, animate],
+  plugins: [forms, typography, animate, function ({ addUtilities }) {
+    addUtilities({
+      '.text-display-lg': {
+        fontSize: 'clamp(2.75rem, 2.25rem + 1.5vw, 3.5rem)',
+        lineHeight: '1.05',
+      },
+      '.text-display-md': {
+        fontSize: 'clamp(2.25rem, 2rem + 1vw, 3rem)',
+        lineHeight: '1.1',
+      },
+    });
+  }],
 };
 

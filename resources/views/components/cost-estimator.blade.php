@@ -75,14 +75,14 @@
     <div class="mx-auto max-w-section px-6">
         <div class="mb-8 flex flex-col gap-4 text-center sm:text-left">
             <p class="pill-tag mx-auto sm:mx-0">{{ $kicker }}</p>
-            <h2 class="text-3xl font-semibold text-trust sm:text-4xl">{{ $headline }}</h2>
-            <p class="text-slate">{{ $description }}</p>
+            <h2 class="font-semibold text-heading-xl text-trust">{{ $headline }}</h2>
+            <p class="text-body-md text-slate">{{ $description }}</p>
         </div>
 
         <div class="grid gap-8 lg:grid-cols-2">
             <form class="section-card space-y-6" @submit.prevent>
                 <div>
-                    <label for="days-per-week" class="flex items-center justify-between text-sm font-semibold text-trust">
+                    <label for="days-per-week" class="flex items-center justify-between text-body-sm font-semibold text-trust">
                         <span>Days per week</span>
                         <span x-text="daysPerWeek + ' day' + (daysPerWeek === 1 ? '' : 's')"></span>
                     </label>
@@ -96,56 +96,53 @@
                         class="w-full"
                         aria-describedby="days-per-week-help"
                     >
-                    <p id="days-per-week-help" class="mt-2 text-xs text-slate">Adjust to reflect the number of scheduled program days each week (1–6).</p>
+                    <p id="days-per-week-help" class="mt-2 text-body-xs text-slate">Adjust to reflect the number of scheduled program days each week (1–6).</p>
                 </div>
 
                 <div class="flex items-center justify-between rounded-2xl border border-slate/10 bg-white px-4 py-3">
                     <div>
-                        <p class="text-sm font-semibold text-trust">Daily transport add-on</p>
-                        <p class="text-xs text-slate">Wheelchair-friendly pickup and drop-off with trained escorts.</p>
+                        <p class="text-body-sm font-semibold text-trust">Daily transport add-on</p>
+                        <p class="text-body-xs text-slate">Wheelchair-friendly pickup and drop-off with trained escorts.</p>
                     </div>
                     <label class="relative inline-flex cursor-pointer items-center">
                         <input type="checkbox" class="peer sr-only" x-model="includeTransport">
                         <span class="toggle-switch"></span>
                         <span class="sr-only">Enable transport</span>
                     </label>
-                </div>
 
                 <fieldset class="space-y-3">
-                    <legend class="text-sm font-semibold text-trust">Add-ons</legend>
-                    <p class="text-xs text-slate">Choose enhancements that match your loved one’s preferences.</p>
+                    <legend class="text-body-sm font-semibold text-trust">Add-ons</legend>
+                    <p class="text-body-xs text-slate">Choose enhancements that match your loved one’s preferences.</p>
                     <template x-for="addOn in pricing.addOns" :key="addOn.key">
-                        <label class="flex gap-3 rounded-2xl border border-slate/10 bg-white px-4 py-3">
+                        <label class="flex items-center gap-3 rounded-2xl border border-slate/10 bg-white px-4 py-3">
                             <input
                                 type="checkbox"
                                 class="mt-1 h-4 w-4 rounded border-slate/30 text-trust focus:ring-trust"
                                 :value="addOn.key"
                                 x-model="selectedAddOns"
                             >
-                            <span>
-                                <span class="flex items-center justify-between text-sm font-semibold text-trust">
-                                    <span x-text="addOn.label"></span>
-                                    <span x-text="formatCurrency(addOn.amount)"></span>
-                                </span>
-                                <span class="mt-1 block text-xs text-slate" x-text="addOn.description"></span>
+                            <span class="flex flex-col gap-1">
+                                <span class="text-body-sm font-semibold text-trust" x-text="addOn.label"></span>
+                                <span class="text-body-xs text-slate" x-text="formatCurrency(addOn.amount)"></span>
+                                <span class="text-body-xs text-slate" x-text="addOn.description"></span>
                             </span>
                         </label>
                     </template>
                 </fieldset>
 
-                <div>
-                    <label for="subsidy" class="block text-sm font-semibold text-trust">Subsidy scenario</label>
+                <div class="mt-6">
+                    <label for="subsidy" class="block text-body-sm font-semibold text-trust">Subsidy scenario</label>
                     <select
                         id="subsidy"
                         x-model="selectedSubsidyKey"
-                        class="mt-2 w-full rounded-2xl border border-slate/20 bg-white px-4 py-3 text-sm focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold"
-                    >
+                        class="mt-2 w-full rounded-2xl border border-slate/20 bg-white px-4 py-3 text-body-sm focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold"
+{{ ... }}
                         <template x-for="subsidy in subsidies" :key="subsidy.key">
                             <option :value="subsidy.key" x-text="subsidy.label"></option>
                         </template>
                     </select>
                     <template x-if="selectedSubsidy">
-                        <p class="mt-2 text-xs text-slate" x-text="selectedSubsidy.description"></p>
+                        <p class="mt-2 text-body-xs text-slate" x-text="selectedSubsidy.description"></p>
                     </template>
                 </div>
 
@@ -162,11 +159,11 @@
             <div class="section-card space-y-6">
                 <div class="space-y-2">
                     <p class="pill-tag inline-flex bg-gold text-trust">Projected monthly total</p>
-                    <h3 class="text-4xl font-semibold text-trust" x-text="formatCurrency(totalMonthly)"></h3>
-                    <p class="text-sm text-slate">Based on <span x-text="daysPerWeek"></span> day(s) per week across {{ $pricing['weeksPerMonth'] }} weeks/month.</p>
+                    <h3 class="font-semibold text-heading-lg text-trust" x-text="formatCurrency(totalMonthly)"></h3>
+                    <p class="text-body-sm text-slate">Based on <span x-text="daysPerWeek"></span> day(s) per week across {{ $pricing['weeksPerMonth'] }} weeks/month.</p>
                 </div>
 
-                <div class="grid gap-3 text-sm text-slate">
+                <div class="grid gap-3 text-body-sm text-slate">
                     <div class="flex items-center justify-between">
                         <span>Program fees</span>
                         <span x-text="formatCurrency(baseMonthlyCost)"></span>
@@ -185,14 +182,14 @@
                     </div>
                 </div>
 
-                <div class="rounded-2xl bg-canvas p-4 text-sm text-slate">
+                <div class="rounded-2xl bg-canvas p-4 text-body-sm text-slate">
                     <p class="font-semibold text-trust">Effective daily rate</p>
-                    <p class="mt-1" x-text="formatCurrency(effectiveDailyRate)"></p>
-                    <p class="mt-2 text-xs">Final invoiced amount depends on personalised care plan, assessments, and verified subsidy amounts.</p>
+                    <p class="mt-1 text-body-md" x-text="formatCurrency(effectiveDailyRate)"></p>
+                    <p class="mt-2 text-body-xs">Final invoiced amount depends on personalised care plan, assessments, and verified subsidy amounts.</p>
                 </div>
 
                 <template x-if="showDetails">
-                    <div class="rounded-2xl border border-slate/10 bg-white p-4 text-xs text-slate">
+                    <div class="rounded-2xl border border-slate/10 bg-white p-4 text-body-xs text-slate">
                         <p class="font-semibold text-trust">Calculation details</p>
                         <ul class="mt-2 space-y-1">
                             <li><strong>Base</strong>: <span x-text="daysPerWeek"></span> day(s) × {{ $pricing['weeksPerMonth'] }} weeks × <span x-text="formatCurrency(pricing.dailyRate)"></span> daily rate</li>
