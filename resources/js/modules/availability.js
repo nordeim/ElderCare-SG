@@ -76,6 +76,7 @@ const createAvailabilityStore = () => ({
 
         this.isLoading = true;
         this.error = null;
+        let requestStatus = null;
 
         try {
             const response = await fetch(`/api/availability${force ? '?refresh=1' : ''}`, {
@@ -83,6 +84,8 @@ const createAvailabilityStore = () => ({
                     Accept: 'application/json',
                 },
             });
+
+            requestStatus = response.status;
 
             if (!response.ok) {
                 throw new Error(`Availability request failed with status ${response.status}`);
@@ -97,8 +100,28 @@ const createAvailabilityStore = () => ({
             this.fallbackMessage = payload.fallback_message ?? '';
             this.fallbackUsed = Boolean(payload.fallback_used);
             this.error = null;
+
+            const messages = getAvailabilityMessages();
+            const detail = {
+                force,
+                status: this.status,
+                total: this.totalAvailable,
+                isStale: this.isStale,
+                fallbackUsed: this.fallbackUsed,
+                updatedAt: this.updatedAt,
+                locale: this.locale,
+                message: messages?.status?.[this.statusLevel] ?? null,
+            };
+
+            window.eldercareAnalytics?.emit('availability.loaded', detail);
         } catch (error) {
             this.error = error instanceof Error ? error.message : 'Availability request failed.';
+            window.eldercareAnalytics?.emit('availability.error', {
+                force,
+                statusCode: requestStatus,
+                message: this.error,
+                locale: this.locale,
+            });
         } finally {
             this.isLoading = false;
         }

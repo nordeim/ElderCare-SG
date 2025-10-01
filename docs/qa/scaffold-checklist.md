@@ -14,6 +14,8 @@
 - [ ] Assessment summary reflects persona-driven CTA text and displays submission status messaging.
 - [ ] Hero primary CTA updates label/href after completing assessment segment.
 - [ ] Programs section shows "Personalized highlights" panel aligned with selected segment.
+- [ ] Availability badge announces status via aria-live and refresh button toggles politely.
+- [ ] Locale switcher dropdown operates with keyboard, focus management, and announces current language.
 
 ## Performance
 - [ ] Lighthouse desktop score ≥ 85 (baseline before optimization). *(Pending — script executes `lhci` but requires Lighthouse to be installed; rerun after review)*

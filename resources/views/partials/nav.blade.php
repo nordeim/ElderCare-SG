@@ -63,7 +63,7 @@
                                     type="submit"
                                     class="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-medium text-slate transition hover:bg-gold/10"
                                     :class="{ 'text-trust font-semibold': activeLocale === '{{ $locale }}' }"
-                                    @click="localeMenu = false"
+                                    @click="localeMenu = false; window.eldercareAnalytics?.emit('locale.changed', { locale: '{{ $locale }}' })"
                                 >
                                     <span>{{ __('navigation.locale_label.' . $locale) }}</span>
                                     <span x-show="activeLocale === '{{ $locale }}'" class="sr-only">{{ __('navigation.current_language') }}</span>
