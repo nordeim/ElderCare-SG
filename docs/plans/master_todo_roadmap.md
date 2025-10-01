@@ -64,19 +64,21 @@ _Date: 2025-10-01_
   - Track D (Analytics/Observability): ✅ `availability.*` + `locale.changed` events emit via `resources/js/modules/analytics.js`; documented in `docs/analytics.md`.
   - Track E (Docs/Ops): ✅ Availability runbook authored. Follow-ups assigned to Ops (Mei Ling) to schedule booking API discovery and stakeholder workshop by 2025-10-08; Engineering (Jason Tan) to backfill owners/dates in `docs/plans/phase0_alignment_research_brief.md`.
 
-## Phase 3 – Immersive Virtual Tour & Media Storytelling (Weeks 3–4)
+-## Phase 3 – Immersive Virtual Tour & Media Storytelling (Weeks 3–4)
 - **Objectives**
   - Replace static tour placeholder with interactive media experience featuring transcripts and staff spotlights.
 - **Implementation Steps**
-  - **Media Player Component**: Build `components/virtual-tour.blade.php` using a modal lightbox (CSS + Alpine) that plays video or 360 iframe.
-  - **Hotspot Overlay**: Implement interactive hotspots data-driven via JSON in `resources/js/modules/tour.js` with keyboard support.
-  - **Staff Carousel**: Leverage Embla or cards to profile staff; source data from `staff` table/seeder.
-  - **Accessibility Assets**: Provide caption VTT files, alt text, transcripts stored in `/public/media/transcripts` with download links.
-  - **Analytics**: Track `tour.open`, `tour.hotspot`, `tour.complete` events.
+  - **Media Player Component**: ✅ `resources/views/components/virtual-tour.blade.php` delivers modal lightbox with video/image support, focus management, and transcript links.
+  - **Hotspot Overlay**: ✅ `resources/js/modules/tour.js` consumes `resources/data/tour_hotspots.json`, supports keyboard navigation, and emits analytics events.
+  - **Staff Carousel**: ✅ `resources/views/components/staff-carousel.blade.php` renders featured staff seeded via `StaffSeeder` with alt text and hotspot tags.
+  - **Accessibility Assets**: ✅ Transcript stored at `/public/media/transcripts/tour-main.md`; captions wired for video hotspot. Alt text provided in data layer.
+  - **Analytics**: ✅ `tour.open`, `tour.hotspot`, `tour.complete` documented in `docs/analytics.md` and dispatched through Alpine store emitter.
 - **Success Criteria**
-  - Tour meets accessibility (captions, transcripts, fallback image).
+  - Tour meets accessibility (captions, transcripts, fallback image). *(Manual QA scheduled — see checklist updates.)*
   - Staff carousel responsive and screen-reader friendly.
   - Performance budget maintained (<2.5s LCP on mobile per Lighthouse).
+- **Status Update (2025-10-01)**
+  - ✅ All Phase 3 workstreams implemented. Pending manual QA on modal accessibility and performance retest after deploying rich media. Coordinate with Ops to validate final media assets (captions, translations) before launch.
 
 ## Phase 4 – Decision Support Utilities & Community Resources (Weeks 4–5)
 - **Objectives**
