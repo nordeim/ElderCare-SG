@@ -16,10 +16,10 @@
 @if ($resources->isNotEmpty())
 <section id="{{ $sectionId }}" class="bg-canvas py-16">
     <div class="mx-auto max-w-section px-6">
-        <div class="mb-8 text-center lg:text-left">
+        <div class="mb-8 text-center lg:text-left text-slate-dark">
             <p class="pill-tag mx-auto lg:mx-0">{{ $kicker }}</p>
             <h2 class="mt-4 text-3xl font-semibold text-trust sm:text-4xl">{{ $headline }}</h2>
-            <p class="mt-3 text-slate">{{ $description }}</p>
+            <p class="mt-3">{{ $description }}</p>
         </div>
 
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -28,12 +28,12 @@
                     <div class="space-y-3">
                         <p class="resource-card__tag">{{ $resource->persona_tag ? \Illuminate\Support\Str::headline($resource->persona_tag) : 'Caregivers' }}</p>
                         <h3 class="text-xl font-semibold text-trust">{{ $resource->title }}</h3>
-                        <p class="text-sm text-slate">{{ $resource->description }}</p>
+                        <p class="text-sm text-slate-dark">{{ $resource->description }}</p>
                     </div>
 
                     <div class="resource-card__meta">
                         <span class="text-xs uppercase tracking-wide text-slate-dark">PDF download</span>
-                        <span class="text-xs text-slate">Updated {{ $resource->updated_at?->format('M Y') ?? now()->format('M Y') }}</span>
+                        <span class="text-xs text-slate-dark">Updated {{ $resource->updated_at?->format('M Y') ?? now()->format('M Y') }}</span>
                     </div>
 
                     <a
