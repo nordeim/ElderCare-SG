@@ -45,4 +45,17 @@ return [
         'url' => env('BOOKING_URL', 'https://calendly.com/eldercare-sg'),
     ],
 
+    'availability' => [
+        'driver' => env('AVAILABILITY_DRIVER', 'mock'),
+        'cache_ttl' => (int) env('AVAILABILITY_CACHE_TTL', 300),
+        'stale_after' => (int) env('AVAILABILITY_STALE_AFTER', 900),
+        'messages' => [
+            'fallback' => env('AVAILABILITY_FALLBACK_MESSAGE', 'We will confirm availability within 24 hours.'),
+        ],
+        'mock' => [
+            'window_days' => (int) env('AVAILABILITY_MOCK_WINDOW_DAYS', 7),
+            'weekly_slots' => (int) env('AVAILABILITY_MOCK_WEEKLY_SLOTS', 18),
+        ],
+    ],
+
 ];
