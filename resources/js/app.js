@@ -12,3 +12,4 @@ import './modules/assessment';
 import './modules/assessment-recommendation';
 import './modules/availability';
 import './modules/tour';
+import './modules/cost-estimator';
