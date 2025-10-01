@@ -89,6 +89,7 @@ _Date: 2025-10-01_
   - **Download Hub**: Provide cards linking to caregiver guides stored in `storage/app/public/resources`; ensure `artisan storage:link` used in deployment.
   - **Contextual Prompts**: Add inline prompts triggered by assessment outcomes encouraging newsletter signup or booking.
   - **Schema Markup**: Embed `FAQPage` structured data in the FAQ component.
+  - **Performance Remediation**: Optimize hero media loading, defer non-critical Alpine stores, and reduce layout cost to raise Lighthouse Performance score ≥0.85 (current 0.66; see `localhost-_-2025_10_01_10_05_28.report.html`).
 - **Success Criteria**
   - Tools validated for accuracy (QA scenarios) and accessibility.
   - Structured data passes Google Rich Results test.

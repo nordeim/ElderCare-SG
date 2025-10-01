@@ -2,9 +2,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.27,
+    "actual": 0.26,
     "values": [
-      0.27
+      0.26
     ],
     "operator": ">=",
     "passed": false,
@@ -17,9 +17,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.4,
+    "actual": 0.46,
     "values": [
-      0.4
+      0.46
     ],
     "operator": ">=",
     "passed": false,
@@ -62,9 +62,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.83,
+    "actual": 0.82,
     "values": [
-      0.83
+      0.82
     ],
     "operator": ">=",
     "passed": false,
@@ -77,9 +77,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.83,
+    "actual": 0.84,
     "values": [
-      0.83
+      0.84
     ],
     "operator": ">=",
     "passed": false,
@@ -92,9 +92,9 @@
   {
     "name": "minScore",
     "expected": 0.75,
-    "actual": 0.66,
+    "actual": 0.68,
     "values": [
-      0.66
+      0.68
     ],
     "operator": ">=",
     "passed": false,
