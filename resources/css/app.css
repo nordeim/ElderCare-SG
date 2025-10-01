@@ -63,6 +63,47 @@
         @apply inline-flex items-center rounded-full bg-trust px-3 py-1 text-sm font-medium text-white shadow-sm;
     }
 
+    .availability-badge {
+        @apply inline-flex items-center gap-3 rounded-full border border-white/40 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur;
+    }
+
+    .availability-indicator {
+        @apply inline-flex h-3 w-3 items-center justify-center rounded-full bg-white/40;
+    }
+
+    .availability-indicator::after {
+        content: '';
+        @apply block h-2 w-2 rounded-full transition;
+    }
+
+    .availability-indicator--loading::after {
+        @apply animate-ping bg-white;
+    }
+
+    .availability-indicator--error::after {
+        @apply bg-red-400;
+    }
+
+    .availability-indicator--fallback::after {
+        @apply bg-amber-300;
+    }
+
+    .availability-indicator--high::after {
+        @apply bg-emerald-300;
+    }
+
+    .availability-indicator--medium::after {
+        @apply bg-yellow-300;
+    }
+
+    .availability-indicator--low::after {
+        @apply bg-orange-300;
+    }
+
+    .availability-indicator--none::after {
+        @apply bg-red-300;
+    }
+
     .section-card {
         @apply rounded-3xl bg-white p-8 shadow-card ring-1 ring-slate/10;
     }
