@@ -35,8 +35,8 @@
     <div class="mx-auto max-w-section px-6">
         <div class="mb-10 text-center lg:text-left">
             <p class="pill-tag mx-auto lg:mx-0">{{ $kicker }}</p>
-            <h2 class="mt-4 text-3xl font-semibold text-trust sm:text-4xl">{{ $headline }}</h2>
-            <p class="mt-3 text-slate">{{ $description }}</p>
+            <h2 class="mt-4 font-semibold text-heading-xl text-trust">{{ $headline }}</h2>
+            <p class="mt-3 text-body-md text-slate">{{ $description }}</p>
         </div>
 
         <div class="mb-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
@@ -96,19 +96,18 @@
                                     <p class="text-sm text-slate" x-html="item.answer"></p>
                                 </div>
                             </article>
-                        </template>
                     </div>
                 </section>
             </template>
 
             <template x-if="!filteredGroups.length">
-                <p class="text-sm text-slate">No questions match your search. Contact our care concierge for personalised support.</p>
+                <p class="text-body-sm text-slate">No questions match your search. Contact our care concierge for personalised support.</p>
             </template>
         </div>
     </div>
 
     <script type="application/ld+json">
-        {!! json_encode([
+{{ ... }}
             '@context' => 'https://schema.org',
             '@type' => 'FAQPage',
             'mainEntity' => $faqs->map(function ($faq) {
