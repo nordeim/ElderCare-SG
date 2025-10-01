@@ -1,0 +1,71 @@
+[
+  {
+    "id": "welcome_lounge",
+    "title": "Welcome Lounge",
+    "description": "Discover how our concierge team greets families and eases arrivals with bilingual support.",
+    "media": {
+      "type": "image",
+      "src": "/assets/tour/welcome-lounge.jpg",
+      "alt": "Panoramic view of the welcome lounge with seating and greenery."
+    },
+    "coordinates": {
+      "x": 18,
+      "y": 42
+    },
+    "ariaLabel": "Explore the Welcome Lounge hotspot",
+    "transcript": "/media/transcripts/tour-main.md#welcome-lounge",
+    "analyticsId": "tour.hotspot.welcome_lounge"
+  },
+  {
+    "id": "mobility_studio",
+    "title": "Mobility Studio",
+    "description": "See adaptive equipment and guided physiotherapy sessions led by Marcus Lee.",
+    "media": {
+      "type": "video",
+      "src": "/assets/tour/mobility-studio.mp4",
+      "poster": "/assets/tour/mobility-studio-poster.jpg",
+      "captions": "/assets/tour/mobility-studio.vtt"
+    },
+    "coordinates": {
+      "x": 52,
+      "y": 36
+    },
+    "ariaLabel": "Explore the Mobility Studio hotspot",
+    "transcript": "/media/transcripts/tour-main.md#mobility-studio",
+    "analyticsId": "tour.hotspot.mobility_studio"
+  },
+  {
+    "id": "wellness_clinic",
+    "title": "Wellness Clinic",
+    "description": "Learn about clinical reviews and nutrition plans coordinated by Dr. Priya Nair.",
+    "media": {
+      "type": "image",
+      "src": "/assets/tour/wellness-clinic.jpg",
+      "alt": "Clinic room with consultation table and medical equipment."
+    },
+    "coordinates": {
+      "x": 74,
+      "y": 28
+    },
+    "ariaLabel": "Explore the Wellness Clinic hotspot",
+    "transcript": "/media/transcripts/tour-main.md#wellness-clinic",
+    "analyticsId": "tour.hotspot.wellness_clinic"
+  },
+  {
+    "id": "sensory_lounge",
+    "title": "Sensory Lounge",
+    "description": "Experience multi-sensory programming curated by Nurul Afiqah with calming aromas and music.",
+    "media": {
+      "type": "image",
+      "src": "/assets/tour/sensory-lounge.jpg",
+      "alt": "Soft lighting and comfortable chairs in the sensory lounge."
+    },
+    "coordinates": {
+      "x": 33,
+      "y": 67
+    },
+    "ariaLabel": "Explore the Sensory Lounge hotspot",
+    "transcript": "/media/transcripts/tour-main.md#sensory-lounge",
+    "analyticsId": "tour.hotspot.sensory_lounge"
+  }
+]
