@@ -12,18 +12,17 @@ _Status: Draft for execution_
 - **Files**
   - `app/Services/AvailabilityService.php` *(new)*
   - `app/Services/Providers/MockAvailabilityProvider.php` *(new)*
-  - `app/Http/Controllers/AvailabilityController.php` *(new)*
   - `routes/api.php`, `routes/web.php`
   - `config/services.php`, `.env.example`
   - `tests/Unit/AvailabilityServiceTest.php` *(new)*
   - `tests/Feature/AvailabilityEndpointTest.php` *(new)*
 - **Checklist**
-  - [ ] Implement provider abstraction with mock adapter + TODO for real API.
-  - [ ] Add caching (configurable TTL) and stale detection logic.
-  - [ ] Expose `/api/availability` JSON endpoint with rate limiting + logging.
-  - [ ] Feature flag via `AVAILABILITY_DRIVER` env variable.
-  - [ ] Unit + feature tests cover success, fallback, cache hit, and error paths.
-  - [ ] Update `docs/ops/runbooks/availability.md` with API rotation steps.
+  - [x] Implement provider abstraction with mock adapter + TODO for real API.
+  - [x] Add caching (configurable TTL) and stale detection logic.
+  - [x] Expose `/api/availability` JSON endpoint with rate limiting + logging.
+  - [x] Feature flag via `AVAILABILITY_DRIVER` env variable.
+  - [x] Unit + feature tests cover success, fallback, cache hit, and error paths.
+  - [x] Update `docs/ops/runbooks/availability.md` with API rotation steps.
 
 ## Track B — Hero UI Integration
 - **Objective**: Display availability badge and fallback messaging in hero.
@@ -34,15 +33,15 @@ _Status: Draft for execution_
   - `resources/css/app.css`
   - `resources/views/home.blade.php`
 - **Checklist**
-  - [ ] Inject availability badge, last-updated timestamp, and fallback text.
-  - [ ] Implement Alpine store polling `/api/availability` with exponential backoff.
-  - [ ] Broadcast analytics events (`availability.loaded`, `availability.error`).
-  - [ ] Ensure aria-live and keyboard visibility compliance.
-  - [ ] Axe audit hero after integration.
+  - [x] Inject availability badge, last-updated timestamp, and fallback text.
+  - [ ] Implement Alpine store polling `/api/availability` with exponential backoff. *(Current implementation uses fixed 3-minute interval; revisit for adaptive backoff.)*
+  - [x] Broadcast analytics events (`availability.loaded`, `availability.error`).
+  - [x] Ensure aria-live and keyboard visibility compliance.
+  - [x] Axe audit hero after integration. *(2025-10-01 lint:accessibility run — 0 violations.)*
   - [ ] Manual QA scenario for stale data fallback.
 
 ## Track C — Localization Toggle
-- **Objective**: Enable EN/中文 switch across nav + hero copy.
+- **Objective**: Enable EN/ switch across nav + hero copy.
 - **Files**
   - `resources/views/partials/nav.blade.php`
   - `app/Http/Middleware/SetLocale.php` *(new)*
@@ -51,10 +50,10 @@ _Status: Draft for execution_
   - `config/app.php`
   - `tests/Feature/LocaleSwitchTest.php` *(new)*
 - **Checklist**
-  - [ ] Add locale switcher with accessible button states and focus trapping for dropdown.
-  - [ ] Persist locale preference via middleware (session + optional cookie).
-  - [ ] Load hero/nav copy from localization files; fallback to English.
-  - [ ] Feature test ensures locale persists between requests.
+  - [x] Add locale switcher with accessible button states and focus trapping for dropdown.
+  - [x] Persist locale preference via middleware (session + optional cookie).
+  - [x] Load hero/nav copy from localization files; fallback to English.
+  - [ ] Feature test ensures locale persists between requests. *(Pending — add Feature test covering cookie + session persistence.)*
   - [ ] Manual QA: screen reader announces active locale; contrast verified.
 
 ## Track D — Analytics & Observability
@@ -64,10 +63,10 @@ _Status: Draft for execution_
   - `docs/analytics.md` *(new)*
   - `docs/qa/scaffold-checklist.md`
 - **Checklist**
-  - [ ] Emit `availability.loaded`, `availability.error`, `locale.changed` with context payloads.
-  - [ ] Document events in analytics guide + update Plausible dashboard requirements.
-  - [ ] Add hero availability QA steps to scaffold checklist.
-  - [ ] Verify `AvailabilityService` logs warnings on API failures.
+  - [x] Emit `availability.loaded`, `availability.error`, `locale.changed` with context payloads.
+  - [x] Document events in analytics guide + update Plausible dashboard requirements.
+  - [x] Add hero availability QA steps to scaffold checklist.
+  - [x] Verify `AvailabilityService` logs warnings on API failures. *(Warning emitted on provider exceptions; confirmed in code review.)*
 
 ## Track E — Documentation & Ops Alignment
 - **Objective**: Provide operational clarity and track dependencies.
@@ -76,7 +75,7 @@ _Status: Draft for execution_
   - `docs/plans/phase0_alignment_research_brief.md` (update checklist once workshops/API discovery scheduled)
   - `docs/plans/master_todo_roadmap.md` (progress notes after each track)
 - **Checklist**
-  - [ ] Document credential rotation, cache flush, alert thresholds.
+  - [x] Document credential rotation, cache flush, alert thresholds.
   - [ ] Link outstanding Ops actions (workshops, API discovery) with owners + due dates.
   - [ ] Record Track completions in roadmap for stakeholder visibility.
 
@@ -84,7 +83,6 @@ _Status: Draft for execution_
 - **API Access Delay**: Mitigate via mock provider; add TODO to swap to live adapter once credentials arrive.
 - **Performance Impact**: Throttle polling and reuse cached response to limit load.
 - **Localization Gap**: Coordinate with language vendor; fallback copy in English until translations approved.
-
 ## Communication Plan
 - Weekly sync to demo Track progress.
 - Update master roadmap with status per track.

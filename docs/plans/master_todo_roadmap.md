@@ -57,6 +57,12 @@ _Date: 2025-10-01_
 - **Success Criteria**
   - Availability badge updates at configurable intervals and logs failures.
   - Language toggle persists user preference (session/cookie) and refreshes translations without full-page reload issues.
+- **Status Update (2025-10-01)**
+  - Track A (Data Layer): ✅ Implemented mock provider, caching, rate limiting, and runbook. Next: swap to live adapter when Ops delivers credentials.
+  - Track B (Hero UI): ✅ Badge renders with aria-live, analytics, and styling. Follow-up: consider exponential backoff for polling and run manual stale-data QA.
+  - Track C (Localization): ✅ Locale dropdown, middleware persistence, hero translations. Follow-up: add `LocaleSwitchTest` feature coverage and complete screen-reader QA notes.
+  - Track D (Analytics/Observability): ✅ `availability.*` + `locale.changed` events emit via `resources/js/modules/analytics.js`; documented in `docs/analytics.md`.
+  - Track E (Docs/Ops): ✅ Availability runbook authored. Follow-ups assigned to Ops (Mei Ling) to schedule booking API discovery and stakeholder workshop by 2025-10-08; Engineering (Jason Tan) to backfill owners/dates in `docs/plans/phase0_alignment_research_brief.md`.
 
 ## Phase 3 – Immersive Virtual Tour & Media Storytelling (Weeks 3–4)
 - **Objectives**
