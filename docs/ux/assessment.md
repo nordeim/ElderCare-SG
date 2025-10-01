@@ -55,8 +55,9 @@ _Date: 2025-10-01_
 ## 8. Implementation Checklist
 - [ ] Wireframe review & approval.
 - [ ] Copywriting sign-off in both languages.
-- [ ] Alpine store & component scaffolding created.
-- [ ] Persona mapping unit tests for `AssessmentService`.
+- [x] Alpine store & component scaffolding created. *(2025-10-01)*
+- [x] Persona mapping unit tests for `AssessmentService`. *(2025-10-01)*
+- [x] Backend logging endpoint wired via `/assessment-insights`. *(2025-10-01)*
 - [ ] Accessibility audit (axe CLI) on assessment modal.
 - [ ] Analytics event QA with Plausible.
 

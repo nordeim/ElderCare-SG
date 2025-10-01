@@ -217,4 +217,9 @@ return [
     'analytics' => [
         'event_namespace' => 'assessment',
     ],
+    'submission' => [
+        'pending' => 'Saving your preferences…',
+        'success' => 'Thank you! A care advisor can now tailor their follow-up.',
+        'error' => 'Something went wrong while saving your responses.',
+    ],
 ];

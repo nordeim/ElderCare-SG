@@ -217,4 +217,9 @@ return [
     'analytics' => [
         'event_namespace' => 'assessment',
     ],
+    'submission' => [
+        'pending' => '正在储存您的偏好…',
+        'success' => '谢谢！照护顾问将依据您的需求安排后续联系。',
+        'error' => '储存回答时发生问题。',
+    ],
 ];

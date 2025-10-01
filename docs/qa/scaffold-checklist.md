@@ -10,6 +10,8 @@
 - [ ] Hero video provides captions fallback (verify poster file present).
 - [ ] Testimonials carousel initializes without console errors when Embla assets load.
 - [ ] Footer newsletter form includes accessible labels and aria-live messaging.
+- [ ] Guided assessment modal trap focus, announces progress, and allows Escape closure.
+- [ ] Assessment summary reflects persona-driven CTA text and displays submission status messaging.
 
 ## Performance
 - [ ] Lighthouse desktop score ≥ 85 (baseline before optimization). *(Pending — script executes `lhci` but requires Lighthouse to be installed; rerun after review)*
@@ -19,6 +21,7 @@
 - [ ] Programs seeded with correct highlights and display order.
 - [ ] Testimonials seeded with author metadata and featured flag.
 - [ ] Newsletter form logs fallback when Mailchimp credentials absent.
+- [ ] `/assessment-insights` endpoint logs segment and answers payload without sensitive data exposure.
 
 ## Logging & Services
 - [ ] `storage/logs/laravel.log` captures booking CTA events via `BookingService`.
