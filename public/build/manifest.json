@@ -1,0 +1,33 @@
+{
+  "node_modules/axios/index.js": {
+    "file": "assets/index-B0yp3bM1.js",
+    "name": "index",
+    "src": "node_modules/axios/index.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/embla-carousel/esm/embla-carousel.esm.js": {
+    "file": "assets/embla-carousel.esm-DIhUnPYQ.js",
+    "name": "embla-carousel.esm",
+    "src": "node_modules/embla-carousel/esm/embla-carousel.esm.js",
+    "isDynamicEntry": true
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-DoGMOtJG.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-OcTEbBhW.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/axios/index.js",
+      "node_modules/embla-carousel/esm/embla-carousel.esm.js",
+      "node_modules/axios/index.js"
+    ]
+  }
+}
