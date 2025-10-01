@@ -33,9 +33,14 @@ Illuminate\Foundation\Http\Middleware\CompressResponse` or reverse proxy config)
 
 ## Next Performance Experiments
 - Evaluate splitting `app.js` bundle by lazy importing Alpine stores (e.g. cost estimator, tour) and ensure globals remain accessible.
-- Integrate `rollup-plugin-visualizer` (or `vite-plugin-visualizer`) to generate bundle treemaps since `vite build --analyze` is unavailable.
+- Integrate `rollup-plugin-visualizer` (or `vite-plugin-visualizer`) to generate bundle treemaps since `vite build --analyze` is unavailable. *(Current npm registry mirror rejected `vite-plugin-visualizer`; consider alternative mirrors or manual Rollup config when access permits.)*
 - Run `npx source-map-explorer public/build/assets/app-*.js` with `--html` after adjusting Vite sourcemap options; note current attempt fails due to `generated column Infinity` in Vite map.
 - Collect Chrome Performance trace focusing on `#programs` section layout to identify expensive selectors or repeated DOM measurements.
+
+### Visualizer Usage
+1. Run `npm run build` to regenerate bundles and `stats.html`.
+2. Open `stats.html` in a browser to inspect module treemap (gzip/brotli sizes included).
+3. For deterministic CI checks, consider adding a script that runs `npm run build` with `visualizer({ open: false })` and verifies the existence/size of `stats.html`; fail the job if the file is missing or empty.
 
 ## Prioritized Follow-ups
 - **Caching**: Complete steps above so CDN/browser warnings clear and bandwidth drops.
