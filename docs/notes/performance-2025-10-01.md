@@ -32,6 +32,11 @@ Illuminate\Foundation\Http\Middleware\CompressResponse` or reverse proxy config)
 1. Update web server or Laravel `app/Http/Middleware` to set immutable cache headers for `public/build/*` while keeping short TTL for HTML responses.
 2. Enable gzip/brotli at the reverse proxy (e.g., Nginx `gzip on;` / `brotli on;`) and verify via `curl -I --compressed` that compression is served.
 3. After compression is live, add `<link rel="preload">` hints for the hashed CSS/JS bundles in `resources/views/layouts/app.blade.php` to maintain performance budgets.
+4. If middleware-based, create `app/Http/Middleware/CacheImmutableAssets.php` to detect hashed filenames (regex `/build\/.*\.[a-f0-9]{8}\.(css|js)$/`) and apply headers.
+5. Register middleware alias in `app/Http/Kernel.php` (e.g., `'cache.assets'`) and attach to `routes/web.php` via group wrapping the asset-serving route in production.
+6. For Laravel Vapor/Forge setups, ensure `public/.htaccess` or server config mirrors the same headers to avoid divergence between local and production.
+7. Validate headers locally with `curl -I http://localhost/build/assets/app-*.js` and confirm `Cache-Control` and `content-encoding` responses match expectations.
+    - Note: `php artisan serve` bypasses middleware for static files, so use a real web server (Valet/Nginx/Apache) when validating locally.
 
 ## Next Performance Experiments
 - Evaluate splitting `app.js` bundle by lazy importing Alpine stores (e.g. cost estimator, tour) and ensure globals remain accessible.

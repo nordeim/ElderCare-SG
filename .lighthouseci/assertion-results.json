@@ -17,9 +17,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.62,
+    "actual": 0.6,
     "values": [
-      0.62
+      0.6
     ],
     "operator": ">=",
     "passed": false,
@@ -32,24 +32,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.5,
+    "actual": 0.4,
     "values": [
-      0.5
-    ],
-    "operator": ">=",
-    "passed": false,
-    "auditId": "mainthread-work-breakdown",
-    "level": "warn",
-    "url": "http://localhost:8000/",
-    "auditTitle": "Minimize main-thread work",
-    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/mainthread-work-breakdown/"
-  },
-  {
-    "name": "minScore",
-    "expected": 0.9,
-    "actual": 0.88,
-    "values": [
-      0.88
+      0.4
     ],
     "operator": ">=",
     "passed": false,
@@ -58,5 +43,20 @@
     "url": "http://localhost:8000/",
     "auditTitle": "Max Potential First Input Delay",
     "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/lighthouse-max-potential-fid/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.89,
+    "values": [
+      0.89
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditId": "speed-index",
+    "level": "warn",
+    "url": "http://localhost:8000/",
+    "auditTitle": "Speed Index",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/speed-index/"
   }
 ]
