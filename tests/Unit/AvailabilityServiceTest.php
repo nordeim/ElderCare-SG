@@ -27,7 +27,7 @@ class AvailabilityServiceTest extends TestCase
 
     public function test_refresh_caches_and_returns_slots(): void
     {
-        CarbonImmutable::setTestNow('2025-10-01 08:00:00', 'Asia/Singapore');
+        CarbonImmutable::setTestNow(CarbonImmutable::parse('2025-10-01 08:00:00', 'Asia/Singapore'));
 
         $provider = new class implements AvailabilityProvider {
             public function fetch(): array
@@ -51,7 +51,8 @@ class AvailabilityServiceTest extends TestCase
             cacheKey: 'availability.test',
             cacheTtl: 300,
             staleAfter: 600,
-            fallbackMessage: 'Fallback message'
+            fallbackMessage: 'Fallback message',
+            timezone: 'Asia/Singapore'
         );
 
         $result = $service->refresh();
@@ -86,7 +87,8 @@ class AvailabilityServiceTest extends TestCase
             cacheKey: 'availability.failure',
             cacheTtl: 300,
             staleAfter: 600,
-            fallbackMessage: 'Fallback message'
+            fallbackMessage: 'Fallback message',
+            timezone: 'Asia/Singapore'
         );
 
         $result = $service->refresh();
@@ -99,7 +101,7 @@ class AvailabilityServiceTest extends TestCase
 
     public function test_is_stale_detects_outdated_payload(): void
     {
-        CarbonImmutable::setTestNow('2025-10-01 12:00:00', 'Asia/Singapore');
+        CarbonImmutable::setTestNow(CarbonImmutable::parse('2025-10-01 12:00:00', 'Asia/Singapore'));
 
         $provider = new class implements AvailabilityProvider {
             public function fetch(): array
@@ -116,10 +118,11 @@ class AvailabilityServiceTest extends TestCase
             cacheKey: 'availability.stale',
             cacheTtl: 60,
             staleAfter: 120,
-            fallbackMessage: 'Fallback message'
+            fallbackMessage: 'Fallback message',
+            timezone: 'Asia/Singapore'
         );
 
         $this->assertTrue($service->isStale('2025-10-01T11:57:59+08:00'));
-        $this->assertFalse($service->isStale('2025-10-01T11:59:30+08:00'));
+        $this->assertFalse($service->isStale('2025-10-01T11:58:01+08:00'));
     }
 }

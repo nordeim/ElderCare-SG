@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomeController::class);
 Route::post('/newsletter', NewsletterController::class)->name('newsletter.subscribe');
 Route::post('/assessment-insights', AssessmentController::class)->name('assessment.submit');
-Route::get('/api/availability', AvailabilityController::class)->name('availability.index');
+Route::get('/api/availability', AvailabilityController::class)
+    ->middleware('throttle:availability')
+    ->name('availability.index');
 Route::get('/healthz', function () {
     return response()->json(['status' => 'ok']);
 });

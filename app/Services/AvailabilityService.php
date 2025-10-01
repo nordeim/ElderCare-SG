@@ -16,7 +16,8 @@ class AvailabilityService
         protected string $cacheKey,
         protected int $cacheTtl,
         protected int $staleAfter,
-        protected string $fallbackMessage
+        protected string $fallbackMessage,
+        protected string $timezone
     ) {
         $this->cacheTtl = max(60, $this->cacheTtl);
         $this->staleAfter = max($this->cacheTtl, $this->staleAfter);
@@ -41,10 +42,11 @@ class AvailabilityService
     {
         try {
             $response = $this->provider->fetch();
+            $now = CarbonImmutable::now($this->timezone);
             $payload = [
                 'status' => $response['status'] ?? 'ok',
                 'slots' => $this->normalizeSlots($response['slots'] ?? []),
-                'updated_at' => $response['updated_at'] ?? CarbonImmutable::now('Asia/Singapore')->toIso8601String(),
+                'updated_at' => $response['updated_at'] ?? $now->toIso8601String(),
             ];
 
             $this->cache->put($this->cacheKey, $payload, $this->cacheTtl);
@@ -71,9 +73,12 @@ class AvailabilityService
             return true;
         }
 
-        $updatedAt = CarbonImmutable::parse($timestamp);
+        $now = CarbonImmutable::now($this->timezone);
+        $updatedAt = CarbonImmutable::parse($timestamp)->setTimezone($this->timezone);
 
-        return $updatedAt->addSeconds($this->staleAfter)->isPast();
+        $elapsed = $updatedAt->diffInRealSeconds($now, false);
+
+        return $elapsed > $this->staleAfter;
     }
 
     protected function normalizeSlots(array $slots): array
