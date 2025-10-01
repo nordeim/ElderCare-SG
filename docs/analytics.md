@@ -32,6 +32,15 @@ Events dispatch via `assessment.js` emitter and relay to Plausible automatically
   - Payload: `{ locale: 'en'|'zh' }`
   - Track adoption to prioritize content workflows.
 
+### Virtual Tour
+- **`tour.open`** — Virtual tour modal opened from hero section.
+  - Payload: `{ hotspotId: string|null, totalHotspots: number }`
+- **`tour.hotspot`** — User focused or activated a hotspot.
+  - Payload: `{ hotspotId: string, totalVisited: number, totalHotspots: number }`
+- **`tour.complete`** — User explored all hotspots in the session.
+  - Payload: `{ totalHotspots: number }`
+- **Goals**: Track engagement funnel (open → hotspots → completion) and prioritize hotspot content updates. Configure Plausible custom goals for each event name.
+
 ### Newsletter
 - **`newsletter.submit`** — Fired from `NewsletterController` upon POST.
   - Payload: `{ status: 'success'|'fallback', emailDomain: string }`
@@ -46,6 +55,7 @@ Events dispatch via `assessment.js` emitter and relay to Plausible automatically
   - `assessment.complete` → Conversion to persona recommendations.
   - `availability.loaded` → Node-time series to monitor slot health.
   - `locale.changed` → Localization adoption rate.
+  - `tour.open`, `tour.hotspot`, `tour.complete` → Tour engagement pipeline.
 - **Alerting**
   - Set alerts for `availability.error` spikes and `assessment.complete` drops >30% week-over-week.
 

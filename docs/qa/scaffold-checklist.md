@@ -16,6 +16,10 @@
 - [ ] Programs section shows "Personalized highlights" panel aligned with selected segment.
 - [ ] Availability badge announces status via aria-live and refresh button toggles politely.
 - [ ] Locale switcher dropdown operates with keyboard, focus management, and announces current language.
+- [ ] Virtual tour modal traps focus, supports Escape to close, and restores focus to trigger button.
+- [ ] Hotspot list supports keyboard navigation (arrow keys) and announces active state.
+- [ ] Each hotspot reveals media with transcript link and captions (verify video track available).
+- [ ] Staff carousel cards are focusable, images include alt text, and carousel navigation remains accessible.
 
 ## Performance
 - [ ] Lighthouse desktop score ≥ 85 (baseline before optimization). *(Pending — script executes `lhci` but requires Lighthouse to be installed; rerun after review)*
