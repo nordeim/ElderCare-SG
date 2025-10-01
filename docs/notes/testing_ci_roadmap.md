@@ -11,7 +11,10 @@ _Last updated: 2025-10-01_
   1. Install dev dependencies: `npm install -D vitest jsdom @testing-library/dom`.
   2. Create `vitest.config.ts` enabling `jsdom`, aliasing to `resources/js` if needed.
   3. Author `resources/js/tests/cost-estimator.spec.ts` covering calculation helpers (e.g., `totalMonthly`, `subsidySavings`) and analytics emission toggles via mocked emitters.
-  4. Add npm script (`"test:js": "vitest"`) and consider running it in CI once stable.
+  4. Add npm scripts:
+     - `npm run test:js` → `vitest run --reporter=dot`
+     - `npm run test:js:watch` → `vitest`
+     - `npm run test:playwright:serve` (see below) for one-shot analytics smoke with auto-serve.
 - **Open questions**:
   - Confirm appetite for maintaining duplicated logic vs. relying on Playwright + Laravel feature coverage.
   - Determine desired coverage thresholds.
@@ -26,7 +29,7 @@ _Last updated: 2025-10-01_
   1. Install dependencies (`composer install --no-interaction`, `npm ci`). Cache `vendor/`, `node_modules/`, and Playwright browsers.
   2. Run `php artisan test`.
   3. Build assets once (`npm run build`) for downstream steps.
-  4. Start Laravel app (e.g., `php artisan serve --host=127.0.0.1 --port=8080`) in background; execute `npm run test:playwright` pointing `PLAYWRIGHT_BASE_URL` to the serve host.
+  4. Start Laravel app (e.g., `php artisan serve --host=127.0.0.1 --port=8000`) in background; execute `npm run test:playwright` pointing `PLAYWRIGHT_BASE_URL` to the serve host. Locally or in CI you can use the helper script `npm run test:playwright:serve`, which waits for the server and tears it down automatically.
   5. Execute `npm run lint:accessibility` (reusing the running server) or run in separate job to shorten sequential wall time.
   6. Run `npm run lighthouse` (optional nightly to keep CI fast, or gated via workflow dispatch).
   7. Collect artifacts: Playwright traces (`playwright-report/`), LHCI HTML report (`.lighthouseci/`), axe logs.

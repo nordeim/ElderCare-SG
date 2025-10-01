@@ -9,6 +9,7 @@
         "lint:accessibility": "concurrently -k -s first \"php artisan serve --host=127.0.0.1 --port=8081 --no-reload\" \"wait-on http://127.0.0.1:8081 && axe http://127.0.0.1:8081 --exit --load-delay 2000\"",
         "lighthouse": "lhci autorun",
         "test:playwright": "playwright test",
+        "test:playwright:serve": "concurrently -k -s first \"php artisan serve --host=127.0.0.1 --port=8000\" \"wait-on http://127.0.0.1:8000 && PLAYWRIGHT_BASE_URL=http://127.0.0.1:8000 playwright test\"",
         "test:js": "vitest run --reporter=dot",
         "test:js:watch": "vitest"
     },
