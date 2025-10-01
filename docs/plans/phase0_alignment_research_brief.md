@@ -86,10 +86,10 @@ See detailed tracker in `docs/plans/asset_inventory.md` for owners, due dates, a
 - **Ongoing**: Weekly sync to monitor asset collection and dependency status.
 
 ## 9. Next Steps Checklist
-- [ ] Schedule stakeholder workshops (Product, Clinical, Care Ops, Creative, Localization, Engineering).
+- [ ] Schedule stakeholder workshops (Product, Clinical, Care Ops, Creative, Localization, Engineering). *(Owner: Mei Ling — Due: 2025-10-08)*
 - [x] Compile existing assets into shared drive; link references here. *(2025-10-01 via `docs/plans/asset_inventory.md`)*
 - [x] Draft initial assessment questionnaire outline for review. *(2025-10-01 via `docs/ux/assessment.md`)*
-- [ ] Initiate booking API discovery with provider (auth, rate limits, formats).
+- [ ] Initiate booking API discovery with provider (auth, rate limits, formats). *(Owner: Mei Ling w/ Jason Tan support — Due: 2025-10-08)*
 - [x] Document analytics event taxonomy draft for approval. *(2025-10-01 via `docs/architecture/data-integrations.md` & `docs/ux/assessment.md`)*
 
 ---
