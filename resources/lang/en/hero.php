@@ -22,5 +22,9 @@ return [
         'detail_loading' => 'Hang tight while we fetch the latest visit openings.',
         'detail_error' => "We're retrying the scheduling service.",
         'detail_fallback' => 'We will confirm availability within 24 hours.',
+        'summary' => ':total :slot_word in the next :days days.',
+        'summary_with_time' => ':total :slot_word in the next :days days — updated :time',
+        'slot_single' => 'slot',
+        'slot_plural' => 'slots',
     ],
 ];

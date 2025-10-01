@@ -1,13 +1,13 @@
 @props([
-    'headline' => 'Compassionate daycare for your loved ones',
-    'subheadline' => 'Experience Singapore’s warmest daytime sanctuary with programs tailored to every senior’s needs.',
+    'headline' => __('hero.headline'),
+    'subheadline' => __('hero.subheadline'),
     'primaryCta' => [
         'href' => '#booking',
-        'label' => 'Book a visit',
+        'label' => __('hero.primary_cta.label'),
     ],
     'secondaryCta' => [
         'href' => '#tour',
-        'label' => 'Watch virtual tour',
+        'label' => __('hero.secondary_cta.label'),
     ],
 ])
 
@@ -40,8 +40,8 @@
                 <div class="availability-badge w-full flex-wrap rounded-2xl border border-white/30 bg-white/10 p-4 text-left sm:w-auto sm:flex-nowrap" role="status" aria-live="polite">
                     <span class="availability-indicator" :class="availability?.indicatorClass" aria-hidden="true"></span>
                     <div class="flex min-w-0 flex-1 flex-col">
-                        <span class="text-sm font-semibold" x-text="availability?.statusLabel ?? 'Checking availability…'"></span>
-                        <span class="text-xs text-white/80" x-text="availability?.statusDetail ?? 'Hang tight while we fetch the latest visit openings.'"></span>
+                        <span class="text-sm font-semibold" x-text="availability?.statusLabel ?? @js(__('hero.availability.loading'))"></span>
+                        <span class="text-xs text-white/80" x-text="availability?.statusDetail ?? @js(__('hero.availability.detail_loading'))"></span>
                     </div>
                     <button
                         type="button"
@@ -77,3 +77,31 @@
         </div>
     </div>
 </section>
+
+@php($availabilityMessages = [
+    'status' => [
+        'loading' => __('hero.availability.loading'),
+        'error' => __('hero.availability.error'),
+        'fallback' => __('hero.availability.fallback'),
+        'high' => __('hero.availability.high'),
+        'medium' => __('hero.availability.medium'),
+        'low' => __('hero.availability.low'),
+        'none' => __('hero.availability.none'),
+    ],
+    'detail' => [
+        'loading' => __('hero.availability.detail_loading'),
+        'error' => __('hero.availability.detail_error'),
+        'fallback' => __('hero.availability.detail_fallback'),
+        'summary' => __('hero.availability.summary'),
+        'summary_with_time' => __('hero.availability.summary_with_time'),
+        'slot_single' => __('hero.availability.slot_single'),
+        'slot_plural' => __('hero.availability.slot_plural'),
+    ],
+])
+
+@push('scripts')
+    <script>
+        window.eldercare = window.eldercare || {};
+        window.eldercare.availabilityMessages = @json($availabilityMessages);
+    </script>
+@endpush
