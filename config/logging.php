@@ -123,6 +123,13 @@ return [
             'handler' => NullHandler::class,
         ],
 
+        'analytics' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/analytics.log'),
+            'level' => env('LOG_ANALYTICS_LEVEL', 'info'),
+            'tap' => [App\Logging\Formatters\AnalyticsFormatter::class],
+        ],
+
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],

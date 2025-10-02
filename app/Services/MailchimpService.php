@@ -14,7 +14,7 @@ class MailchimpService
         $config = config('services.mailchimp');
 
         if (! $config['key'] ?? null || ! $config['list_id'] ?? null) {
-            Log::warning('Mailchimp disabled: missing configuration.', [
+            Log::channel('analytics')->warning('Mailchimp disabled: missing configuration.', [
                 'email' => $this->maskEmail($email),
             ]);
 
@@ -26,7 +26,7 @@ class MailchimpService
 
             $response = Http::withBasicAuth('anystring', $config['key'])
                 ->retry(3, 200, function ($exception) use ($attemptId, $email) {
-                    Log::warning('Mailchimp retry due to transport error.', [
+                    Log::channel('analytics')->warning('Mailchimp retry due to transport error.', [
                         'attempt_id' => $attemptId,
                         'email' => $this->maskEmail($email),
                         'exception' => $exception?->getMessage(),
@@ -40,7 +40,7 @@ class MailchimpService
                 ]);
 
             if ($response->successful()) {
-                Log::info('Mailchimp subscription success.', [
+                Log::channel('analytics')->info('Mailchimp subscription success.', [
                     'attempt_id' => $attemptId,
                     'email' => $this->maskEmail($email),
                     'status' => $response->status(),
@@ -53,7 +53,7 @@ class MailchimpService
                 return true;
             }
 
-            Log::warning('Mailchimp subscription failed.', [
+            Log::channel('analytics')->warning('Mailchimp subscription failed.', [
                 'attempt_id' => $attemptId,
                 'email' => $this->maskEmail($email),
                 'status' => $response->status(),
@@ -64,7 +64,7 @@ class MailchimpService
                 'status' => $response->status(),
             ]);
         } catch (\Throwable $exception) {
-            Log::error('Mailchimp subscription error.', [
+            Log::channel('analytics')->error('Mailchimp subscription error.', [
                 'email' => $this->maskEmail($email),
                 'message' => $exception->getMessage(),
             ]);

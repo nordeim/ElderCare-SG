@@ -22,7 +22,7 @@ class BookingService
             'request_id' => (string) Str::uuid(),
         ];
 
-        Log::info('Booking CTA engaged', $payload);
+        Log::channel('analytics')->info('Booking CTA engaged', $payload);
 
         session()->flash('analytics.events.booking', [
             'name' => 'booking.click',
