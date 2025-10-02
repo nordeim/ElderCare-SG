@@ -1,21 +1,35 @@
-### Production Deployments (Docker Compose)
-
-For containerized production releases:
-
-1. Populate secrets in `.env.production` (APP_KEY, database credentials, Plausible keys, etc.).
-2. Build assets locally or in CI so `public/` contains the hashed bundles (`npm run build`).
-3. Run the production stack:
-   ```bash
-   docker compose -f docker-compose-production.yml up -d
-   ```
-   This launches PHP-FPM (`app`), Nginx (`nginx`), and supporting services using `.env.production`. Static assets are mounted read-only into both containers, and health checks monitor `/healthz`.
-
-> **Note:** `docker-compose-production.yml` is intended for parity environments. Inject secrets via your CI/CD pipeline rather than committing them to Git.
 # 👵 ElderCare SG — Compassionate Elderly Daycare Platform
+
+[![QA Pipeline](https://github.com/nordeim/ElderCare-SG/actions/workflows/qa-ci.yml/badge.svg)](https://github.com/nordeim/ElderCare-SG/actions/workflows/qa-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+[![PHP](https://img.shields.io/badge/php-8.3-blue.svg)](https://www.php.net/)
+[![Node.js](https://img.shields.io/badge/node-20-brightgreen.svg)](https://nodejs.org/)
+[![Docker](https://img.shields.io/badge/docker-%20%20%20%20%20%20%20%20%20%20%235DA121.svg)](https://www.docker.com/)
 
 Where compassionate care meets modern comfort for every family.
 
-ElderCare SG is a modern, accessible, and emotionally thoughtful web platform designed for families in Singapore seeking trusted elderly daycare services. Built with Laravel, TailwindCSS, and a design-first approach, it aims to provide a seamless and reassuring digital experience.
+ElderCare SG is a modern, accessible, and emotionally thoughtful web platform designed for families in Singapore seeking trusted elderly daycare services. Built with Laravel, TailwindCSS, and a design[...]
+
+---
+
+Table of Contents
+- [Vision & Mission](#-vision--mission)
+- [Getting Started](#-getting-started)
+  - [Recommended Workflow (Docker)](#recommended-workflow-docker)
+  - [Alternative Workflow (Local Environment)](#alternative-workflow-local-environment)
+- [Production Deployments (Docker Compose)](#production-deployments-docker-compose)
+- [Project Architecture & Stack](#-project-architecture--stack)
+  - [Technology Stack](#technology-stack)
+  - [High-Level Architecture](#high-level-architecture)
+  - [Key File Structure](#key-file-structure)
+  - [Core Application Flows](#core-application-flows)
+- [Design-First Experience](#-design-first-experience)
+- [Developer Tooling](#-developer-tooling)
+- [Quality Assurance & Testing](#-quality-assurance--testing)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Phase Progress Highlights](#-phase-progress-highlights)
+- [Suggested roadmap](#-suggested-roadmap)
 
 ---
 
@@ -36,7 +50,6 @@ This project is designed to run in a Docker container, managed by a simple `Make
 ### Recommended Workflow (Docker)
 
 This is the simplest and most reliable way to get the application running.
-
 
 The application will be available at [http://localhost:8000](http://localhost:8000).
 
@@ -63,6 +76,22 @@ If you have a local PHP and Node.js environment, you can run the application man
     npm run build
     php artisan serve
     ```
+
+---
+
+### Production Deployments (Docker Compose)
+
+For containerized production releases:
+
+1. Populate secrets in `.env.production` (APP_KEY, database credentials, Plausible keys, etc.).
+2. Build assets locally or in CI so `public/` contains the hashed bundles (`npm run build`).
+3. Run the production stack:
+   ```bash
+   docker compose -f docker-compose-production.yml up -d
+   ```
+   This launches PHP-FPM (`app`), Nginx (`nginx`), and supporting services using `.env.production`. Static assets are mounted read-only into both containers, and health checks monitor `/healthz`.
+
+> **Note:** `docker-compose-production.yml` is intended for parity environments. Inject secrets via your CI/CD pipeline rather than committing them to Git.
 
 ---
 
@@ -112,7 +141,9 @@ graph TD
 | `docker-compose.yml` | Defines the services, networks, and volumes for the Docker environment. |
 | `Makefile` | Provides convenient shortcuts for common Docker and Artisan commands. |
 
-### Core Application Flows
+---
+
+## Core Application Flows
 
 #### Homepage Request Flow
 ```mermaid
@@ -204,7 +235,7 @@ The `Makefile` provides shortcuts for common development tasks.
 ### Automated Test Suite
 - **PHPUnit (Phase 6 focus)**: `php artisan test --group=phase6` covers Mailchimp retries, booking analytics, and resource hub CTA fallbacks (`tests/Feature/*`).
 - **Vitest**: `npm run test:js` validates Alpine stores and analytics dispatch logic.
-- **Playwright smoke**: `npm run test:playwright:ci` boots a local server and verifies analytics events triggered across estimator, FAQ, resources, and prompts (`tests/analytics.spec.ts`). Reports land in `storage/app/playwright-report/`.
+- **Playwright smoke**: `npm run test:playwright:ci` boots a local server and verifies analytics events triggered across estimator, FAQ, resources, and prompts (`tests/analytics.spec.ts`). Reports lan[...]
 - **Accessibility audit**: `npm run lint:accessibility` runs axe-core against the dev server via `concurrently`.
 - **Lighthouse CI**: `npm run lighthouse:ci` executes the configuration in `lighthouserc.json`; artifacts saved to `storage/app/lighthouse/`.
 
@@ -233,7 +264,7 @@ MIT License © 2025 Nordeim
 ## 📈 Phase Progress Highlights
 
 - **Phase 5 – Design System & Component Docs**: Semantic Tailwind tokens and fluid typography shipped (`tailwind.config.js`, `resources/css/app.css`); `docs/components.md` catalog component usage.
-- **Phase 6 – Data & Integration Hardening**: Seeders enriched, analytics logging routed through dedicated `analytics` channel, Plausible goals wired, and validation docs/tests added (`docs/ops/validation_checklist.md`, `tests/Feature/ResourceDownloadTest.php`).
+- **Phase 6 – Data & Integration Hardening**: Seeders enriched, analytics logging routed through dedicated `analytics` channel, Plausible goals wired, and validation docs/tests added (`docs/ops/vali[...]
 - **Phase 7 – QA Automation & Launch Readiness**: GitHub Actions pipeline, Playwright smoke, and launch checklist established; QA documentation refreshed (`docs/qa/launch-checklist.md`).
 
 ---
@@ -247,3 +278,5 @@ Grounded in `Understanding_Project_Requirements.md`, the next opportunities incl
 - **Phase 10 – Performance Remediation**: Address Lighthouse warnings (FCP/LCP/CLS, console errors) via caching, bundle splitting, and layout optimization.
 - **Phase 11 – Localization & Accessibility Depth**: Expand language support (Malay/Tamil), conduct assistive tech regression tests, and document ARIA patterns.
 - **Phase 12 – Launch & Post-Launch Analytics**: Finalize go-live playbook, enable feature flags for staged rollout, and set up weekly analytics cadence.
+
+---
