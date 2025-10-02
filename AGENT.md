@@ -190,20 +190,20 @@ make npm-dev
 ## Testing Strategy
 
 **Test Types:**
-- PHPUnit for backend logic (Unit & Feature tests).
-- Vitest for JavaScript/Alpine.js components.
-- Playwright for end-to-end browser testing.
-- Accessibility tests with `axe-core` via an npm script.
+- **PHPUnit:** For backend unit and feature tests.
+- **Vitest:** For JavaScript and Alpine.js component tests.
+- **Playwright:** For end-to-end browser and visual regression testing.
+- **axe-core:** For automated accessibility checks, run via npm scripts.
 
 **Running Tests:**
 ```bash
 # Full PHPUnit test suite
 make test
 
-# Specific test file
+# Specific PHPUnit test file
 make artisan ARGS="test tests/Feature/HomePageTest.php"
 
-# Run JavaScript tests
+# Run all JavaScript tests
 make npm-test-js
 ```
 
@@ -285,19 +285,16 @@ make artisan ARGS="cache:clear && config:clear && view:clear && route:clear"
 - **Phase 7 (QA Automation):** Implement GitHub Actions for automated testing and linting.
 - **Phase 6 (Data Hardening):** Expand seeders and harden integrations.
 
-## Security Considerations
+## Security Measures
+- **Input Validation:** All incoming data is validated via dedicated Form Request classes.
+- **CSRF Protection:** Laravel's built-in CSRF protection is enabled on all web routes.
+- **SQL Injection Prevention:** The use of the Eloquent ORM and parameterized queries prevents SQL injection.
+- **XSS Protection:** Blade's `{{ }}` syntax automatically escapes output to prevent Cross-Site Scripting.
+- **Environment Variables:** Sensitive keys and configuration are stored in `.env` files and are not committed to version control.
 
-- Input validation is enforced via Form Requests.
-- CSRF protection is enabled by default.
-- SQL injection is prevented by using Eloquent ORM.
-- XSS is prevented by Blade's default escaping.
-- Environment variables are managed in `.env` files and are not committed to git.
-
-## Performance Optimization
-
-- Images are optimized and lazy-loaded where appropriate.
-- Assets are compiled and minified for production via Vite.
-- Database queries are optimized using eager loading.
-- Redis is used for caching frequently accessed data like availability.
-- CDN integration for static assets is planned.
+## Current Optimizations
+- **Asset Bundling:** All CSS and JS are compiled and minified for production using Vite.
+- **Caching:** Redis is used to cache frequently accessed data, such as the results from the `AvailabilityService`.
+- **Database Performance:** Eloquent queries are optimized with eager loading (`with()`) where appropriate to prevent N+1 problems.
+- **Lazy Loading:** Media assets in components like the virtual tour are lazy-loaded to improve initial page load times.
 
