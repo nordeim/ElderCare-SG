@@ -5,8 +5,10 @@ namespace Tests\Feature;
 use App\Models\Resource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\TestCase;
 
+#[Group('phase6')]
 class ResourceDownloadTest extends TestCase
 {
     use RefreshDatabase;

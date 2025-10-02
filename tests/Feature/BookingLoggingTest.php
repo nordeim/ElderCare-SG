@@ -6,8 +6,10 @@ use App\Services\BookingService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\TestCase;
 
+#[Group('phase6')]
 class BookingLoggingTest extends TestCase
 {
     protected function setUp(): void

@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use PHPUnit\Framework\Attributes\Group;
 use Tests\TestCase;
 
+#[Group('phase6')]
 class NewsletterSubscriptionTest extends TestCase
 {
     protected function setUp(): void

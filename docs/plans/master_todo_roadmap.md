@@ -125,9 +125,15 @@ _Date: 2025-10-01_
 - **Status Update (2025-10-02)**
   - ✅ Track A (Seeding): Schema migrations + seeders refreshed with pricing, capacity, language metadata; `php artisan migrate:fresh --seed` green.
   - ✅ Track B (Admin Readiness): `docs/ops/admin_readiness.md` published with roles, workflow, validation steps.
-  - ⏳ Track C (Integrations): Mailchimp/booking hardening plan pending implementation.
-  - ⏳ Track D (Analytics): Dashboard + logging runbook scheduled next.
-  - ⏳ Track E (Validation): Additional feature tests and QA documentation outstanding.
+  - ✅ Track C (Integrations): Mailchimp retry/logging hardened; booking analytics enriched with session events.
+  - ✅ Track D (Analytics): Plausible goals configured, analytics logger channel created, docs updated.
+  - ✅ Track E (Validation): Resource CTA tests added, validation checklist & Playwright coverage documented.
+
+## Phase 7 – QA Automation & Launch Readiness (Week 8)
+  - **Status Update (2025-10-02)**
+    - 🚧 CI workflow (`.github/workflows/qa-ci.yml`) added running grouped PHPUnit, axe, Lighthouse; Playwright CI scripts prepared.
+    - 🚧 Documentation refresh underway: validation checklist & QA scaffold updated; launch checklist in progress.
+    - ⚠ Performance budgets remain deferred pending backlog tickets; Lighthouse warnings tracked in `docs/notes/performance-2025-10-01.md`.
 
 ## Phase 7 – QA Automation & Launch Readiness (Week 8)
 - **Objectives**

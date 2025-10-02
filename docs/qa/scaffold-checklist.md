@@ -22,7 +22,7 @@
 - [ ] Staff carousel cards are focusable, images include alt text, and carousel navigation remains accessible.
 
 ## Performance
-- [ ] Lighthouse desktop score ≥ 85 (baseline before optimization). *(Pending — script executes `lhci` but requires Lighthouse to be installed; rerun after review)*
+- [ ] Lighthouse desktop score ≥ 85 (baseline before optimization). *(Current: 0.68 on 2025-10-02; backlog ticket open to improve FCP/LCP/CLS)*
 - [ ] Resolve hero/video asset fallbacks to avoid blocking media. *(2025-10-01 — fallback logic in place; monitor once final assets delivered)*
 - [ ] Improve FCP/LCP/TTI from latest run (FCP 3.83s, LCP/TTI 4.39s, MPFID 728ms, score 0.66). Focus areas: lazy-load hero media, defer non-critical Alpine stores, audit CSS layout cost.
 - [ ] Investigate main-thread style/layout cost (~1.05s) and script evaluation (~0.5s) highlighted in `localhost-_-2025_10_01_10_05_28.report.html`.
@@ -37,7 +37,7 @@
 - [ ] Newsletter form logs fallback when Mailchimp credentials absent.
 - [ ] `/assessment-insights` endpoint logs segment and answers payload without sensitive data exposure.
 - [ ] Plausible dashboard registers `assessment.complete` and `assessment.submitted` events with expected properties.
-- [ ] Playwright `npm run test:playwright` analytics smoke passes (captures `estimator.update`, `faq.expand`, `resource.download`, `assessment.prompt_click`).
+- [ ] Playwright `npm run test:playwright:ci` analytics smoke passes (captures `estimator.update`, `faq.expand`, `resource.download`, `assessment.prompt_click`).
 - [x] `php artisan test` feature coverage passes (`tests/Feature/CostEstimatorTest.php`, `tests/Feature/FaqEndpointTest.php`). *(2025-10-01)*
 - [x] `npm run test:js` Vitest suite covers `costEstimatorComponent` calculations and analytics emission. *(2025-10-01)*
 
@@ -46,8 +46,9 @@
 - [ ] Mailchimp service logs success/failure details with redaction of sensitive data.
 
 ## Follow-up Automation
-- [ ] Add axe-core automated audit to CI pipeline.
-- [ ] Configure Lighthouse CI GitHub Action.
+- [x] Add axe-core automated audit to CI pipeline. *(2025-10-02 via `qa-ci.yml` running `npm run lint:accessibility`)*
+- [x] Configure Lighthouse CI GitHub Action. *(2025-10-02 via `qa-ci.yml` running `npm run lighthouse:ci`)*
+- [ ] Capture Playwright visual baseline artifacts and publish to CI. *(Pending — baseline generation scheduled 2025-10-03)*
 - [x] Document manual QA results in this checklist after each run. *(2025-09-30)*
 
 ### Automation Plan Notes

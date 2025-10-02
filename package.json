@@ -8,7 +8,9 @@
         "dev:analyze": "ANALYTICS_DRIVER=plausible vite",
         "lint:accessibility": "concurrently -k -s first \"php artisan serve --host=127.0.0.1 --port=8081 --no-reload\" \"wait-on http://127.0.0.1:8081 && axe http://127.0.0.1:8081 --exit --load-delay 2000\"",
         "lighthouse": "lhci autorun",
+        "lighthouse:ci": "lhci autorun --preset=ci",
         "test:playwright": "playwright test",
+        "test:playwright:ci": "PLAYWRIGHT_HTML_REPORT=./storage/app/playwright-report concurrently -k -s first \"php artisan serve --host=127.0.0.1 --port=8000 --no-reload\" \"wait-on http://127.0.0.1:8000 && PLAYWRIGHT_BASE_URL=http://127.0.0.1:8000 playwright test\"",
         "test:playwright:serve": "concurrently -k -s first \"php artisan serve --host=127.0.0.1 --port=8000\" \"wait-on http://127.0.0.1:8000 && PLAYWRIGHT_BASE_URL=http://127.0.0.1:8000 playwright test\"",
         "test:js": "vitest run --reporter=dot",
         "test:js:watch": "vitest"

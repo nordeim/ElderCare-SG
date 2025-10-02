@@ -2,6 +2,21 @@
   {
     "name": "minScore",
     "expected": 0.9,
+    "actual": 0.84,
+    "values": [
+      0.84
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditId": "cumulative-layout-shift",
+    "level": "warn",
+    "url": "http://localhost:8000/",
+    "auditTitle": "Cumulative Layout Shift",
+    "auditDocumentationLink": "https://web.dev/articles/cls"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
     "actual": 0,
     "values": [
       0
@@ -17,9 +32,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.41,
+    "actual": 0.43,
     "values": [
-      0.41
+      0.43
     ],
     "operator": ">=",
     "passed": false,
@@ -32,9 +47,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.59,
+    "actual": 0.68,
     "values": [
-      0.59
+      0.68
     ],
     "operator": ">=",
     "passed": false,

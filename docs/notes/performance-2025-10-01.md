@@ -63,6 +63,11 @@ Illuminate\Foundation\Http\Middleware\CompressResponse` or reverse proxy config)
 - **Layout audit**: Use Chrome trace to refactor `#programs` grid and cost estimator DOM to trim ~1.8 s style/layout cost.
 - **Monitoring**: Automate Lighthouse + Axe in CI once performance budget stabilizes.
 
+## 2025-10-02 Lighthouse Snapshot
+- Performance score: 0.43 FCP (warn), 0.68 LCP (warn), CLS 0.84 (warn), main-thread work 0.5 (warn).
+- Console errors still detected (score 0). Need to re-check missing asset handlers.
+- Action: log warnings in backlog but defer remediation per Phase 7 guidance; CI now records reports under `storage/app/lighthouse`.
+
 ## Performance Backlog Snapshot (2025-10-01)
 - **High**: Implement immutable caching + gzip/brotli in production; run Chrome layout trace and ship DOM refinements for `#programs`.
 - **Medium**: Defer cost estimator/tour Alpine stores via dynamic import; integrate source-map analysis once sourcemap config fixed.

@@ -18,6 +18,8 @@
 /public/storage
 /storage/*.key
 /storage/pail
+/storage/app/lighthouse
+/storage/app/playwright-report
 /vendor
 /temp-laravel
 Homestead.json
