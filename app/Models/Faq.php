@@ -13,12 +13,17 @@ class Faq extends Model
         'question',
         'answer',
         'category',
+        'tags',
+        'audience',
+        'featured',
         'display_order',
         'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'tags' => 'array',
+        'featured' => 'boolean',
     ];
 
     public function scopeActive($query)

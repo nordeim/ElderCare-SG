@@ -17,11 +17,21 @@ class Program extends Model
         'description',
         'highlights',
         'display_order',
+        'monthly_rate',
+        'transport_fee',
+        'capacity_daily',
+        'availability_status',
+        'languages_supported',
+        'analytics_tag',
         'is_active',
     ];
 
     protected $casts = [
         'highlights' => 'array',
+        'monthly_rate' => 'decimal:2',
+        'transport_fee' => 'decimal:2',
+        'capacity_daily' => 'integer',
+        'languages_supported' => 'array',
         'is_active' => 'boolean',
     ];
 

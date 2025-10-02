@@ -13,13 +13,18 @@ class Resource extends Model
         'title',
         'slug',
         'description',
+        'resource_type',
         'file_path',
+        'external_url',
+        'preview_image',
         'persona_tag',
         'display_order',
+        'requires_login',
         'is_active',
     ];
 
     protected $casts = [
+        'requires_login' => 'boolean',
         'is_active' => 'boolean',
     ];
 
