@@ -6,7 +6,6 @@ use App\Services\BookingService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-use Mockery;
 use Tests\TestCase;
 
 class BookingLoggingTest extends TestCase
