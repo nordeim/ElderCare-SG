@@ -3,106 +3,181 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ElderCare SG</title>
-  <link rel="stylesheet" href="css/globals.css" />
+  <title>ElderCare SG - Static Mockup</title>
+  <link rel="stylesheet" href="resources/css/app.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <!-- Defer Alpine.js to prevent blocking render -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="font-body bg-slate-50 text-slate dark:text-white">
+<body class="bg-canvas font-body text-slate-dark antialiased">
 
   <!-- Header -->
-  <header class="sticky top-0 z-50 backdrop-blur-lg bg-white/70 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm">
+    <div class="mx-auto max-w-section px-6 py-4 flex justify-between items-center">
       <h1 class="font-heading text-2xl text-trust">ElderCare SG</h1>
-      <nav class="space-x-6 hidden md:block">
-        <a href="#programs" class="hover:underline">Programs</a>
-        <a href="#care" class="hover:underline">Our Philosophy</a>
-        <a href="#testimonials" class="hover:underline">Testimonials</a>
+      <nav class="space-x-6 hidden md:flex items-center">
+        <a href="#programs" class="hover:text-gold transition-colors">Programs</a>
+        <a href="#care" class="hover:text-gold transition-colors">Our Philosophy</a>
+        <a href="#testimonials" class="hover:text-gold transition-colors">Testimonials</a>
         <a href="#visit" class="cta-button">Book a Visit</a>
       </nav>
     </div>
   </header>
 
   <!-- Hero Section -->
-  <section class="relative h-[80vh] flex items-center justify-center text-center text-white bg-black">
-    <video autoplay muted loop playsinline class="absolute w-full h-full object-cover opacity-50">
-      <source src="media/hero.mp4" type="video/mp4" />
-    </video>
-    <div class="z-10 px-4">
-      <h2 class="text-4xl md:text-5xl font-heading mb-4">Where Compassion Meets Comfort</h2>
-      <p class="text-lg md:text-xl mb-6">Premier Daycare Services for Seniors in Singapore</p>
-      <a href="#visit" class="cta-button">Schedule a Tour</a>
+  <section
+    class="relative h-[80vh] flex items-center bg-trust text-white"
+    x-data="{ availability: null }"
+    x-init="
+        // Mock availability store for static demo
+        availability = {
+            isLoading: true,
+            indicatorClass: 'availability-indicator--loading',
+            statusLabel: 'Checking availability...',
+            statusDetail: 'Connecting to our booking system.',
+            refresh() {
+                this.isLoading = true;
+                this.indicatorClass = 'availability-indicator--loading';
+                this.statusLabel = 'Checking availability...';
+                setTimeout(() => {
+                    this.isLoading = false;
+                    this.indicatorClass = 'availability-indicator--high';
+                    this.statusLabel = 'Slots available this week';
+                    this.statusDetail = 'Last updated just now';
+                }, 1500);
+            }
+        };
+        setTimeout(() => availability.refresh(), 500);
+    "
+  >
+    <div class="absolute inset-0">
+        <img src="https://placehold.co/1920x1080/1c3d5a/f0a500?text=Hero+Image" alt="A compassionate caregiver assisting a senior resident." class="h-full w-full object-cover">
+        <div class="absolute inset-0 bg-trust/70"></div>
+    </div>
+    <div class="relative z-10 mx-auto max-w-section px-6 text-left w-full">
+        <div class="max-w-2xl" x-data="{}" x-intersect.once="$el.classList.add('fade-in-up')">
+            <h2 class="font-semibold text-display-lg mb-4">Where Compassion Meets Comfort</h2>
+            <p class="text-body-lg text-white/85 mb-8">Premier Daycare Services for Seniors in Singapore</p>
+            <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+                <a href="#visit" class="cta-button">Schedule a Tour</a>
+            </div>
+            <!-- Live Availability Badge -->
+            <div x-cloak class="mt-6">
+                <div class="availability-badge w-full flex-wrap rounded-2xl border border-white/30 bg-white/10 p-4 text-left sm:w-auto sm:flex-nowrap" role="status" aria-live="polite">
+                    <span class="availability-indicator" :class="indicatorClass" aria-hidden="true"></span>
+                    <div class="flex min-w-0 flex-1 flex-col">
+                        <span class="text-sm font-semibold" x-text="statusLabel"></span>
+                        <span class="text-xs text-white/80" x-text="statusDetail"></span>
+                    </div>
+                    <button type="button" @click.prevent="refresh()" :disabled="isLoading" class="mt-2 inline-flex items-center gap-2 rounded-full border border-white/30 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 transition hover:text-white sm:mt-0">
+                        <svg x-show="isLoading" class="h-4 w-4 animate-spin" xmlns="http://www.w.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12a7.5 7.5 0 0 1 12.495-5.303"></path></svg>
+                        <span x-text="isLoading ? 'Refreshing…' : 'Refresh'"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
   </section>
 
   <!-- Program Highlights -->
-  <section id="programs" class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <h3 class="text-3xl font-heading mb-8">Our Programs</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-amber rounded-lg p-6 shadow-lg hover:scale-105 transition">
+  <section id="programs" class="py-16" x-data="{}" x-intersect.once="$el.classList.add('fade-in-up')">
+    <div class="mx-auto max-w-section px-6 text-center">
+      <p class="pill-tag mx-auto">Our Services</p>
+      <h3 class="mt-4 font-semibold text-heading-xl">Programs Designed for Holistic Wellbeing</h3>
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="section-card text-center transition-transform duration-300 hover:-translate-y-2">
           <h4 class="font-heading text-xl mb-2">Day Programs</h4>
-          <p class="text-slate-700">Engaging activities and supervised care for every need.</p>
+          <p>Engaging activities, social interaction, and supervised care tailored to every need.</p>
         </div>
-        <div class="bg-trust text-white rounded-lg p-6 shadow-lg hover:scale-105 transition">
+        <div class="section-card text-center transition-transform duration-300 hover:-translate-y-2">
           <h4 class="font-heading text-xl mb-2">Wellness Services</h4>
-          <p>Therapy, health checks, and personalized care routines.</p>
+          <p>On-site therapy, health monitoring, and personalized care routines.</p>
         </div>
-        <div class="bg-amber rounded-lg p-6 shadow-lg hover:scale-105 transition">
+        <div class="section-card text-center transition-transform duration-300 hover:-translate-y-2">
           <h4 class="font-heading text-xl mb-2">Family Support</h4>
-          <p class="text-slate-700">Resources and respite support for caregivers.</p>
+          <p>Valuable resources, educational workshops, and respite support for caregivers.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Care Philosophy -->
-  <section id="care" class="py-16 bg-slate-100">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-      <img src="media/care.jpg" alt="Elder care philosophy" class="rounded-lg shadow" />
-      <div>
-        <h3 class="text-3xl font-heading mb-4">Our Care Philosophy</h3>
-        <p class="mb-4">We uphold three core values: Safety, Engagement, and Dignity.</p>
-        <ul class="list-disc list-inside text-slate-700">
-          <li>24/7 monitored environments</li>
-          <li>Certified caregivers and therapists</li>
-          <li>Joyful, meaningful daily activities</li>
+  <section id="care" class="py-16 bg-white" x-data="{}" x-intersect.once="$el.classList.add('fade-in-up')">
+    <div class="mx-auto max-w-section px-6 grid md:grid-cols-2 gap-12 items-center">
+      <img src="https://placehold.co/600x400/22476a/f7f9fc?text=Our+Philosophy" alt="A caregiver and senior share a joyful moment." class="rounded-3xl shadow-card" />
+      <div class="section-card">
+        <p class="pill-tag">Our Values</p>
+        <h3 class="mt-4 font-semibold text-heading-lg">Our Care Philosophy</h3>
+        <p class="mt-3 text-slate">We uphold three core values to ensure the highest standard of care for your loved ones.</p>
+        <ul class="mt-4 space-y-2 list-inside text-slate">
+          <li><strong>Safety:</strong> 24/7 monitored, accessible environments with trained professionals.</li>
+          <li><strong>Engagement:</strong> Joyful and meaningful daily activities that stimulate mind and body.</li>
+          <li><strong>Dignity:</strong> Respectful, personalized care that honors each individual's life story.</li>
         </ul>
       </div>
     </div>
   </section>
 
   <!-- Testimonials Carousel -->
-  <section id="testimonials" class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <h3 class="text-3xl font-heading mb-8">What Families Say</h3>
-      <div id="carousel" class="overflow-hidden">
-        <div class="flex gap-6 transition-transform duration-500">
-          <blockquote class="p-6 bg-slate-100 rounded-lg shadow">"They cared for my mum like their own family!"</blockquote>
-          <blockquote class="p-6 bg-slate-100 rounded-lg shadow">"Trustworthy, clean, and full of joy!"</blockquote>
-          <blockquote class="p-6 bg-slate-100 rounded-lg shadow">"The caregivers always went the extra mile."</blockquote>
+  <section id="testimonials" class="py-16" x-data="carousel()" x-intersect.once="$el.classList.add('fade-in-up')">
+    <div class="mx-auto max-w-section px-6 text-center">
+        <p class="pill-tag mx-auto">Testimonials</p>
+      <h3 class="mt-4 font-semibold text-heading-xl">What Families Say About Us</h3>
+      <div class="staff-carousel mt-10">
+        <div class="staff-carousel__viewport" x-ref="viewport">
+            <div class="staff-carousel__container">
+                <div class="staff-carousel__slide"><blockquote class="section-card h-full"><p class="text-slate">"They cared for my mum like their own family! The attention to detail and genuine warmth of the staff here is unparalleled."</p><footer class="mt-4 font-semibold text-trust">- Mdm. Tan</footer></blockquote></div>
+                <div class="staff-carousel__slide"><blockquote class="section-card h-full"><p class="text-slate">"A trustworthy, clean, and joyful environment. My father looks forward to his days at ElderCare SG. It's given me such peace of mind."</p><footer class="mt-4 font-semibold text-trust">- Mr. Kumar</footer></blockquote></div>
+                <div class="staff-carousel__slide"><blockquote class="section-card h-full"><p class="text-slate">"The caregivers always went the extra mile. From remembering my mother's favorite songs to helping with her therapy exercises."</p><footer class="mt-4 font-semibold text-trust">- Mrs. Lim</footer></blockquote></div>
+                <div class="staff-carousel__slide"><blockquote class="section-card h-full"><p class="text-slate">"The facilities are top-notch and the programs are so engaging. It's wonderful to see my mother so happy and active."</p><footer class="mt-4 font-semibold text-trust">- J. Chen</footer></blockquote></div>
+            </div>
+        </div>
+        <div class="mt-6 flex justify-center gap-3">
+            <button @click="scrollPrev()" class="cta-button !p-3" aria-label="Previous testimonial"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+            <button @click="scrollNext()" class="cta-button !p-3" aria-label="Next testimonial"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA Virtual Tour -->
-  <section id="visit" class="py-16 bg-trust text-white text-center">
-    <div class="max-w-2xl mx-auto px-4">
-      <h3 class="text-3xl font-heading mb-4">Take a Virtual Tour</h3>
-      <p class="mb-6">See our facility, programs, and meet our caregivers before you visit.</p>
-      <a href="#" class="cta-button">Watch Virtual Tour</a>
+  <section id="visit" class="py-16 bg-gold text-center" x-data="{}" x-intersect.once="$el.classList.add('fade-in-up')">
+    <div class="mx-auto max-w-2xl px-6">
+      <h3 class="font-semibold text-heading-xl text-trust">Take a Virtual Tour</h3>
+      <p class="mt-3 text-body-md text-slate-dark">See our state-of-the-art facility, engaging programs, and meet our compassionate caregivers from the comfort of your home.</p>
+      <a href="#" class="cta-button mt-8 bg-trust text-white hover:bg-trust/90">Watch Virtual Tour</a>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-slate-800 text-white py-12">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <p class="mb-2">&copy; 2025 ElderCare SG. All rights reserved.</p>
-      <p class="text-sm text-slate-400">Designed with accessibility, compassion, and modern care in mind.</p>
+  <footer class="bg-trust text-white py-12">
+    <div class="mx-auto max-w-section px-6 text-center">
+      <p class="font-semibold">&copy; 2025 ElderCare SG. All rights reserved.</p>
+      <p class="text-sm text-white/70 mt-2">Designed with accessibility, compassion, and modern care in mind.</p>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <!-- Project's compiled JS for interactivity -->
+  <!-- Note: For a static file, we use an inline script for the carousel.
+       In the real app, this comes from resources/js/modules/carousel.js -->
+  <script src="https://unpkg.com/embla-carousel@8.1.5/embla-carousel.umd.js"></script>
+  <script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('carousel', () => ({
+            embla: null,
+            init() {
+                this.embla = EmblaCarousel(this.$refs.viewport, { loop: true });
+            },
+            scrollNext() {
+                this.embla.scrollNext();
+            },
+            scrollPrev() {
+                this.embla.scrollPrev();
+            }
+        }))
+    })
+  </script>
+
 </body>
 </html>
