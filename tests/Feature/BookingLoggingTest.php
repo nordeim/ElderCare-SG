@@ -28,11 +28,11 @@ class BookingLoggingTest extends TestCase
         });
 
         $response = $this
-+            ->withHeaders([
-+                'referer' => 'https://example.com/page',
-+                'User-Agent' => 'PHPUnit Test Agent',
-+            ])
-             ->get('/__test-booking-log');
+            ->withHeaders([
+                'referer' => 'https://example.com/page',
+                'User-Agent' => 'PHPUnit Test Agent',
+            ])
+            ->get('/__test-booking-log');
 
         $response->assertNoContent();
 

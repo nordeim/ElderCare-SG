@@ -32,9 +32,9 @@
   {
     "name": "minScore",
     "expected": 0.9,
-    "actual": 0.59,
+    "actual": 0.57,
     "values": [
-      0.59
+      0.57
     ],
     "operator": ">=",
     "passed": false,

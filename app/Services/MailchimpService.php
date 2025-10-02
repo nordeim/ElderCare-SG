@@ -69,8 +69,14 @@ class MailchimpService
                 'message' => $exception->getMessage(),
             ]);
 
+            $responseStatus = null;
+
+            if ($exception instanceof RequestException && $exception->response) {
+                $responseStatus = $exception->response->status();
+            }
+
             $this->flashAnalyticsEvent('mailchimp.failure', [
-                'status' => $exception instanceof RequestException ? optional($exception->response())->status() : null,
+                'status' => $responseStatus,
                 'exception' => get_class($exception),
             ]);
         }

@@ -24,7 +24,7 @@ class NewsletterSubscriptionTest extends TestCase
     public function test_successful_subscription_dispatches_success_event(): void
     {
         Http::fake([
-            'usX.api.mailchimp.com/3.0/*' => Http::response([], 200),
+            '*api.mailchimp.com/3.0/*' => Http::response([], 200),
         ]);
 
         $response = $this->post(route('newsletter.subscribe'), [
@@ -43,7 +43,7 @@ class NewsletterSubscriptionTest extends TestCase
     public function test_failed_subscription_dispatches_failure_event(): void
     {
         Http::fake([
-            'usX.api.mailchimp.com/3.0/*' => Http::response('error', 500),
+            '*api.mailchimp.com/3.0/*' => Http::response('error', 500),
         ]);
 
         $response = $this->from('/')->post(route('newsletter.subscribe'), [

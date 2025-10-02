@@ -24,6 +24,14 @@
 
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             @foreach ($resources as $resource)
+                @php
+                    $filePath = $resource->file_path;
+                    $externalUrl = $resource->external_url;
+                    $hasLocalFile = $filePath && Storage::disk('public')->exists($filePath);
+                    $ctaHref = $hasLocalFile ? Storage::url($filePath) : ($externalUrl ?? '#');
+                    $ctaDisabled = ! $hasLocalFile && empty($externalUrl);
+                @endphp
+
                 <article class="resource-card">
                     <div class="space-y-3">
                         <p class="resource-card__tag">{{ $resource->persona_tag ? \Illuminate\Support\Str::headline($resource->persona_tag) : 'Caregivers' }}</p>
@@ -32,14 +40,14 @@
                     </div>
 
                     <div class="resource-card__meta">
-                        <span class="text-xs uppercase tracking-wide text-slate-dark">PDF download</span>
+                        <span class="text-xs uppercase tracking-wide text-slate-dark">{{ strtoupper($resource->resource_type ?? 'download') }}</span>
                         <span class="text-xs text-slate-dark">Updated {{ $resource->updated_at?->format('M Y') ?? now()->format('M Y') }}</span>
                     </div>
 
                     <a
-                        href="{{ Storage::disk('public')->exists($resource->file_path) ? Storage::url($resource->file_path) : '#' }}"
+                        href="{{ $ctaHref }}"
                         class="resource-card__cta"
-                        @if (! Storage::disk('public')->exists($resource->file_path))
+                        @if ($ctaDisabled)
                             aria-disabled="true"
                             data-disabled="true"
                         @endif
@@ -47,7 +55,7 @@
                         data-resource-slug="{{ $resource->slug }}"
                         onclick="if (!this.dataset.disabled) { window.eldercareAnalytics?.emit?.('resource.download', { slug: this.dataset.resourceSlug }); }"
                     >
-                        <span>Download guide</span>
+                        <span>{{ $ctaDisabled ? 'Unavailable' : 'Access resource' }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M7.5 12 12 16.5m0 0 4.5-4.5M12 16.5V3" />
                         </svg>
