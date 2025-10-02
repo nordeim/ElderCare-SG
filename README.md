@@ -1,14 +1,12 @@
-# 👵 ElderCare SG — Compassionate Elderly Daycare Platform
-
 [![QA Pipeline](https://github.com/nordeim/ElderCare-SG/actions/workflows/qa-ci.yml/badge.svg)](https://github.com/nordeim/ElderCare-SG/actions/workflows/qa-ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 [![PHP](https://img.shields.io/badge/php-8.3-blue.svg)](https://www.php.net/)
 [![Node.js](https://img.shields.io/badge/node-20-brightgreen.svg)](https://nodejs.org/)
 [![Docker](https://img.shields.io/badge/docker-%20%20%20%20%20%20%20%20%20%20%235DA121.svg)](https://www.docker.com/)
 
-Where compassionate care meets modern comfort for every family.
+# 👵 ElderCare SG — Compassionate Elderly Daycare Platform
 
-ElderCare SG is a modern, accessible, and emotionally thoughtful web platform designed for families in Singapore seeking trusted elderly daycare services. Built with Laravel, TailwindCSS, and a design[...]
+A mission-driven, human-centred portal that brings empathy, clarity, and practical help to families arranging daytime care for their loved ones. ElderCare SG blends warm, reassuring design with clinical credibility—making it simple for adult children, caregivers, and healthcare professionals to discover programs, preview facilities, and confidently schedule visits. Built with a design-first approach and modern tooling (Laravel + TailwindCSS), the platform prioritizes accessibility, performance, and measurable outcomes so families can make informed, dignified choices for eldercare.
 
 ---
 
