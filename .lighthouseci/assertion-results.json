@@ -2,6 +2,21 @@
   {
     "name": "minScore",
     "expected": 0.9,
+    "actual": 0,
+    "values": [
+      0
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditId": "errors-in-console",
+    "level": "warn",
+    "url": "http://localhost:8000/",
+    "auditTitle": "Browser errors were logged to the console",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/best-practices/errors-in-console/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
     "actual": 0.41,
     "values": [
       0.41
@@ -43,5 +58,20 @@
     "url": "http://localhost:8000/",
     "auditTitle": "Minimize main-thread work",
     "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/mainthread-work-breakdown/"
+  },
+  {
+    "name": "minScore",
+    "expected": 0.9,
+    "actual": 0.88,
+    "values": [
+      0.88
+    ],
+    "operator": ">=",
+    "passed": false,
+    "auditId": "speed-index",
+    "level": "warn",
+    "url": "http://localhost:8000/",
+    "auditTitle": "Speed Index",
+    "auditDocumentationLink": "https://developer.chrome.com/docs/lighthouse/performance/speed-index/"
   }
 ]
