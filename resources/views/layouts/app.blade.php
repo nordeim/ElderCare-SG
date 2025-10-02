@@ -40,6 +40,8 @@
 
     <script>
         window.__eldercareAnalyticsQueue = {!! json_encode(session('analytics.events', []), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!};
+        window.__eldercareAnalyticsGoals = {!! json_encode(config('analytics.plausible.goals', []), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!};
+        window.__eldercareAnalyticsDashboard = @json(config('analytics.plausible.shared_dashboard'));
     </script>
 
     @stack('scripts')

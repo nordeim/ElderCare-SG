@@ -47,7 +47,10 @@ While CMS tooling is evaluated, the following interim methods are supported:
 - `composer phpunit -- --filter=ResourceTest` *(when added)*
 - `npm run build`
 - Manual spot check: `php artisan serve` → http://127.0.0.1:8000, verify updated sections
-- Log review: `tail -n 200 storage/logs/laravel.log`
+- Log review:
+  - `tail -n 200 storage/logs/laravel.log`
+  - `tail -n 200 storage/logs/analytics.log`
+- Analytics signals: confirm Plausible goals `mailchimp-success`, `booking-click`, `resource-download`, `estimator-submit` are incrementing (see [Analytics Dashboard](analytics_dashboard.md)).
 
 ## 7. Escalation
 - **Broken Build / Seeder Failure**: Notify Engineering On-Call in Slack `#eng-urgent`; attach console output.

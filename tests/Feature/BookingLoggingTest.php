@@ -6,6 +6,7 @@ use App\Services\BookingService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use Mockery;
 use Tests\TestCase;
 
 class BookingLoggingTest extends TestCase
@@ -20,6 +21,7 @@ class BookingLoggingTest extends TestCase
     public function test_booking_click_logs_context_and_dispatches_event(): void
     {
         Log::spy();
+        Log::shouldReceive('channel')->with('analytics')->andReturnSelf();
 
         Route::middleware('web')->get('/__test-booking-log', function (BookingService $bookingService) {
             $bookingService->logClick('footer');
