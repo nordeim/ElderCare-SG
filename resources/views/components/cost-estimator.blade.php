@@ -109,6 +109,7 @@
                         <span class="toggle-switch"></span>
                         <span class="sr-only">Enable transport</span>
                     </label>
+                </div>
 
                 <fieldset class="space-y-3">
                     <legend class="text-body-sm font-semibold text-trust">Add-ons</legend>

@@ -1,0 +1,5 @@
+public/build/manifest.json
+resources/css/app.css
+resources/views/components/cost-estimator.blade.php
+resources/views/components/faq.blade.php
+resources/views/components/hero.blade.php

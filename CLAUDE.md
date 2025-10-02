@@ -100,15 +100,13 @@ make test
 
 ---
 
-## Core logic walkthrough: Newsletter Subscription
-- **Route definition:** `POST /newsletter` in `routes/web.php`
-- **Controller entrypoint:** `App\Http\Controllers\NewsletterController`
-- **Validation:** `App\Http\Requests\NewsletterSubscriptionRequest`
-- **Core business logic:** `App\Services\MailchimpService` handles the subscription attempt.
-- **Database interaction:** No database interaction in this flow.
-- **Post-event side-effects:** None.
-
-> Sources: `routes/web.php`, `app/Http/Controllers/NewsletterController.php`, `app/Services/MailchimpService.php`
+## Core logic walkthrough: Virtual Tour
+- **Data Source:** `resources/data/tour_hotspots.json` defines hotspot coordinates, text, and media.
+- **Database Seeding:** `database/seeders/StaffSeeder.php` populates the `staff` table with member bios and roles for the staff carousel feature.
+- **Controller Logic:** The `HomeController` loads staff, programs, and testimonials. The virtual tour component itself is largely driven by the frontend.
+- **View Component:** `resources/views/components/virtual-tour.blade.php` (assumed path) renders the main container for the tour.
+- **Frontend Interactivity:** `resources/js/modules/tour.js` (assumed path) contains the Alpine.js store that manages the tour's state, including modal visibility, hotspot rendering, and event tracking for analytics.
+- **Analytics:** Events like `tour.open` and `tour.hotspot` are dispatched and documented in `docs/analytics.md`.
 
 ---
 
@@ -118,6 +116,9 @@ make test
 | `User` | `users` | Represents an application user. |
 | `Program` | `programs` | Stores details about daycare programs. |
 | `Testimonial` | `testimonials` | Stores customer testimonials. |
+| `Staff` | `staff` | Stores information about staff members for carousels and spotlights. |
+| `Faq` | `faqs` | Stores frequently asked questions and answers. |
+| `Resource` | `resources` | Stores metadata for downloadable caregiver resources. |
 
 > Sources: `app/Models/`
 
@@ -147,6 +148,8 @@ There is no dedicated metrics or monitoring system implemented in the applicatio
 | Component | Purpose |
 |-----------|---------|
 | `App\Services\MailchimpService` | Subscribes users to a Mailchimp newsletter list. |
-| `App\Services\BookingService` | (Not fully implemented) Intended to handle service bookings. |
+| `App\Services\AvailabilityService` | Provides real-time service availability data, with a mock provider for development. |
+| `App\Services\BookingService` | Intended to handle service bookings; currently logs booking CTA interactions. |
+| `App\Services\AssessmentService` | (Planned) Intended to handle logic for the Guided Needs Assessment. |
 
 > Sources: `app/Services/`

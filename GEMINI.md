@@ -1,97 +1,45 @@
-# AI Agent Context: Elderly Daycare Platform
+# GEMINI Agent Context: ElderCare SG Project
 
-**Purpose:**
-This document is the source of truth for AI agents interacting with this codebase. It provides a concise, factual overview of the project's architecture, key files, and development conventions.
+This document provides a comprehensive overview for AI agents to understand and interact with the ElderCare SG codebase.
 
----
+## 1. Project Overview
 
-## Project Overview
+**Purpose:** ElderCare SG is a modern, design-first web platform for families in Singapore seeking elderly daycare services. The project emphasizes a compassionate, reliable, and accessible user experience.
 
-This project is a web application for an **Elderly Daycare Platform**. It allows for booking services, managing clients, and handling related administrative tasks.
+**Technologies:**
+*   **Backend:** Laravel 12 (PHP 8.3)
+*   **Frontend:** Blade Templates with TailwindCSS and Alpine.js
+*   **Database:** MariaDB 10.11
+*   **Caching & Queues:** Redis
+*   **Development Environment:** Docker
 
-The architecture is a standard **Laravel Model-View-Controller (MVC)** pattern. The application is designed to run in a Docker containerized environment for development and production consistency.
+**Architecture:** The project follows a standard **MVC (Model-View-Controller) pattern with a dedicated Service layer**. Business logic and third-party integrations are housed in `app/Services`, keeping controllers lean. The entire development environment is containerized with Docker and managed via a `Makefile`.
 
-### Technical Stack
+## 2. Building and Running
 
-| Component | Technology | Version / Details | Confirmation File |
-| :--- | :--- | :--- | :--- |
-| Backend Framework | Laravel | `~12.0` | `composer.json` |
-| Language | PHP | `8.3` | `Dockerfile` |
-| Database | MariaDB | `10.11` | `docker-compose.yml` |
-| Caching & Queues | Redis | `7.4` | `docker-compose.yml` |
-| Frontend Stack | Blade, TailwindCSS, Alpine.js | Vite build tool | `package.json`, `vite.config.js` |
-| Dev Environment | Docker | Docker Compose | `docker-compose.yml`, `Makefile` |
+The project is designed to be run easily within its Docker environment.
 
----
+### **Primary Workflow (Recommended)**
 
-## Building and Running the Application
-
-The project uses a Docker-based development environment managed by Docker Compose and a `Makefile` for convenience. The `docker/entrypoint.sh` script automates setup tasks (e.g., migrations, cache building) on container startup.
-
-### 1. First-Time Setup
-
-The project is ready to run out-of-the-box. The Docker environment is pre-configured using the `.env.docker` file. On the first run, an `.env` file will be generated automatically inside the application container.
+To build and start all services (app, database, Redis), run the following command. This command also handles initial setup like database migrations and key generation.
 
 ```sh
-# Build and start all services in the background
 make up
 ```
+The application will be available at `http://localhost:8000`.
 
-After running `make up`, the application will be available at `http://localhost:8000` and the Mailhog UI at `http://localhost:8025`.
+### **Running Tests**
 
-### 2. Standard Workflow
-
-The `Makefile` provides shortcuts for most common operations.
+To execute the full PHPUnit test suite, use the following command:
 
 ```sh
-# Start all services (builds if necessary)
-make up
-
-# Stop and remove all containers and volumes
-make down
-
-# Restart the application container
-make restart
-
-# View application logs in real-time
-make logs
-
-# Open a shell inside the application container
-make bash
-
-# Run database migrations
-make migrate
-
-# Drop all tables and re-run all migrations
-make migrate-fresh
-
-# Run tests
 make test
-
-# Clear all application caches
-make clear
-
-# View all available commands
-make help
 ```
 
----
+## 3. Development Conventions
 
-## Development Conventions
-
-### Architecture
-*   **Adhere to the existing MVC architecture.**
-*   Controllers (`app/Http/Controllers`) should be lean and primarily responsible for handling HTTP requests and delegating to Services.
-*   Use Form Requests (e.g., `app/Http/Requests/NewsletterSubscriptionRequest.php`) for validating incoming request data.
-
-### Key Directories
-| Path | Description |
-| :--- | :--- |
-| `app/Http/Controllers/` | Controllers organized by area. |
-| `app/Models/` | All Eloquent models. |
-| `app/Services/` | Domain-specific business logic services. |
-| `config/` | Contains standard Laravel config. |
-| `database/migrations/` | The source of truth for the database schema. |
-| `routes/web.php` | Defines all web-facing application routes. |
-| `resources/views/` | Blade templates for the frontend. |
-| `tests/` | Application tests. |
+*   **Service Layer:** All new business logic should be placed in service classes within the `app/Services` directory.
+*   **Docker-First:** All development and execution commands (including `artisan` and `npm`) should be run through the `Makefile` targets to ensure consistency with the containerized environment (e.g., `make migrate`, `make bash`).
+*   **Documentation-Driven:** Development is guided by detailed planning and status documents located in the `docs/` directory. These documents outline the project's roadmap, feature implementation plans, and current status.
+*   **Accessibility Focus:** The project adheres to WCAG 2.1 AA standards, and accessibility is a core consideration for all UI components.
+*   **Data Seeding:** The database is populated with sample data via seeders (e.g., `StaffSeeder`, `FaqSeeder`), which are essential for viewing implemented features like the Virtual Tour and FAQ section.
