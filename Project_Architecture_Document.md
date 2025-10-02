@@ -19,6 +19,7 @@ graph TD
         B
         D
     end
+```
 
 ## 3. Technology Stack
 
