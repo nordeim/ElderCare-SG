@@ -97,6 +97,7 @@
                         aria-describedby="days-per-week-help"
                     >
                     <p id="days-per-week-help" class="mt-2 text-body-xs text-slate">Adjust to reflect the number of scheduled program days each week (1–6).</p>
+                </div>
 
                 <div class="flex items-center justify-between rounded-2xl border border-slate/10 bg-white px-4 py-3">
                     <div>
@@ -108,7 +109,48 @@
                         <span class="toggle-switch"></span>
                         <span class="sr-only">Enable transport</span>
                     </label>
+
+                <fieldset class="space-y-3">
+                    <legend class="text-body-sm font-semibold text-trust">Add-ons</legend>
+                    <p class="text-body-xs text-slate">Choose enhancements that match your loved one’s preferences.</p>
+                    <template x-for="addOn in pricing.addOns" :key="addOn.key">
+                        <label class="flex items-center gap-3 rounded-2xl border border-slate/10 bg-white px-4 py-3">
+                            <input
+                                type="checkbox"
+                                class="mt-1 h-4 w-4 rounded border-slate/30 text-trust focus:ring-trust"
+                                :value="addOn.key"
+                                x-model="selectedAddOns"
+                            >
+                            <span class="flex flex-col gap-1">
+                                <span class="text-body-sm font-semibold text-trust" x-text="addOn.label"></span>
+                                <span class="text-body-xs text-slate" x-text="formatCurrency(addOn.amount)"></span>
+                                <span class="text-body-xs text-slate" x-text="addOn.description"></span>
+                            </span>
+                        </label>
+                    </template>
+                </fieldset>
+
+                <div class="mt-6">
+                    <label for="subsidy" class="block text-body-sm font-semibold text-trust">Subsidy scenario</label>
+                    <select
+                        id="subsidy"
+                        x-model="selectedSubsidyKey"
+                        class="mt-2 w-full rounded-2xl border border-slate/20 bg-white px-4 py-3 text-body-sm focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold"
 {{ ... }}
+                        <template x-for="subsidy in subsidies" :key="subsidy.key">
+                            <option :value="subsidy.key" x-text="subsidy.label"></option>
+                        </template>
+                    </select>
+                    <template x-if="selectedSubsidy">
+                        <p class="mt-2 text-body-xs text-slate" x-text="selectedSubsidy.description"></p>
+                    </template>
+                </div>
+
+                <button
+                    type="button"
+                    class="cta-button w-full justify-center"
+                    @click="toggleDetails()"
+                    data-analytics-id="estimator-toggle-details"
                 >
                     {{ __('See calculation details') }}
                 </button>
@@ -129,7 +171,7 @@
                     <div class="flex items-center justify-between">
                         <span>Transport</span>
                         <span x-text="formatCurrency(transportMonthlyCost)"></span>
-{{ ... }}
+                    </div>
                     <div class="flex items-center justify-between">
                         <span>Add-ons</span>
                         <span x-text="formatCurrency(addOnsMonthlyCost)"></span>
