@@ -1,183 +1,1483 @@
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ElderCare SG - Static Mockup</title>
-  <link rel="stylesheet" href="resources/css/app.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
-  <!-- Defer Alpine.js to prevent blocking render -->
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-<body class="bg-canvas font-body text-slate-dark antialiased">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ElderCare SG — Compassionate daycare solutions for seniors in Singapore.">
+    <meta name="csrf-token" content="zy6QqFXDb02v7vyEeO7a6vNmJ0w0AJuvk6uehCSS">
+    <title>ElderCare SG — Compassionate Daycare</title>
 
-  <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm">
-    <div class="mx-auto max-w-section px-6 py-4 flex justify-between items-center">
-      <h1 class="font-heading text-2xl text-trust">ElderCare SG</h1>
-      <nav class="space-x-6 hidden md:flex items-center">
-        <a href="#programs" class="hover:text-gold transition-colors">Programs</a>
-        <a href="#care" class="hover:text-gold transition-colors">Our Philosophy</a>
-        <a href="#testimonials" class="hover:text-gold transition-colors">Testimonials</a>
-        <a href="#visit" class="cta-button">Book a Visit</a>
-      </nav>
-    </div>
-  </header>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap">
 
-  <!-- Hero Section -->
-  <section
-    class="relative h-[80vh] flex items-center bg-trust text-white"
-    x-data="{ availability: null }"
-    x-init="
-        // Mock availability store for static demo
-        availability = {
-            isLoading: true,
-            indicatorClass: 'availability-indicator--loading',
-            statusLabel: 'Checking availability...',
-            statusDetail: 'Connecting to our booking system.',
-            refresh() {
-                this.isLoading = true;
-                this.indicatorClass = 'availability-indicator--loading';
-                this.statusLabel = 'Checking availability...';
-                setTimeout(() => {
-                    this.isLoading = false;
-                    this.indicatorClass = 'availability-indicator--high';
-                    this.statusLabel = 'Slots available this week';
-                    this.statusDetail = 'Last updated just now';
-                }, 1500);
-            }
-        };
-        setTimeout(() => availability.refresh(), 500);
-    "
-  >
-    <div class="absolute inset-0">
-        <img src="https://placehold.co/1920x1080/1c3d5a/f0a500?text=Hero+Image" alt="A compassionate caregiver assisting a senior resident." class="h-full w-full object-cover">
-        <div class="absolute inset-0 bg-trust/70"></div>
-    </div>
-    <div class="relative z-10 mx-auto max-w-section px-6 text-left w-full">
-        <div class="max-w-2xl" x-data="{}" x-intersect.once="$el.classList.add('fade-in-up')">
-            <h2 class="font-semibold text-display-lg mb-4">Where Compassion Meets Comfort</h2>
-            <p class="text-body-lg text-white/85 mb-8">Premier Daycare Services for Seniors in Singapore</p>
-            <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-                <a href="#visit" class="cta-button">Schedule a Tour</a>
+    
+    <link rel="preload" as="style" href="http://127.0.0.1:8000/build/assets/app-C3xPxG9g.css">
+    <link rel="preload" as="script" href="http://127.0.0.1:8000/build/assets/app-C4j4Zo38.js" crossorigin>
+    <link rel="preload" as="image" href="http://127.0.0.1:8000/assets/hero-fallback.jpg" imagesrcset="http://127.0.0.1:8000/assets/hero-fallback.jpg 1x">
+
+    <link rel="preload" as="style" href="http://127.0.0.1:8000/build/assets/app-C3xPxG9g.css" /><link rel="modulepreload" as="script" href="http://127.0.0.1:8000/build/assets/app-C4j4Zo38.js" /><link rel="stylesheet" href="http://127.0.0.1:8000/build/assets/app-C3xPxG9g.css" /><script type="module" src="http://127.0.0.1:8000/build/assets/app-C4j4Zo38.js"></script>
+    </head>
+<body class="bg-canvas font-body text-slate-dark">
+    <div class="relative flex min-h-screen flex-col">
+        <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
+    <nav class="mx-auto flex max-w-section items-center justify-between px-4 py-4 lg:px-6" x-data="{ open: false, localeMenu: false }" @click.outside="localeMenu = false">
+        <a href="/" class="flex items-center gap-2 text-lg font-heading text-trust">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold text-trust shadow-sm">EC</span>
+            <span class="hidden font-semibold uppercase tracking-wider sm:inline">ElderCare SG</span>
+        </a>
+
+        <button
+            class="inline-flex items-center rounded-full bg-white p-2 text-trust shadow-card ring-1 ring-slate/10 transition hover:bg-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold lg:hidden"
+            @click="open = !open"
+            :aria-expanded="open"
+            aria-controls="primary-navigation"
+            type="button"
+        >
+            <span class="sr-only">Toggle navigation</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </button>
+
+        <div
+            id="primary-navigation"
+            class="absolute inset-x-0 top-full origin-top rounded-b-3xl bg-white px-6 pb-6 pt-4 shadow-card transition duration-300 ease-out lg:static lg:flex lg:w-auto lg:translate-y-0 lg:items-center lg:gap-10 lg:bg-transparent lg:p-0 lg:shadow-none"
+            x-show="open"
+            x-transition.scale.origin-top
+            x-cloak
+        >
+            <ul class="space-y-4 text-base font-medium text-slate lg:flex lg:items-center lg:gap-8 lg:space-y-0">
+                <li><a class="hover:text-gold" href="#programs">Programs</a></li>
+                <li><a class="hover:text-gold" href="#philosophy">Care Philosophy</a></li>
+                <li><a class="hover:text-gold" href="#testimonials">Stories</a></li>
+                <li><a class="hover:text-gold" href="#tour">Virtual Tour</a></li>
+                <li><a class="hover:text-gold" href="#contact">Contact</a></li>
+            </ul>
+
+            <div class="mt-6 flex flex-col gap-3 lg:mt-0 lg:flex-row lg:items-center lg:gap-4">
+                <div class="relative" x-data="{ activeLocale: 'en' }" x-init="window.addEventListener('locale-changed', event => activeLocale = event.detail.locale)">
+                    <button
+                        type="button"
+                        class="inline-flex items-center gap-1 rounded-full border border-slate/20 px-3 py-1 text-sm font-semibold uppercase tracking-wide text-trust transition hover:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                        @click="localeMenu = !localeMenu"
+                        :aria-expanded="localeMenu"
+                        aria-haspopup="true"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v12m6-6H6" />
+                        </svg>
+                        <span>EN</span>
+                    </button>
+
+                    <div
+                        x-cloak
+                        x-show="localeMenu"
+                        x-transition.origin.top
+                        class="absolute left-0 mt-2 w-36 overflow-hidden rounded-2xl border border-slate/10 bg-white shadow-card"
+                        role="menu"
+                        aria-label="Choose language"
+                    >
+                                                    <form method="POST" action="http://127.0.0.1:8000/locale/en" role="none">
+                                <input type="hidden" name="_token" value="zy6QqFXDb02v7vyEeO7a6vNmJ0w0AJuvk6uehCSS" autocomplete="off">                                <button
+                                    type="submit"
+                                    class="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-medium text-slate transition hover:bg-gold/10"
+                                    :class="{ 'text-trust font-semibold': activeLocale === 'en' }"
+                                    @click="localeMenu = false; window.eldercareAnalytics?.emit('locale.changed', { locale: 'en' })"
+                                >
+                                    <span>English</span>
+                                    <span x-show="activeLocale === 'en'" class="sr-only">Current language</span>
+                                </button>
+                            </form>
+                                                    <form method="POST" action="http://127.0.0.1:8000/locale/zh" role="none">
+                                <input type="hidden" name="_token" value="zy6QqFXDb02v7vyEeO7a6vNmJ0w0AJuvk6uehCSS" autocomplete="off">                                <button
+                                    type="submit"
+                                    class="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-medium text-slate transition hover:bg-gold/10"
+                                    :class="{ 'text-trust font-semibold': activeLocale === 'zh' }"
+                                    @click="localeMenu = false; window.eldercareAnalytics?.emit('locale.changed', { locale: 'zh' })"
+                                >
+                                    <span>中文</span>
+                                    <span x-show="activeLocale === 'zh'" class="sr-only">Current language</span>
+                                </button>
+                            </form>
+                                            </div>
+                </div>
+                <a href="#tour" class="pill-tag">Virtual tour</a>
+                <a href="#booking" class="cta-button">Book a visit</a>
             </div>
-            <!-- Live Availability Badge -->
-            <div x-cloak class="mt-6">
+        </div>
+    </nav>
+</header>
+
+        <main class="flex-1">
+                <section
+    class="relative overflow-hidden bg-trust text-white"
+    data-hero
+    x-data="{ availability: null }"
+    x-init="availability = Alpine.store('availability')"
+>
+    <div class="absolute inset-0">
+                    <div
+                class="h-full w-full bg-gradient-to-br from-trust via-[#22476A] to-[#183651]"
+                style="background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20600%22%20role%3D%22img%22%20aria-label%3D%22ElderCare%20SG%20hero%20placeholder%22%3E%3Crect%20width%3D%22800%22%20height%3D%22600%22%20fill%3D%22%231C3D5A%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20fill%3D%22%23F0A500%22%20font-family%3D%22Inter%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2248%22%20font-weight%3D%22600%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22middle%22%3EElderCare%20SG%3C%2Ftext%3E%3C%2Fsvg%3E'); background-size: cover; background-position: center;"
+                aria-hidden="true"
+            ></div>
+                <div class="absolute inset-0 bg-trust/70"></div>
+    </div>
+
+    <div class="relative mx-auto flex max-w-section flex-col gap-6 px-6 py-24 md:py-32">
+        <div class="max-w-2xl space-y-4">
+            <h1 class="font-semibold leading-tight text-display-lg">Compassionate daycare for your loved ones</h1>
+            <p class="text-body-lg text-white/85">Experience Singapore’s warmest daytime sanctuary with programs tailored to every senior’s needs.</p>
+
+            <div x-cloak x-show="availability" class="mt-2">
                 <div class="availability-badge w-full flex-wrap rounded-2xl border border-white/30 bg-white/10 p-4 text-left sm:w-auto sm:flex-nowrap" role="status" aria-live="polite">
-                    <span class="availability-indicator" :class="indicatorClass" aria-hidden="true"></span>
+                    <span class="availability-indicator" :class="availability?.indicatorClass" aria-hidden="true"></span>
                     <div class="flex min-w-0 flex-1 flex-col">
-                        <span class="text-sm font-semibold" x-text="statusLabel"></span>
-                        <span class="text-xs text-white/80" x-text="statusDetail"></span>
+                        <span class="text-sm font-semibold" x-text="availability?.statusLabel ?? 'Checking availability\u2026'"></span>
+                        <span class="text-xs text-white/80" x-text="availability?.statusDetail ?? 'Hang tight while we fetch the latest visit openings.'"></span>
                     </div>
-                    <button type="button" @click.prevent="refresh()" :disabled="isLoading" class="mt-2 inline-flex items-center gap-2 rounded-full border border-white/30 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 transition hover:text-white sm:mt-0">
-                        <svg x-show="isLoading" class="h-4 w-4 animate-spin" xmlns="http://www.w.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12a7.5 7.5 0 0 1 12.495-5.303"></path></svg>
-                        <span x-text="isLoading ? 'Refreshing…' : 'Refresh'"></span>
+                    <button
+                        type="button"
+                        class="mt-2 inline-flex items-center gap-2 rounded-full border border-white/30 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/80 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:mt-0"
+                        @click.prevent="availability?.refresh()"
+                        :disabled="availability?.isLoading"
+                        :aria-disabled="availability?.isLoading ? 'true' : 'false'"
+                    >
+                        <svg x-show="availability?.isLoading" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12a7.5 7.5 0 0 1 12.495-5.303"></path>
+                        </svg>
+                        <span x-show="!availability?.isLoading">Refresh</span>
+                        <span x-show="availability?.isLoading">Refreshing…</span>
                     </button>
                 </div>
             </div>
         </div>
-    </div>
-  </section>
 
-  <!-- Program Highlights -->
-  <section id="programs" class="py-16" x-data="{}" x-intersect.once="$el.classList.add('fade-in-up')">
-    <div class="mx-auto max-w-section px-6 text-center">
-      <p class="pill-tag mx-auto">Our Services</p>
-      <h3 class="mt-4 font-semibold text-heading-xl">Programs Designed for Holistic Wellbeing</h3>
-      <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="section-card text-center transition-transform duration-300 hover:-translate-y-2">
-          <h4 class="font-heading text-xl mb-2">Day Programs</h4>
-          <p>Engaging activities, social interaction, and supervised care tailored to every need.</p>
+        <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+            <a
+                :href="Alpine.store('assessmentRecommendation')?.primaryCtaHref ?? 'https:\/\/calendly.com\/eldercare-sg'"
+                class="cta-button"
+                x-text="Alpine.store('assessmentRecommendation')?.primaryCtaLabel ?? 'Book a visit'"
+            >
+                Book a visit
+            </a>
+            <a href="#tour" class="inline-flex items-center gap-2 rounded-full border border-white/60 px-6 py-3 text-sm font-medium uppercase tracking-wide text-white transition hover:border-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.25 9.75L17.25 12L14.25 14.25M6.75 12H17.25" />
+                </svg>
+                Watch virtual tour
+            </a>
         </div>
-        <div class="section-card text-center transition-transform duration-300 hover:-translate-y-2">
-          <h4 class="font-heading text-xl mb-2">Wellness Services</h4>
-          <p>On-site therapy, health monitoring, and personalized care routines.</p>
-        </div>
-        <div class="section-card text-center transition-transform duration-300 hover:-translate-y-2">
-          <h4 class="font-heading text-xl mb-2">Family Support</h4>
-          <p>Valuable resources, educational workshops, and respite support for caregivers.</p>
-        </div>
-      </div>
     </div>
-  </section>
+</section>
 
-  <!-- Care Philosophy -->
-  <section id="care" class="py-16 bg-white" x-data="{}" x-intersect.once="$el.classList.add('fade-in-up')">
-    <div class="mx-auto max-w-section px-6 grid md:grid-cols-2 gap-12 items-center">
-      <img src="https://placehold.co/600x400/22476a/f7f9fc?text=Our+Philosophy" alt="A caregiver and senior share a joyful moment." class="rounded-3xl shadow-card" />
-      <div class="section-card">
-        <p class="pill-tag">Our Values</p>
-        <h3 class="mt-4 font-semibold text-heading-lg">Our Care Philosophy</h3>
-        <p class="mt-3 text-slate">We uphold three core values to ensure the highest standard of care for your loved ones.</p>
-        <ul class="mt-4 space-y-2 list-inside text-slate">
-          <li><strong>Safety:</strong> 24/7 monitored, accessible environments with trained professionals.</li>
-          <li><strong>Engagement:</strong> Joyful and meaningful daily activities that stimulate mind and body.</li>
-          <li><strong>Dignity:</strong> Respectful, personalized care that honors each individual's life story.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
 
-  <!-- Testimonials Carousel -->
-  <section id="testimonials" class="py-16" x-data="carousel()" x-intersect.once="$el.classList.add('fade-in-up')">
-    <div class="mx-auto max-w-section px-6 text-center">
-        <p class="pill-tag mx-auto">Testimonials</p>
-      <h3 class="mt-4 font-semibold text-heading-xl">What Families Say About Us</h3>
-      <div class="staff-carousel mt-10">
-        <div class="staff-carousel__viewport" x-ref="viewport">
-            <div class="staff-carousel__container">
-                <div class="staff-carousel__slide"><blockquote class="section-card h-full"><p class="text-slate">"They cared for my mum like their own family! The attention to detail and genuine warmth of the staff here is unparalleled."</p><footer class="mt-4 font-semibold text-trust">- Mdm. Tan</footer></blockquote></div>
-                <div class="staff-carousel__slide"><blockquote class="section-card h-full"><p class="text-slate">"A trustworthy, clean, and joyful environment. My father looks forward to his days at ElderCare SG. It's given me such peace of mind."</p><footer class="mt-4 font-semibold text-trust">- Mr. Kumar</footer></blockquote></div>
-                <div class="staff-carousel__slide"><blockquote class="section-card h-full"><p class="text-slate">"The caregivers always went the extra mile. From remembering my mother's favorite songs to helping with her therapy exercises."</p><footer class="mt-4 font-semibold text-trust">- Mrs. Lim</footer></blockquote></div>
-                <div class="staff-carousel__slide"><blockquote class="section-card h-full"><p class="text-slate">"The facilities are top-notch and the programs are so engaging. It's wonderful to see my mother so happy and active."</p><footer class="mt-4 font-semibold text-trust">- J. Chen</footer></blockquote></div>
+
+    <section
+    id="assessment"
+    class="bg-white py-16"
+    x-data="assessmentFlow(JSON.parse('{\u0022labels\u0022:{\u0022step_prefix\u0022:\u0022Step\u0022,\u0022step_separator\u0022:\u0022of\u0022,\u0022back\u0022:\u0022Back\u0022,\u0022next\u0022:\u0022Next\u0022,\u0022skip\u0022:\u0022Skip for now\u0022,\u0022complete\u0022:\u0022See my care plan\u0022,\u0022restart\u0022:\u0022Start over\u0022},\u0022steps\u0022:[{\u0022id\u0022:\u0022care_context\u0022,\u0022title\u0022:\u0022Care context\u0022,\u0022question\u0022:\u0022Who are you seeking care for?\u0022,\u0022type\u0022:\u0022single\u0022,\u0022options\u0022:[{\u0022value\u0022:\u0022mom\u0022,\u0022label\u0022:\u0022Mom\u0022},{\u0022value\u0022:\u0022dad\u0022,\u0022label\u0022:\u0022Dad\u0022},{\u0022value\u0022:\u0022relative\u0022,\u0022label\u0022:\u0022Relative\u0022},{\u0022value\u0022:\u0022other\u0022,\u0022label\u0022:\u0022Other\u0022}],\u0022analytics_key\u0022:\u0022care_context\u0022},{\u0022id\u0022:\u0022support_frequency\u0022,\u0022title\u0022:\u0022Support frequency\u0022,\u0022question\u0022:\u0022How often do you need daytime support?\u0022,\u0022type\u0022:\u0022single\u0022,\u0022options\u0022:[{\u0022value\u0022:\u0022weekdays\u0022,\u0022label\u0022:\u0022Weekdays\u0022},{\u0022value\u0022:\u0022selected_days\u0022,\u0022label\u0022:\u0022Selected days\u0022},{\u0022value\u0022:\u0022occasional\u0022,\u0022label\u0022:\u0022Occasionally\u0022},{\u0022value\u0022:\u0022unknown\u0022,\u0022label\u0022:\u0022Not sure yet\u0022}],\u0022analytics_key\u0022:\u0022support_frequency\u0022},{\u0022id\u0022:\u0022mobility\u0022,\u0022title\u0022:\u0022Mobility support\u0022,\u0022question\u0022:\u0022How much support does your loved one need with movement?\u0022,\u0022type\u0022:\u0022single\u0022,\u0022options\u0022:[{\u0022value\u0022:\u0022independent\u0022,\u0022label\u0022:\u0022Independent\u0022},{\u0022value\u0022:\u0022assistance\u0022,\u0022label\u0022:\u0022Needs some assistance\u0022}],\u0022options_extra\u0022:[{\u0022value\u0022:\u0022full_support\u0022,\u0022label\u0022:\u0022Requires full support\u0022}],\u0022analytics_key\u0022:\u0022mobility\u0022},{\u0022id\u0022:\u0022cognitive_support\u0022,\u0022title\u0022:\u0022Cognitive support\u0022,\u0022question\u0022:\u0022How would you describe memory support needs?\u0022,\u0022type\u0022:\u0022single\u0022,\u0022options\u0022:[{\u0022value\u0022:\u0022engaged\u0022,\u0022label\u0022:\u0022Engaged \\u0026 social\u0022},{\u0022value\u0022:\u0022mild_changes\u0022,\u0022label\u0022:\u0022Mild memory changes\u0022},{\u0022value\u0022:\u0022dementia\u0022,\u0022label\u0022:\u0022Specialised dementia care\u0022}],\u0022analytics_key\u0022:\u0022cognitive_support\u0022},{\u0022id\u0022:\u0022health_considerations\u0022,\u0022title\u0022:\u0022Health considerations\u0022,\u0022question\u0022:\u0022Any specific health considerations we should prepare for?\u0022,\u0022type\u0022:\u0022multi\u0022,\u0022options\u0022:[{\u0022value\u0022:\u0022diabetes\u0022,\u0022label\u0022:\u0022Diabetes\u0022},{\u0022value\u0022:\u0022cardiac\u0022,\u0022label\u0022:\u0022Cardiac care\u0022},{\u0022value\u0022:\u0022stroke\u0022,\u0022label\u0022:\u0022Stroke recovery\u0022},{\u0022value\u0022:\u0022mobility_aids\u0022,\u0022label\u0022:\u0022Uses mobility aids\u0022},{\u0022value\u0022:\u0022other\u0022,\u0022label\u0022:\u0022Other considerations\u0022}],\u0022analytics_key\u0022:\u0022health_considerations\u0022},{\u0022id\u0022:\u0022transportation\u0022,\u0022title\u0022:\u0022Transportation\u0022,\u0022question\u0022:\u0022Do you need door-to-door transport?\u0022,\u0022type\u0022:\u0022single\u0022,\u0022options\u0022:[{\u0022value\u0022:\u0022yes\u0022,\u0022label\u0022:\u0022Yes\u0022},{\u0022value\u0022:\u0022sometimes\u0022,\u0022label\u0022:\u0022Sometimes\u0022},{\u0022value\u0022:\u0022no\u0022,\u0022label\u0022:\u0022No\u0022}],\u0022analytics_key\u0022:\u0022transportation\u0022},{\u0022id\u0022:\u0022caregiver_goals\u0022,\u0022title\u0022:\u0022Caregiver goals\u0022,\u0022question\u0022:\u0022What do you hope this program provides for your family?\u0022,\u0022type\u0022:\u0022multi\u0022,\u0022options\u0022:[{\u0022value\u0022:\u0022engagement\u0022,\u0022label\u0022:\u0022Daytime engagement\u0022},{\u0022value\u0022:\u0022clinical\u0022,\u0022label\u0022:\u0022Clinical oversight\u0022},{\u0022value\u0022:\u0022respite\u0022,\u0022label\u0022:\u0022Respite for caregivers\u0022},{\u0022value\u0022:\u0022therapy\u0022,\u0022label\u0022:\u0022Therapy services\u0022},{\u0022value\u0022:\u0022community\u0022,\u0022label\u0022:\u0022Community connection\u0022}],\u0022analytics_key\u0022:\u0022caregiver_goals\u0022},{\u0022id\u0022:\u0022contact_preference\u0022,\u0022title\u0022:\u0022Follow-up preference\u0022,\u0022question\u0022:\u0022How would you like us to follow up?\u0022,\u0022type\u0022:\u0022single\u0022,\u0022options\u0022:[{\u0022value\u0022:\u0022book_now\u0022,\u0022label\u0022:\u0022Book consultation now\u0022},{\u0022value\u0022:\u0022email_me\u0022,\u0022label\u0022:\u0022Email me details\u0022},{\u0022value\u0022:\u0022browsing\u0022,\u0022label\u0022:\u0022Just browsing for now\u0022}],\u0022analytics_key\u0022:\u0022contact_preference\u0022}],\u0022segments\u0022:{\u0022active_day\u0022:{\u0022name\u0022:\u0022Active day engagement\u0022,\u0022description\u0022:\u0022Your loved one thrives with vibrant social programming and meaningful experiences.\u0022,\u0022programs\u0022:[\u0022Day Programs\u0022,\u0022Community Circles\u0022],\u0022highlights\u0022:[\u0022Preview daily enrichment calendar and cultural activities.\u0022,\u0022Meet our engagement specialists who facilitate purposeful routines.\u0022],\u0022cta_label\u0022:\u0022Schedule a discovery visit\u0022,\u0022cta_href\u0022:\u0022#booking\u0022},\u0022supportive_care\u0022:{\u0022name\u0022:\u0022Supportive clinical care\u0022,\u0022description\u0022:\u0022Consistent clinical oversight and therapy-driven schedules will bring your family confidence.\u0022,\u0022programs\u0022:[\u0022Wellness Support\u0022,\u0022Therapy \\u0026 Rehab\u0022],\u0022highlights\u0022:[\u0022Tour therapy gyms, sensory rooms, and consult with licensed clinicians.\u0022,\u0022Receive a customised care outline within 24 hours of your visit.\u0022],\u0022cta_label\u0022:\u0022Plan a tailored care visit\u0022,\u0022cta_href\u0022:\u0022#booking\u0022},\u0022memory_care\u0022:{\u0022name\u0022:\u0022Memory care focus\u0022,\u0022description\u0022:\u0022Specialised dementia programming offers safety, reassurance, and moments of joy.\u0022,\u0022programs\u0022:[\u0022Memories \\u0026 Moments\u0022,\u0022Family Coaching\u0022],\u0022highlights\u0022:[\u0022Explore secure sensory gardens and small-group memory workspaces.\u0022,\u0022Receive guidance on family routines and cognitive enrichment at home.\u0022],\u0022cta_label\u0022:\u0022Book a memory care consultation\u0022,\u0022cta_href\u0022:\u0022#booking\u0022},\u0022respite_support\u0022:{\u0022name\u0022:\u0022Respite \\u0026 logistics support\u0022,\u0022description\u0022:\u0022Flexible scheduling and transport services help your household breathe easier.\u0022,\u0022programs\u0022:[\u0022Flexible Care Pass\u0022,\u0022Door-to-Door Support\u0022],\u0022highlights\u0022:[\u0022Discuss transport routes, schedules, and caregiver respite resources.\u0022,\u0022Bundle services that adapt to changing weekly needs.\u0022],\u0022cta_label\u0022:\u0022Build your flexible schedule\u0022,\u0022cta_href\u0022:\u0022#booking\u0022},\u0022exploration\u0022:{\u0022name\u0022:\u0022Explore at your own pace\u0022,\u0022description\u0022:\u0022Take time to review our stories and resources before speaking with a care advisor.\u0022,\u0022programs\u0022:[\u0022Caregiver Resource Hub\u0022,\u0022Family Testimonials\u0022],\u0022highlights\u0022:[\u0022Download caregiver checklists and planning guides.\u0022,\u0022Subscribe to monthly updates crafted for families starting their journey.\u0022],\u0022cta_label\u0022:\u0022Send me caregiver resources\u0022,\u0022cta_href\u0022:\u0022#newsletter\u0022}},\u0022summary\u0022:{\u0022title\u0022:\u0022Your personalized care path\u0022,\u0022intro\u0022:\u0022Based on your answers, here is what we recommend next:\u0022,\u0022programs_heading\u0022:\u0022Recommended programs\u0022,\u0022highlights_heading\u0022:\u0022What to expect next\u0022,\u0022cta_fallback\u0022:\u0022Book a visit\u0022},\u0022analytics\u0022:{\u0022event_namespace\u0022:\u0022assessment\u0022}}'))"
+>
+    <div class="mx-auto max-w-section px-6">
+        <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:items-center">
+            <div class="space-y-5">
+                <p class="pill-tag">Guided Assessment</p>
+                <h2 class="text-3xl font-semibold text-trust sm:text-4xl">Discover the care plan that fits your family best</h2>
+                <p class="text-lg text-slate">Answer a few thoughtful questions and we will highlight the programs, specialists, and next steps that match your loved one’s needs.</p>
+
+                <ul class="space-y-3 text-slate">
+                    <li class="flex items-start gap-3">
+                        <span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>
+                        <span>Instantly see recommended programs based on your answers.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>
+                        <span>Understand how our nursing and therapy teams can support unique health considerations.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>
+                        <span>Choose the follow-up that works for you—book a visit or receive curated resources.</span>
+                    </li>
+                </ul>
+
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <button
+                        type="button"
+                        class="cta-button"
+                        @click="open()"
+                    >
+                        Take the quick assessment
+                    </button>
+                    <a href="#programs" class="inline-flex items-center gap-2 text-sm font-semibold text-trust hover:text-gold">
+                        <span>Explore programs instead</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.25 9.75L17.25 12L14.25 14.25M6.75 12H17.25" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="section-card space-y-4" aria-live="polite">
+                <div class="flex items-center gap-3">
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold text-trust">01</span>
+                    <div>
+                        <p class="text-sm font-semibold uppercase tracking-wide text-trust">Share care priorities</p>
+                        <p class="text-sm text-slate">Tell us about mobility, memory, and support frequency needs.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold text-trust">02</span>
+                    <div>
+                        <p class="text-sm font-semibold uppercase tracking-wide text-trust">See tailored suggestions</p>
+                        <p class="text-sm text-slate">We surface the programs, testimonials, and guides that resonate most.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gold text-trust">03</span>
+                    <div>
+                        <p class="text-sm font-semibold uppercase tracking-wide text-trust">Choose your next step</p>
+                        <p class="text-sm text-slate">Book a visit, request a call, or download helpful caregiver resources.</p>
+                    </div>
+                </div>
+                <p class="text-sm text-slate">Takes about two minutes. All responses remain confidential and help us prepare meaningful guidance.</p>
             </div>
         </div>
-        <div class="mt-6 flex justify-center gap-3">
-            <button @click="scrollPrev()" class="cta-button !p-3" aria-label="Previous testimonial"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-            <button @click="scrollNext()" class="cta-button !p-3" aria-label="Next testimonial"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+    </div>
+
+    <div
+        class="fixed inset-0 z-50 flex items-center justify-center bg-slate-dark/50 px-4 py-8 text-left"
+        x-show="isOpen"
+        x-transition.opacity
+        x-cloak
+        @keydown.escape.prevent.stop="close()"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="assessment-modal-title"
+    >
+        <div class="relative w-full max-w-3xl overflow-hidden rounded-3xl bg-white shadow-card" x-trap.noscroll="isOpen">
+            <div class="flex items-center justify-between border-b border-slate/15 px-8 py-6">
+                <div>
+                    <h3 id="assessment-modal-title" class="text-2xl font-semibold text-trust">
+                        Guided needs assessment
+                    </h3>
+                    <p class="text-sm text-slate">Answer each prompt to receive a personalized care path. You can pause anytime, and we will save your progress for this visit.</p>
+                </div>
+                <button
+                    type="button"
+                    class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate/10 text-slate hover:bg-slate/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                    @click="close()"
+                >
+                    <span class="sr-only">Close assessment</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="max-h-[80vh] overflow-y-auto px-8 py-6" x-data>
+                <template x-if="state === 'questions'">
+                    <div class="space-y-6">
+                        <div class="flex items-center justify-between text-sm font-medium text-slate" role="status" aria-live="polite">
+                            <span x-text="progressLabel"></span>
+                            <button type="button" class="text-trust underline decoration-2 underline-offset-4 hover:text-gold" @click="skip()">Skip for now</button>
+                        </div>
+
+                        <template x-if="currentStep">
+                            <div class="space-y-6" :aria-describedby="`step-${currentStep.id}-description`">
+                                <div>
+                                    <p class="pill-tag inline-flex">Step <span x-text="currentIndex + 1"></span> of <span x-text="totalSteps"></span></p>
+                                    <h4 class="mt-3 text-xl font-semibold text-trust" :id="`step-${currentStep.id}-title`" x-text="currentStep.title"></h4>
+                                    <p class="mt-2 text-slate" :id="`step-${currentStep.id}-description`" x-text="currentStep.question"></p>
+                                </div>
+
+                                <div class="space-y-3" role="group" :aria-labelledby="`step-${currentStep.id}-title`">
+                                    <template x-for="option in options" :key="option.value">
+                                        <button
+                                            type="button"
+                                            class="flex w-full items-center justify-between rounded-2xl border px-5 py-4 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                                            :class="isSelected(option.value) ? 'border-gold bg-gold text-trust' : 'border-slate/15 hover:border-gold/40'"
+                                            :aria-pressed="isSelected(option.value)"
+                                            @click="toggleOption(option.value)"
+                                        >
+                                            <span class="font-medium" x-text="option.label"></span>
+                                            <template x-if="currentStep.type === 'multi'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" :class="isSelected(option.value) ? 'text-trust' : 'text-slate/60'">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m4.5 12.75 6 6 9-13.5" />
+                                                </svg>
+                                            </template>
+                                            <template x-if="currentStep.type === 'single'">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" :class="isSelected(option.value) ? 'text-trust' : 'text-slate/60'">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.75a5.25 5.25 0 1 1 0 10.5 5.25 5.25 0 0 1 0-10.5Z" />
+                                                    <circle cx="12" cy="12" r="2.25" fill="currentColor" x-show="isSelected(option.value)"></circle>
+                                                </svg>
+                                            </template>
+                                        </button>
+                                    </template>
+                                </div>
+
+                                <div class="flex flex-col gap-3 border-t border-slate/10 pt-4 sm:flex-row sm:justify-between">
+                                    <div class="flex gap-3">
+                                        <button
+                                            type="button"
+                                            class="inline-flex items-center gap-2 rounded-full border border-slate/20 px-5 py-3 text-sm font-semibold text-slate hover:text-trust focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold disabled:opacity-50"
+                                            :disabled="currentIndex === 0"
+                                            @click="back()"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                            </svg>
+                                            Back
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="inline-flex items-center gap-2 rounded-full border border-slate/20 px-5 py-3 text-sm font-semibold text-slate hover:text-trust focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                                            @click="restart()"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 8.25 7.5 5.25 10.5 8.25" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 15.75 16.5 18.75 13.5 15.75" />
+                                            </svg>
+                                            Start over
+                                        </button>
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        class="cta-button"
+                                        :disabled="!canProceed"
+                                        @click="next()"
+                                        x-text="isFinalStep ? labels.complete : labels.next"
+                                    ></button>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <template x-if="state === 'summary'">
+                    <div class="space-y-6">
+                        <div>
+                            <p class="pill-tag inline-flex" x-text="summary.segment.name"></p>
+                            <h4 class="mt-3 text-2xl font-semibold text-trust">Your personalized care path</h4>
+                            <p class="mt-2 text-slate">Based on your answers, here is what we recommend next:</p>
+                        </div>
+
+                        <div class="rounded-3xl bg-canvas p-6 space-y-5">
+                            <div>
+                                <h5 class="text-sm font-semibold uppercase tracking-wide text-trust">Recommended programs</h5>
+                                <ul class="mt-3 space-y-2 text-slate">
+                                    <template x-for="program in summary.segment.programs" :key="program">
+                                        <li class="flex items-center gap-2">
+                                            <span class="h-2 w-2 rounded-full bg-gold"></span>
+                                            <span x-text="program"></span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h5 class="text-sm font-semibold uppercase tracking-wide text-trust">What to expect next</h5>
+                                <ul class="mt-3 space-y-2 text-slate">
+                                    <template x-for="highlight in summary.segment.highlights" :key="highlight">
+                                        <li class="flex items-start gap-2">
+                                            <span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>
+                                            <span x-text="highlight"></span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-3 sm:flex-row sm:justify-between">
+                            <button type="button" class="inline-flex items-center gap-2 rounded-full border border-slate/20 px-5 py-3 text-sm font-semibold text-slate hover:text-trust focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold" @click="restart()">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 8.25 7.5 5.25 10.5 8.25" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 15.75 16.5 18.75 13.5 15.75" />
+                                </svg>
+                                Start over
+                            </button>
+
+                            <a :href="summary.segment.cta_href || summary.fallbackCta" class="cta-button inline-flex justify-center" x-text="summary.segment.cta_label || summary.fallbackLabel"></a>
+                        </div>
+
+                        <template x-if="submissionState === 'pending'">
+                            <p class="text-sm text-slate" role="status">Saving your preferences…</p>
+                        </template>
+                        <template x-if="submissionState === 'success'">
+                            <p class="text-sm text-wellness" role="status">Thank you! A care advisor can now tailor their follow-up.</p>
+                        </template>
+                        <template x-if="submissionState === 'skipped'">
+                            <p class="text-sm text-amber-600" role="alert">We could not reach our servers. Your answers remain local.</p>
+                        </template>
+                        <template x-if="submissionState === 'error'">
+                            <p class="text-sm text-red-600" role="alert">
+                                Something went wrong while saving your responses.
+                                <span x-text="submissionError"></span>
+                            </p>
+                        </template>
+                    </div>
+                </template>
+
+                <template x-if="state === 'intro'">
+                    <div class="space-y-4 text-center">
+                        <p class="pill-tag mx-auto inline-flex">Guided Assessment</p>
+                        <p class="text-slate">The interactive interface is nearly ready. In the meantime, reach out to our care advisors for immediate support.</p>
+                        <button type="button" class="cta-button" @click="start()">Take the quick assessment</button>
+                    </div>
+                </template>
+            </div>
         </div>
-      </div>
     </div>
-  </section>
+</section>
 
-  <!-- CTA Virtual Tour -->
-  <section id="visit" class="py-16 bg-gold text-center" x-data="{}" x-intersect.once="$el.classList.add('fade-in-up')">
-    <div class="mx-auto max-w-2xl px-6">
-      <h3 class="font-semibold text-heading-xl text-trust">Take a Virtual Tour</h3>
-      <p class="mt-3 text-body-md text-slate-dark">See our state-of-the-art facility, engaging programs, and meet our compassionate caregivers from the comfort of your home.</p>
-      <a href="#" class="cta-button mt-8 bg-trust text-white hover:bg-trust/90">Watch Virtual Tour</a>
+    <section
+    id="assessment-prompts"
+    class="bg-white py-16"
+    x-data="assessmentPrompts({ prompts: JSON.parse('{\u0022default\u0022:[{\u0022slug\u0022:\u0022prompt-estimator-overview\u0022,\u0022title\u0022:\u0022See costs tailored to your family\u0022,\u0022description\u0022:\u0022Use the cost estimator to balance program days, transport, and add-ons before you book a visit.\u0022,\u0022cta_label\u0022:\u0022Open cost estimator\u0022,\u0022cta_href\u0022:\u0022#estimator\u0022,\u0022cta_analytics\u0022:\u0022estimator\u0022}],\u0022active_day\u0022:[{\u0022slug\u0022:\u0022prompt-plan-schedule\u0022,\u0022title\u0022:\u0022Plan the ideal weekly schedule\u0022,\u0022description\u0022:\u0022Preview program fees for different day combinations and see how subsidies affect your total.\u0022,\u0022cta_label\u0022:\u0022Adjust visit days\u0022,\u0022cta_href\u0022:\u0022#estimator\u0022,\u0022cta_analytics\u0022:\u0022estimator\u0022},{\u0022slug\u0022:\u0022prompt-read-testimonials\u0022,\u0022title\u0022:\u0022Hear from active day families\u0022,\u0022description\u0022:\u0022Jump to our testimonials to see how other caregivers build social routines with us.\u0022,\u0022cta_label\u0022:\u0022View testimonials\u0022,\u0022cta_href\u0022:\u0022#testimonials\u0022,\u0022cta_analytics\u0022:\u0022testimonials\u0022}],\u0022supportive_care\u0022:[{\u0022slug\u0022:\u0022prompt-clinical-consult\u0022,\u0022title\u0022:\u0022Schedule a clinical walkthrough\u0022,\u0022description\u0022:\u0022Book a consultation to review therapy plans, nurse ratios, and customised reporting.\u0022,\u0022cta_label\u0022:\u0022Plan a clinical visit\u0022,\u0022cta_href\u0022:\u0022#booking\u0022,\u0022cta_analytics\u0022:\u0022booking\u0022},{\u0022slug\u0022:\u0022prompt-estimator-therapy\u0022,\u0022title\u0022:\u0022Estimate therapy-inclusive fees\u0022,\u0022description\u0022:\u0022Toggle physiotherapy and concierge add-ons inside the estimator to forecast your monthly total.\u0022,\u0022cta_label\u0022:\u0022Open cost estimator\u0022,\u0022cta_href\u0022:\u0022#estimator\u0022,\u0022cta_analytics\u0022:\u0022estimator\u0022}],\u0022memory_care\u0022:[{\u0022slug\u0022:\u0022prompt-memory-guides\u0022,\u0022title\u0022:\u0022Download memory care guides\u0022,\u0022description\u0022:\u0022Access caregiver checklists and home routine ideas curated by our dementia specialists.\u0022,\u0022cta_label\u0022:\u0022Browse caregiver resources\u0022,\u0022cta_href\u0022:\u0022#resources\u0022,\u0022cta_analytics\u0022:\u0022resources\u0022},{\u0022slug\u0022:\u0022prompt-memory-tour\u0022,\u0022title\u0022:\u0022Tour memory-safe spaces\u0022,\u0022description\u0022:\u0022Book a visit to explore sensory rooms, therapy gyms, and care team workflows.\u0022,\u0022cta_label\u0022:\u0022Book memory care visit\u0022,\u0022cta_href\u0022:\u0022#booking\u0022,\u0022cta_analytics\u0022:\u0022booking\u0022}],\u0022respite_support\u0022:[{\u0022slug\u0022:\u0022prompt-transport-checklist\u0022,\u0022title\u0022:\u0022Prepare transport \\u0026 drop-off\u0022,\u0022description\u0022:\u0022Download the transport checklist to streamline pickups, escorts, and packing routines.\u0022,\u0022cta_label\u0022:\u0022Download transport checklist\u0022,\u0022cta_href\u0022:\u0022#resources\u0022,\u0022cta_analytics\u0022:\u0022resources\u0022},{\u0022slug\u0022:\u0022prompt-flexible-pass\u0022,\u0022title\u0022:\u0022Build your flexible pass\u0022,\u0022description\u0022:\u0022Chat with our concierge about mixing transport, half-days, and respite options that match your schedule.\u0022,\u0022cta_label\u0022:\u0022Talk to our concierge\u0022,\u0022cta_href\u0022:\u0022#booking\u0022,\u0022cta_analytics\u0022:\u0022booking\u0022}],\u0022exploration\u0022:[{\u0022slug\u0022:\u0022prompt-resources-overview\u0022,\u0022title\u0022:\u0022Save caregiver planning guides\u0022,\u0022description\u0022:\u0022Download printable intake checklists and nutrition planners to review with your family.\u0022,\u0022cta_label\u0022:\u0022Browse caregiver resources\u0022,\u0022cta_href\u0022:\u0022#resources\u0022,\u0022cta_analytics\u0022:\u0022resources\u0022},{\u0022slug\u0022:\u0022prompt-join-updates\u0022,\u0022title\u0022:\u0022Join monthly caregiver updates\u0022,\u0022description\u0022:\u0022Subscribe for new program announcements, subsidy insights, and caregiver workshop invites.\u0022,\u0022cta_label\u0022:\u0022Subscribe for updates\u0022,\u0022cta_href\u0022:\u0022#newsletter\u0022,\u0022cta_analytics\u0022:\u0022newsletter\u0022}]}') })"
+>
+    <div class="mx-auto max-w-section px-6">
+        <div class="mb-8 text-center lg:text-left">
+            <p class="pill-tag mx-auto lg:mx-0">Personalised next steps</p>
+            <h2 class="mt-4 text-3xl font-semibold text-trust sm:text-4xl">Keep planning with tailored suggestions</h2>
+            <p class="mt-3 text-slate">Recommendations update after you complete the guided assessment. Explore the prompts that align with your family’s goals.</p>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2" x-show="activePrompts.length" x-cloak>
+            <template x-for="prompt in activePrompts" :key="prompt.slug">
+                <article class="section-card flex h-full flex-col justify-between gap-6">
+                    <div class="space-y-3">
+                        <p class="pill-tag inline-flex bg-gold text-trust text-xs uppercase tracking-wide">Suggested</p>
+                        <h3 class="text-xl font-semibold text-trust" x-text="prompt.title"></h3>
+                        <p class="text-sm text-slate" x-text="prompt.description"></p>
+                    </div>
+                    <a
+                        :href="prompt.cta_href"
+                        class="resource-card__cta"
+                        data-analytics-id="assessment-prompt"
+                        :data-prompt-slug="prompt.slug"
+                        @click="handlePromptClick(prompt)"
+                    >
+                        <span x-text="prompt.cta_label"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.25 9.75L17.25 12L14.25 14.25M6.75 12H17.25" />
+                        </svg>
+                    </a>
+                </article>
+            </template>
+        </div>
+
+        <template x-if="!activePrompts.length">
+            <p class="rounded-3xl bg-canvas px-6 py-4 text-sm text-slate">Complete the guided assessment to unlock personalised prompts for resources, pricing tools, and visit scheduling.</p>
+        </template>
     </div>
-  </section>
+</section>
 
-  <!-- Footer -->
-  <footer class="bg-trust text-white py-12">
-    <div class="mx-auto max-w-section px-6 text-center">
-      <p class="font-semibold">&copy; 2025 ElderCare SG. All rights reserved.</p>
-      <p class="text-sm text-white/70 mt-2">Designed with accessibility, compassion, and modern care in mind.</p>
+
+    <section id="programs" class="bg-canvas py-16 content-visibility-auto">
+        <div class="mx-auto max-w-section px-6" x-data>
+            <div class="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+                <div>
+                    <p class="pill-tag" x-text="Alpine.store('assessmentRecommendation')?.hasRecommendation ? 'Recommended for you' : 'Programs'"></p>
+                    <h2 class="mt-4 text-3xl font-semibold text-trust sm:text-4xl" x-text="Alpine.store('assessmentRecommendation')?.segment?.name ?? 'Holistic daytime care tailored for Singaporean seniors'"></h2>
+                    <p class="mt-3 text-slate" x-show="Alpine.store('assessmentRecommendation')?.segment" x-text="Alpine.store('assessmentRecommendation')?.segment?.description"></p>
+                </div>
+                <a
+                    :href="Alpine.store('assessmentRecommendation')?.primaryCtaHref ?? '#booking'"
+                    class="cta-button"
+                    x-text="Alpine.store('assessmentRecommendation')?.primaryCtaLabel ?? 'Book a consultation'"
+                >Book a consultation</a>
+            </div>
+
+            <div
+                class="mb-12 grid gap-6 rounded-3xl bg-white p-6 shadow-card"
+                x-show="Alpine.store('assessmentRecommendation')?.hasRecommendation"
+                x-transition
+            >
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <p class="pill-tag inline-flex">Personalized highlights</p>
+                        <h3 class="mt-2 text-2xl font-semibold text-trust" x-text="Alpine.store('assessmentRecommendation')?.segment?.name"></h3>
+                    </div>
+                    <a
+                        :href="Alpine.store('assessmentRecommendation')?.primaryCtaHref ?? '#booking'"
+                        class="cta-button"
+                        x-text="Alpine.store('assessmentRecommendation')?.primaryCtaLabel ?? 'Book now'"
+                    >Book now</a>
+                </div>
+                <div class="grid gap-6 md:grid-cols-2">
+                    <div>
+                        <h4 class="text-sm font-semibold uppercase tracking-wide text-trust">Programs to explore</h4>
+                        <ul class="mt-3 space-y-2 text-sm text-slate">
+                            <template x-for="program in Alpine.store('assessmentRecommendation')?.programs" :key="program">
+                                <li class="flex items-center gap-2">
+                                    <span class="h-2 w-2 rounded-full bg-gold"></span>
+                                    <span x-text="program"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-semibold uppercase tracking-wide text-trust">Why we recommend this</h4>
+                        <ul class="mt-3 space-y-2 text-sm text-slate">
+                            <template x-for="highlight in Alpine.store('assessmentRecommendation')?.highlights" :key="highlight">
+                                <li class="flex items-start gap-2">
+                                    <span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>
+                                    <span x-text="highlight"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                    <article class="section-card fade-in-up" data-animate>
+                        <div class="flex items-center gap-3 text-sm uppercase tracking-wide text-trust">
+                                                            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gold text-trust shadow-sm">
+                                    ☀️
+                                </span>
+                                                        <span>Structured days, joyful moments</span>
+                        </div>
+                        <h3 class="mt-4 text-2xl font-semibold text-trust">Day Programs</h3>
+                        <p class="mt-3 text-slate">Purposeful daily schedules blending cognitive stimulation, social engagement, and restorative breaks.</p>
+
+                                                    <ul class="mt-4 space-y-2 text-sm text-slate">
+                                                                    <li class="flex items-start gap-2">
+                                        <span class="mt-1 h-1.5 w-1.5 rounded-full bg-gold"></span>
+                                        <span>Cognitive workshops and reminiscence therapy</span>
+                                    </li>
+                                                                    <li class="flex items-start gap-2">
+                                        <span class="mt-1 h-1.5 w-1.5 rounded-full bg-gold"></span>
+                                        <span>Chef-designed meals with dietary accommodations</span>
+                                    </li>
+                                                                    <li class="flex items-start gap-2">
+                                        <span class="mt-1 h-1.5 w-1.5 rounded-full bg-gold"></span>
+                                        <span>Transportation coordination across Singapore</span>
+                                    </li>
+                                                            </ul>
+                        
+                        <a href="#" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-trust hover:text-gold">Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.25 9.75L17.25 12L14.25 14.25M6.75 12H17.25" />
+                            </svg>
+                        </a>
+                    </article>
+                                    <article class="section-card fade-in-up" data-animate>
+                        <div class="flex items-center gap-3 text-sm uppercase tracking-wide text-trust">
+                                                            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gold text-trust shadow-sm">
+                                    💚
+                                </span>
+                                                        <span>Therapeutic care for vitality</span>
+                        </div>
+                        <h3 class="mt-4 text-2xl font-semibold text-trust">Wellness &amp; Therapy</h3>
+                        <p class="mt-3 text-slate">On-site physiotherapy, occupational therapy, and gentle movement to support seniors’ strength and balance.</p>
+
+                                                    <ul class="mt-4 space-y-2 text-sm text-slate">
+                                                                    <li class="flex items-start gap-2">
+                                        <span class="mt-1 h-1.5 w-1.5 rounded-full bg-gold"></span>
+                                        <span>MOH-certified therapists on-site daily</span>
+                                    </li>
+                                                                    <li class="flex items-start gap-2">
+                                        <span class="mt-1 h-1.5 w-1.5 rounded-full bg-gold"></span>
+                                        <span>Hydrotherapy partnerships with community pools</span>
+                                    </li>
+                                                                    <li class="flex items-start gap-2">
+                                        <span class="mt-1 h-1.5 w-1.5 rounded-full bg-gold"></span>
+                                        <span>Personalised fall-prevention plans</span>
+                                    </li>
+                                                            </ul>
+                        
+                        <a href="#" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-trust hover:text-gold">Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.25 9.75L17.25 12L14.25 14.25M6.75 12H17.25" />
+                            </svg>
+                        </a>
+                    </article>
+                                    <article class="section-card fade-in-up" data-animate>
+                        <div class="flex items-center gap-3 text-sm uppercase tracking-wide text-trust">
+                                                            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gold text-trust shadow-sm">
+                                    👥
+                                </span>
+                                                        <span>Supporting caregivers every step</span>
+                        </div>
+                        <h3 class="mt-4 text-2xl font-semibold text-trust">Family Support</h3>
+                        <p class="mt-3 text-slate">Caregiver coaching, respite options, and regular updates to keep families connected and confident.</p>
+
+                                                    <ul class="mt-4 space-y-2 text-sm text-slate">
+                                                                    <li class="flex items-start gap-2">
+                                        <span class="mt-1 h-1.5 w-1.5 rounded-full bg-gold"></span>
+                                        <span>Monthly caregiver workshops and support circles</span>
+                                    </li>
+                                                                    <li class="flex items-start gap-2">
+                                        <span class="mt-1 h-1.5 w-1.5 rounded-full bg-gold"></span>
+                                        <span>Secure family portal with daily summaries</span>
+                                    </li>
+                                                                    <li class="flex items-start gap-2">
+                                        <span class="mt-1 h-1.5 w-1.5 rounded-full bg-gold"></span>
+                                        <span>Transitional care planning with hospital partners</span>
+                                    </li>
+                                                            </ul>
+                        
+                        <a href="#" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-trust hover:text-gold">Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.25 9.75L17.25 12L14.25 14.25M6.75 12H17.25" />
+                            </svg>
+                        </a>
+                    </article>
+                            </div>
+        </div>
+    </section>
+
+    <section id="philosophy" class="bg-white py-16 content-visibility-auto">
+        <div class="mx-auto max-w-section grid gap-12 px-6 lg:grid-cols-2 lg:items-center">
+            <div class="space-y-4">
+                <p class="pill-tag">Our Philosophy</p>
+                <h2 class="text-3xl font-semibold text-trust sm:text-4xl">Safety, dignity, and joyful engagement guide every moment</h2>
+                <p class="text-slate">From evidence-backed routines to personalised care plans, we nurture seniors with respect and warmth. Our licensed team collaborates with families to craft experiences that uplift body, mind, and spirit.</p>
+                <ul class="space-y-3 text-slate">
+                    <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>MOH-certified nurses and therapists onsite daily.</li>
+                    <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>Daily reporting and caregiver briefings keep families informed.</li>
+                    <li class="flex items-start gap-3"><span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>Inclusive programming accommodating mobility and cognitive needs.</li>
+                </ul>
+            </div>
+            <div class="section-card space-y-6">
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                        <p class="text-4xl font-semibold text-trust">15+</p>
+                        <p class="text-sm text-slate">years serving seniors</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-semibold text-trust">98%</p>
+                        <p class="text-sm text-slate">family satisfaction</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-semibold text-trust">1:4</p>
+                        <p class="text-sm text-slate">staff to resident ratio</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-semibold text-trust">24/7</p>
+                        <p class="text-sm text-slate">caregiver hotline</p>
+                    </div>
+                </div>
+                <p class="text-sm text-slate">Metrics refreshed quarterly to maintain accreditation and continuous improvement goals.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="bg-canvas py-16 content-visibility-auto">
+        <div class="mx-auto max-w-section px-6">
+            <div class="mb-10 space-y-3 text-center">
+                <p class="pill-tag mx-auto">Testimonials</p>
+                <h2 class="text-3xl font-semibold text-trust sm:text-4xl">Families share their ElderCare SG journeys</h2>
+                <p class="text-slate">Embla-powered carousel coming soon. Below is a placeholder structure to integrate dynamic testimonials.</p>
+            </div>
+
+            <div class="overflow-hidden" x-data x-init="window.initEmbla($refs.viewport)">
+                <div class="embla__viewport" x-ref="viewport">
+                    <div class="embla__container flex gap-6">
+                                                    <article class="embla__slide basis-full md:basis-2/3 lg:basis-1/2">
+                                <div class="section-card h-full space-y-4">
+                                    <p class="text-lg text-slate">“Mum looks forward to every visit. The staff communicates with compassion and clarity, always keeping us informed.”</p>
+                                    <div class="space-y-1 text-sm text-trust">
+                                        <p class="font-semibold">Adeline Tan</p>
+                                        <p class="text-xs text-slate">Daughter of resident • Bukit Timah</p>
+                                    </div>
+                                </div>
+                            </article>
+                                                    <article class="embla__slide basis-full md:basis-2/3 lg:basis-1/2">
+                                <div class="section-card h-full space-y-4">
+                                    <p class="text-lg text-slate">“Their wellness programs rebuilt Dad’s confidence after his fall. He is stronger and more social than before.”</p>
+                                    <div class="space-y-1 text-sm text-trust">
+                                        <p class="font-semibold">Harish Kumar</p>
+                                        <p class="text-xs text-slate">Son of resident • Jurong West</p>
+                                    </div>
+                                </div>
+                            </article>
+                                                    <article class="embla__slide basis-full md:basis-2/3 lg:basis-1/2">
+                                <div class="section-card h-full space-y-4">
+                                    <p class="text-lg text-slate">“I trust their team completely — the daily updates keep me assured even on my busiest days.”</p>
+                                    <div class="space-y-1 text-sm text-trust">
+                                        <p class="font-semibold">Nur Aisyah</p>
+                                        <p class="text-xs text-slate">Primary caregiver • Punggol</p>
+                                    </div>
+                                </div>
+                            </article>
+                                            </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section
+    id="tour"
+    class="bg-white py-16"
+    x-data="tourComponent({
+        hotspots: JSON.parse('[{\u0022id\u0022:\u0022welcome_lounge\u0022,\u0022title\u0022:\u0022Welcome Lounge\u0022,\u0022description\u0022:\u0022Discover how our concierge team greets families and eases arrivals with bilingual support.\u0022,\u0022media\u0022:{\u0022type\u0022:\u0022image\u0022,\u0022src\u0022:\u0022https:\\\/\\\/placehold.co\\\/800x450?text=Hotspot\u0022,\u0022alt\u0022:\u0022Panoramic view of the welcome lounge with seating and greenery.\u0022},\u0022coordinates\u0022:{\u0022x\u0022:18,\u0022y\u0022:42},\u0022ariaLabel\u0022:\u0022Explore the Welcome Lounge hotspot\u0022,\u0022transcript\u0022:\u0022\\\/media\\\/transcripts\\\/tour-main.md#welcome-lounge\u0022,\u0022analyticsId\u0022:\u0022tour.hotspot.welcome_lounge\u0022,\u0022anchor\u0022:\u0022#welcome_lounge\u0022},{\u0022id\u0022:\u0022mobility_studio\u0022,\u0022title\u0022:\u0022Mobility Studio\u0022,\u0022description\u0022:\u0022See adaptive equipment and guided physiotherapy sessions led by Marcus Lee.\u0022,\u0022media\u0022:{\u0022type\u0022:\u0022video\u0022,\u0022src\u0022:\u0022\u0022,\u0022poster\u0022:\u0022https:\\\/\\\/placehold.co\\\/800x450?text=Video\u0022,\u0022captions\u0022:\u0022\u0022},\u0022coordinates\u0022:{\u0022x\u0022:52,\u0022y\u0022:36},\u0022ariaLabel\u0022:\u0022Explore the Mobility Studio hotspot\u0022,\u0022transcript\u0022:\u0022\\\/media\\\/transcripts\\\/tour-main.md#mobility-studio\u0022,\u0022analyticsId\u0022:\u0022tour.hotspot.mobility_studio\u0022,\u0022anchor\u0022:\u0022#mobility_studio\u0022},{\u0022id\u0022:\u0022wellness_clinic\u0022,\u0022title\u0022:\u0022Wellness Clinic\u0022,\u0022description\u0022:\u0022Learn about clinical reviews and nutrition plans coordinated by Dr. Priya Nair.\u0022,\u0022media\u0022:{\u0022type\u0022:\u0022image\u0022,\u0022src\u0022:\u0022https:\\\/\\\/placehold.co\\\/800x450?text=Hotspot\u0022,\u0022alt\u0022:\u0022Clinic room with consultation table and medical equipment.\u0022},\u0022coordinates\u0022:{\u0022x\u0022:74,\u0022y\u0022:28},\u0022ariaLabel\u0022:\u0022Explore the Wellness Clinic hotspot\u0022,\u0022transcript\u0022:\u0022\\\/media\\\/transcripts\\\/tour-main.md#wellness-clinic\u0022,\u0022analyticsId\u0022:\u0022tour.hotspot.wellness_clinic\u0022,\u0022anchor\u0022:\u0022#wellness_clinic\u0022},{\u0022id\u0022:\u0022sensory_lounge\u0022,\u0022title\u0022:\u0022Sensory Lounge\u0022,\u0022description\u0022:\u0022Experience multi-sensory programming curated by Nurul Afiqah with calming aromas and music.\u0022,\u0022media\u0022:{\u0022type\u0022:\u0022image\u0022,\u0022src\u0022:\u0022https:\\\/\\\/placehold.co\\\/800x450?text=Hotspot\u0022,\u0022alt\u0022:\u0022Soft lighting and comfortable chairs in the sensory lounge.\u0022},\u0022coordinates\u0022:{\u0022x\u0022:33,\u0022y\u0022:67},\u0022ariaLabel\u0022:\u0022Explore the Sensory Lounge hotspot\u0022,\u0022transcript\u0022:\u0022\\\/media\\\/transcripts\\\/tour-main.md#sensory-lounge\u0022,\u0022analyticsId\u0022:\u0022tour.hotspot.sensory_lounge\u0022,\u0022anchor\u0022:\u0022#sensory_lounge\u0022}]'),
+        transcriptUrl: '\/media\/transcripts\/tour-main.md',
+        analyticsNamespace: 'tour',
+    })"
+    x-init="init()"
+>
+    <div class="mx-auto max-w-section grid gap-8 px-6 lg:grid-cols-2 lg:items-center">
+        <div class="relative overflow-hidden rounded-3xl shadow-card">
+            <img
+                src="https://placehold.co/800x450?text=Tour+Preview"
+                alt="ElderCare SG facility virtual tour"
+                class="h-full w-full object-cover"
+            >
+            <button
+                type="button"
+                class="absolute inset-0 flex items-center justify-center bg-trust/40 text-white transition hover:bg-trust/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                @click="open()"
+                :aria-expanded="isOpen"
+            >
+                <span class="inline-flex items-center gap-3 rounded-full bg-white/90 px-5 py-3 text-sm font-semibold text-trust">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.25 5.653c0-1.392 1.5-2.257 2.708-1.544l9.512 5.347a1.785 1.785 0 0 1 0 3.09l-9.512 5.347A1.785 1.785 0 0 1 5.25 16.348z" />
+                    </svg>
+                    Watch virtual tour
+                </span>
+            </button>
+        </div>
+
+        <div class="space-y-4">
+            <p class="pill-tag">Facility tour</p>
+            <h2 class="text-3xl font-semibold text-trust sm:text-4xl">Preview our spaces before you visit</h2>
+
+                            <p class="text-slate">Explore therapy rooms, social lounges, and dining spaces in a guided virtual tour. Accessibility notes and transcripts accompany each media asset.</p>
+            
+                            <ul class="space-y-2 text-slate">
+                                            <li class="flex items-start gap-2">
+                            <span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>
+                            <span>Captioned tour with audio descriptions.</span>
+                        </li>
+                                            <li class="flex items-start gap-2">
+                            <span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>
+                            <span>Transportation and pickup lockers showcased.</span>
+                        </li>
+                                            <li class="flex items-start gap-2">
+                            <span class="mt-1 h-2 w-2 rounded-full bg-gold"></span>
+                            <span>Interactive hotspots highlight safety features.</span>
+                        </li>
+                                    </ul>
+            
+            <a href="#booking" class="cta-button">Schedule a guided visit</a>
+        </div>
     </div>
-  </footer>
 
-  <!-- Project's compiled JS for interactivity -->
-  <!-- Note: For a static file, we use an inline script for the carousel.
-       In the real app, this comes from resources/js/modules/carousel.js -->
-  <script src="https://unpkg.com/embla-carousel@8.1.5/embla-carousel.umd.js"></script>
-  <script>
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('carousel', () => ({
-            embla: null,
-            init() {
-                this.embla = EmblaCarousel(this.$refs.viewport, { loop: true });
-            },
-            scrollNext() {
-                this.embla.scrollNext();
-            },
-            scrollPrev() {
-                this.embla.scrollPrev();
+    <div
+        x-cloak
+        x-show="isOpen"
+        x-transition.opacity.duration.200ms
+        class="fixed inset-0 z-50 flex items-center justify-center bg-trust/80 px-4 py-8"
+        role="dialog"
+        aria-modal="true"
+        :aria-labelledby="dialogLabelId"
+        @keydown.escape.window.prevent="close()"
+    >
+        <div class="relative flex w-full max-w-4xl flex-col gap-6 rounded-3xl bg-white p-6 shadow-2xl" @click.away="close()">
+            <header class="flex items-start justify-between gap-4">
+                <div>
+                    <p class="pill-tag inline-flex">Facility tour</p>
+                    <h3 class="mt-2 text-2xl font-semibold text-trust" :id="dialogLabelId">Preview our spaces before you visit</h3>
+                </div>
+                <button
+                    type="button"
+                    class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate/5 text-slate transition hover:bg-slate/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-trust"
+                    @click="close()"
+                >
+                    <span class="sr-only">Close tour</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </header>
+
+            <div class="grid gap-4 lg:grid-cols-5 lg:gap-6">
+                <nav class="flex flex-row gap-3 overflow-x-auto lg:col-span-2 lg:flex-col" aria-label="Tour hotspots">
+                    <template x-for="hotspot in hotspots" :key="hotspot.id">
+                        <button
+                            type="button"
+                            class="hotspot-pill"
+                            @click="selectHotspot(hotspot.id)"
+                            @keydown="handleHotspotKeydown($event)"
+                            :class="{ 'hotspot-pill--active': hotspot.id === activeHotspotId }"
+                            data-hotspot-button
+                            :data-hotspot-id="hotspot.id"
+                        >
+                            <span class="text-sm font-semibold text-trust" x-text="hotspot.title"></span>
+                            <span class="text-xs text-slate" x-text="hotspot.description"></span>
+                        </button>
+                    </template>
+                </nav>
+
+                <div class="space-y-3 rounded-2xl bg-canvas p-4 lg:col-span-3">
+                    <template x-if="activeHotspot">
+                        <div>
+                            <h4 class="text-lg font-semibold text-trust" x-text="activeHotspot.title"></h4>
+                            <p class="mt-2 text-slate" x-text="activeHotspot.description"></p>
+
+                            <div class="mt-4">
+                                <template x-if="activeHotspot.media?.type === 'video'">
+                                    <video
+                                        class="w-full rounded-2xl"
+                                        controls
+                                        playsinline
+                                        :poster="activeHotspot.media?.poster ?? ''"
+                                    >
+                                        <source :src="activeHotspot.media?.src" type="video/mp4">
+                                        <track kind="captions" :src="activeHotspot.media?.captions" srclang="en" label="English captions">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </template>
+                                <template x-if="activeHotspot.media?.type !== 'video'">
+                                    <img
+                                        :src="activeHotspot.media?.src"
+                                        :alt="activeHotspot.media?.alt ?? activeHotspot.title"
+                                        class="w-full rounded-2xl object-cover"
+                                    >
+                                </template>
+                            </div>
+
+                            <div class="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate">
+                                <template x-if="transcriptUrl">
+                                    <a :href="`${transcriptUrl}${activeHotspot.anchor || ''}`" class="inline-flex items-center gap-2 font-semibold text-trust hover:text-gold">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-9a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 4.5 21h9a2.25 2.25 0 0 0 2.25-2.25V15" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9l6-6m0 0v3.75M18 3h-3.75" />
+                                        </svg>
+                                        View transcript
+                                    </a>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template x-if="!activeHotspot">
+                        <p class="text-sm text-slate">Select a hotspot to explore rooms, programs, and services.</p>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="team" class="bg-canvas py-16">
+    <div class="mx-auto max-w-section px-6">
+        <div class="mb-8 space-y-3 text-center">
+            <p class="pill-tag mx-auto">Care professionals</p>
+            <h2 class="text-3xl font-semibold text-trust sm:text-4xl">Meet our dedicated care team</h2>
+            <p class="text-slate">Every guide you meet during the tour brings decades of expertise in senior care, hospitality, and clinical support.</p>
+        </div>
+
+        <div class="staff-carousel" x-data x-init="window.initEmbla?.($refs.viewport)">
+            <div class="staff-carousel__viewport" x-ref="viewport">
+                <div class="staff-carousel__container">
+                                            <article class="staff-carousel__slide">
+                            <div class="section-card h-full space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gold/20">
+                                        <img src="/assets/staff/amelia-tan.jpg" alt="Portrait of Amelia Tan smiling in a sunlit activity room." class="h-full w-full object-cover" loading="lazy">
+                                    </span>
+                                    <div>
+                                        <p class="text-base font-semibold text-trust">Amelia Tan</p>
+                                        <p class="text-xs uppercase tracking-wide text-slate">Care Experience Director</p>
+                                    </div>
+                                </div>
+
+                                <p class="text-sm text-slate">Leads immersive orientation tours and ensures every family understands our dementia-friendly design.</p>
+
+                                                                    <div class="inline-flex items-center gap-2 rounded-full bg-trust/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-trust">
+                                        <span class="h-2 w-2 rounded-full bg-gold"></span>
+                                        Guides welcome lounge
+                                    </div>
+                                                            </div>
+                        </article>
+                                            <article class="staff-carousel__slide">
+                            <div class="section-card h-full space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gold/20">
+                                        <img src="/assets/staff/priya-nair.jpg" alt="Dr. Priya Nair reviewing care notes with a family member." class="h-full w-full object-cover" loading="lazy">
+                                    </span>
+                                    <div>
+                                        <p class="text-base font-semibold text-trust">Dr. Priya Nair</p>
+                                        <p class="text-xs uppercase tracking-wide text-slate">Clinical Wellness Partner</p>
+                                    </div>
+                                </div>
+
+                                <p class="text-sm text-slate">Coordinates medical reviews, nutrition plans, and family care conferences.</p>
+
+                                                                    <div class="inline-flex items-center gap-2 rounded-full bg-trust/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-trust">
+                                        <span class="h-2 w-2 rounded-full bg-gold"></span>
+                                        Guides wellness clinic
+                                    </div>
+                                                            </div>
+                        </article>
+                                            <article class="staff-carousel__slide">
+                            <div class="section-card h-full space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gold/20">
+                                        <img src="/assets/staff/marcus-lee.jpg" alt="Marcus Lee guiding a senior through physiotherapy exercises." class="h-full w-full object-cover" loading="lazy">
+                                    </span>
+                                    <div>
+                                        <p class="text-base font-semibold text-trust">Marcus Lee</p>
+                                        <p class="text-xs uppercase tracking-wide text-slate">Physiotherapy Lead</p>
+                                    </div>
+                                </div>
+
+                                <p class="text-sm text-slate">Designs movement sessions and adaptive equipment plans for varying mobility levels.</p>
+
+                                                                    <div class="inline-flex items-center gap-2 rounded-full bg-trust/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-trust">
+                                        <span class="h-2 w-2 rounded-full bg-gold"></span>
+                                        Guides mobility studio
+                                    </div>
+                                                            </div>
+                        </article>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section
+    id="estimator"
+    class="bg-canvas py-16"
+    x-data="costEstimatorComponent({
+        pricing: JSON.parse('{\u0022dailyRate\u0022:128,\u0022transportFee\u0022:36,\u0022weeksPerMonth\u0022:4.3,\u0022addOns\u0022:[{\u0022key\u0022:\u0022meals\u0022,\u0022label\u0022:\u0022Chef-prepared therapeutic meals\u0022,\u0022description\u0022:\u0022Customised meals with clinical nutrition oversight.\u0022,\u0022amount\u0022:18},{\u0022key\u0022:\u0022therapy\u0022,\u0022label\u0022:\u0022Weekly physiotherapy session\u0022,\u0022description\u0022:\u002245-minute individual therapy tailored to mobility goals.\u0022,\u0022amount\u0022:42},{\u0022key\u0022:\u0022carecoach\u0022,\u0022label\u0022:\u0022Care coach concierge\u0022,\u0022description\u0022:\u0022Family liaison for care planning, medical appointments, and reports.\u0022,\u0022amount\u0022:55}]}'),
+        subsidies: JSON.parse('[{\u0022key\u0022:\u0022none\u0022,\u0022label\u0022:\u0022No subsidy\u0022,\u0022rate\u0022:0,\u0022description\u0022:\u0022Full fee without government assistance.\u0022},{\u0022key\u0022:\u0022chaspioneer\u0022,\u0022label\u0022:\u0022CHAS \\\/ Pioneer (up to 30%)\u0022,\u0022rate\u0022:0.3,\u0022description\u0022:\u0022Typical support for CHAS Blue\\\/Orange or Pioneer Generation households.\u0022},{\u0022key\u0022:\u0022mohmeans\u0022,\u0022label\u0022:\u0022MOH Means-tested (up to 50%)\u0022,\u0022rate\u0022:0.5,\u0022description\u0022:\u0022Estimated savings for means-tested subsidy tiers.\u0022}]'),
+        defaults: JSON.parse('{\u0022daysPerWeek\u0022:3,\u0022includeTransport\u0022:true,\u0022selectedAddOns\u0022:[\u0022meals\u0022],\u0022subsidyKey\u0022:\u0022chaspioneer\u0022}'),
+        analyticsNamespace: 'estimator',
+    })"
+    x-init="init()"
+>
+    <div class="mx-auto max-w-section px-6">
+        <div class="mb-8 flex flex-col gap-4 text-center sm:text-left">
+            <p class="pill-tag mx-auto sm:mx-0">Cost estimator</p>
+            <h2 class="font-semibold text-heading-xl text-trust">Estimate your monthly investment</h2>
+            <p class="text-body-md text-slate">Adjust visit frequency, transport, and add-ons to preview your family’s monthly fees. Subsidy ranges reflect common MOH assistance tiers.</p>
+        </div>
+
+        <div class="grid gap-8 lg:grid-cols-2">
+            <form class="section-card space-y-6" @submit.prevent>
+                <div>
+                    <label for="days-per-week" class="flex items-center justify-between text-body-sm font-semibold text-trust">
+                        <span>Days per week</span>
+                        <span x-text="daysPerWeek + ' day' + (daysPerWeek === 1 ? '' : 's')"></span>
+                    </label>
+                    <input
+                        type="range"
+                        id="days-per-week"
+                        min="1"
+                        max="6"
+                        step="1"
+                        x-model.number="daysPerWeek"
+                        class="w-full"
+                        aria-describedby="days-per-week-help"
+                    >
+                    <p id="days-per-week-help" class="mt-2 text-body-xs text-slate">Adjust to reflect the number of scheduled program days each week (1–6).</p>
+                </div>
+
+                <div class="flex items-center justify-between rounded-2xl border border-slate/10 bg-white px-4 py-3">
+                    <div>
+                        <p class="text-body-sm font-semibold text-trust">Daily transport add-on</p>
+                        <p class="text-body-xs text-slate">Wheelchair-friendly pickup and drop-off with trained escorts.</p>
+                    </div>
+                    <label class="relative inline-flex cursor-pointer items-center">
+                        <input type="checkbox" class="peer sr-only" x-model="includeTransport">
+                        <span class="toggle-switch"></span>
+                        <span class="sr-only">Enable transport</span>
+                    </label>
+                </div>
+
+                <fieldset class="space-y-3">
+                    <legend class="text-body-sm font-semibold text-trust">Add-ons</legend>
+                    <p class="text-body-xs text-slate">Choose enhancements that match your loved one’s preferences.</p>
+                    <template x-for="addOn in pricing.addOns" :key="addOn.key">
+                        <label class="flex items-center gap-3 rounded-2xl border border-slate/10 bg-white px-4 py-3">
+                            <input
+                                type="checkbox"
+                                class="mt-1 h-4 w-4 rounded border-slate/30 text-trust focus:ring-trust"
+                                :value="addOn.key"
+                                x-model="selectedAddOns"
+                            >
+                            <span class="flex flex-col gap-1">
+                                <span class="text-body-sm font-semibold text-trust" x-text="addOn.label"></span>
+                                <span class="text-body-xs text-slate" x-text="formatCurrency(addOn.amount)"></span>
+                                <span class="text-body-xs text-slate" x-text="addOn.description"></span>
+                            </span>
+                        </label>
+                    </template>
+                </fieldset>
+
+                <div class="mt-6">
+                    <label for="subsidy" class="block text-body-sm font-semibold text-trust">Subsidy scenario</label>
+                    <select
+                        id="subsidy"
+                        x-model="selectedSubsidyKey"
+                        class="mt-2 w-full rounded-2xl border border-slate/20 bg-white px-4 py-3 text-body-sm focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold"
+                    >
+                        <template x-for="subsidy in subsidies" :key="subsidy.key">
+                            <option :value="subsidy.key" x-text="subsidy.label"></option>
+                        </template>
+                    </select>
+                    <template x-if="selectedSubsidy">
+                        <p class="mt-2 text-body-xs text-slate" x-text="selectedSubsidy.description"></p>
+                    </template>
+                </div>
+
+                <button
+                    type="button"
+                    class="cta-button w-full justify-center"
+                    @click="toggleDetails()"
+                    data-analytics-id="estimator-toggle-details"
+                >
+                    See calculation details
+                </button>
+            </form>
+
+            <div class="section-card space-y-6">
+                <div class="space-y-2">
+                    <p class="pill-tag inline-flex bg-gold text-trust">Projected monthly total</p>
+                    <h3 class="font-semibold text-heading-lg text-trust" x-text="formatCurrency(totalMonthly)"></h3>
+                    <p class="text-body-sm text-slate">Based on <span x-text="daysPerWeek"></span> day(s) per week across 4.3 weeks/month.</p>
+                </div>
+
+                <div class="grid gap-3 text-body-sm text-slate">
+                    <div class="flex items-center justify-between">
+                        <span>Program fees</span>
+                        <span x-text="formatCurrency(baseMonthlyCost)"></span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Transport</span>
+                        <span x-text="formatCurrency(transportMonthlyCost)"></span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Add-ons</span>
+                        <span x-text="formatCurrency(addOnsMonthlyCost)"></span>
+                    </div>
+                    <div class="flex items-center justify-between text-trust">
+                        <span>Subsidy savings</span>
+                        <span class="font-semibold" x-text="'-' + formatCurrency(subsidySavings)"></span>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl bg-canvas p-4 text-body-sm text-slate">
+                    <p class="font-semibold text-trust">Effective daily rate</p>
+                    <p class="mt-1 text-body-md" x-text="formatCurrency(effectiveDailyRate)"></p>
+                    <p class="mt-2 text-body-xs">Final invoiced amount depends on personalised care plan, assessments, and verified subsidy amounts.</p>
+                </div>
+
+                <template x-if="showDetails">
+                    <div class="rounded-2xl border border-slate/10 bg-white p-4 text-body-xs text-slate">
+                        <p class="font-semibold text-trust">Calculation details</p>
+                        <ul class="mt-2 space-y-1">
+                            <li><strong>Base</strong>: <span x-text="daysPerWeek"></span> day(s) × 4.3 weeks × <span x-text="formatCurrency(pricing.dailyRate)"></span> daily rate</li>
+                            <li><strong>Transport</strong>: <span x-text="includeTransport ? 'Included' : 'Not included'"></span> (<span x-text="formatCurrency(pricing.transportFee)"></span> per day)</li>
+                            <li><strong>Add-ons</strong>: <span x-text="selectedAddOnsSummary"></span></li>
+                            <li><strong>Subsidy</strong>: <span x-text="selectedSubsidy ? selectedSubsidy.label : 'None'"></span></li>
+                        </ul>
+                    </div>
+                </template>
+
+                <a href="#booking" class="cta-button inline-flex" data-analytics-id="estimator-booking-cta">Book a consultation</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section
+    id="faq"
+    class="bg-white py-16"
+    x-data="faqAccordion({ faqGroups: JSON.parse('[{\u0022category\u0022:\u0022Admissions\u0022,\u0022items\u0022:[{\u0022id\u0022:\u0022faq-2\u0022,\u0022question\u0022:\u0022What medical information do you need before the first visit?\u0022,\u0022answer\u0022:\u0022We request a recent care summary, medication list, and emergency contacts. Our clinical team reviews everything before confirming the visit.\u0022}]},{\u0022category\u0022:\u0022Fees \\u0026 Subsidies\u0022,\u0022items\u0022:[{\u0022id\u0022:\u0022faq-5\u0022,\u0022question\u0022:\u0022How do subsidies and financial assistance work?\u0022,\u0022answer\u0022:\u0022Means-tested subsidies may apply via MOH schemes. Our care concierge guides families through eligibility checks and paperwork.\u0022}]},{\u0022category\u0022:\u0022General\u0022,\u0022items\u0022:[{\u0022id\u0022:\u0022faq-1\u0022,\u0022question\u0022:\u0022What makes ElderCare SG different from traditional daycare?\u0022,\u0022answer\u0022:\u0022We combine clinical oversight with hospitality-led programming, ensuring every visit balances safety, stimulation, and social connection.\u0022}]},{\u0022category\u0022:\u0022Logistics\u0022,\u0022items\u0022:[{\u0022id\u0022:\u0022faq-3\u0022,\u0022question\u0022:\u0022Do you offer transportation for seniors with mobility support needs?\u0022,\u0022answer\u0022:\u0022Yes. We partner with trained transport escorts and wheelchair-friendly vehicles. Fees depend on distance and time of day.\u0022}]},{\u0022category\u0022:\u0022Programs\u0022,\u0022items\u0022:[{\u0022id\u0022:\u0022faq-4\u0022,\u0022question\u0022:\u0022Can families drop in for part-day sessions?\u0022,\u0022answer\u0022:\u0022Half-day sessions are available for trial visits or caregiver respite. We recommend booking in advance so we can tailor the schedule.\u0022}]}]') })"
+>
+    <div class="mx-auto max-w-section px-6">
+        <div class="mb-10 text-center lg:text-left">
+            <p class="pill-tag mx-auto lg:mx-0">Frequently asked questions</p>
+            <h2 class="mt-4 font-semibold text-heading-xl text-trust">Answers to common caregiver questions</h2>
+            <p class="mt-3 text-body-md text-slate">Learn more about admissions, logistics, and programme planning. Contact our care concierge for personalised guidance.</p>
+        </div>
+
+        <div class="mb-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <label class="relative flex-1">
+                <span class="sr-only">Search FAQs</span>
+                <input
+                    type="search"
+                    class="w-full rounded-full border border-slate/20 bg-canvas px-5 py-3 text-sm focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold"
+                    placeholder="Search questions or keywords"
+                    x-model="query"
+                    @input.debounce.250ms="filterFaqs()"
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 5.25 5.25a7.5 7.5 0 0 0 11.4 9.9z" />
+                </svg>
+            </label>
+            <div class="text-sm text-slate" role="status" aria-live="polite">
+                <span x-text="filteredCount"></span> questions available
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <template x-for="group in filteredGroups" :key="group.category">
+                <section>
+                    <h3 class="mb-3 text-xl font-semibold text-trust" x-text="group.category"></h3>
+                    <div class="space-y-3">
+                        <template x-for="item in group.items" :key="item.id">
+                            <article class="faq-item" :class="{ 'faq-item--active': isOpen(item.id) }">
+                                <h4>
+                                    <button
+                                        type="button"
+                                        class="faq-item__trigger"
+                                        :aria-expanded="isOpen(item.id)"
+                                        :aria-controls="`${item.id}-content`"
+                                        :id="`${item.id}-label`"
+                                        @click="toggle(item.id)"
+                                        @keydown.enter.prevent="toggle(item.id)"
+                                        @keydown.space.prevent="toggle(item.id)"
+                                        data-analytics-id="faq-expand"
+                                        :data-faq-id="item.id"
+                                    >
+                                        <span x-text="item.question"></span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform" :class="{ 'rotate-180': isOpen(item.id) }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                        </svg>
+                                    </button>
+                                </h4>
+                                <div
+                                    class="faq-item__content"
+                                    x-show="isOpen(item.id)"
+                                    x-transition.opacity.duration.200ms
+                                    x-cloak
+                                    role="region"
+                                    :id="`${item.id}-content`"
+                                    :aria-labelledby="`${item.id}-label`"
+                                >
+                                    <p class="text-sm text-slate" x-html="item.answer"></p>
+                                </div>
+                            </article>
+                        </template>
+                    </div>
+                </section>
+            </template>
+
+            <template x-if="!filteredGroups.length">
+                <p class="text-body-sm text-slate">No questions match your search. Contact our care concierge for personalised support.</p>
+            </template>
+        </div>
+    </div>
+
+    <script type="application/ld+json">
+        {
+    "<?php $__contextArgs = [];\nif (context()->has($__contextArgs[0])) :\nif (isset($value)) { $__contextPrevious[] = $value; }\n$value = context()->get($__contextArgs[0]); ?>": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "What makes ElderCare SG different from traditional daycare?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We combine clinical oversight with hospitality-led programming, ensuring every visit balances safety, stimulation, and social connection."
             }
-        }))
-    })
-  </script>
+        },
+        {
+            "@type": "Question",
+            "name": "Do you offer transportation for seniors with mobility support needs?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. We partner with trained transport escorts and wheelchair-friendly vehicles. Fees depend on distance and time of day."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Can families drop in for part-day sessions?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Half-day sessions are available for trial visits or caregiver respite. We recommend booking in advance so we can tailor the schedule."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do subsidies and financial assistance work?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Means-tested subsidies may apply via MOH schemes. Our care concierge guides families through eligibility checks and paperwork."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What medical information do you need before the first visit?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We request a recent care summary, medication list, and emergency contacts. Our clinical team reviews everything before confirming the visit."
+            }
+        }
+    ]
+}
+    </script>
+</section>
 
+
+    <section id="resources" class="bg-canvas py-16">
+    <div class="mx-auto max-w-section px-6">
+        <div class="mb-8 text-center lg:text-left text-slate-dark">
+            <p class="pill-tag mx-auto lg:mx-0">Resource hub</p>
+            <h2 class="mt-4 text-3xl font-semibold text-trust sm:text-4xl">Download caregiver-ready guides</h2>
+            <p class="mt-3">These printable resources cover intake preparation, transport logistics, and nutrition planning. Additional languages available upon request.</p>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                            <article class="resource-card">
+                    <div class="space-y-3">
+                        <p class="resource-card__tag">Adult Children</p>
+                        <h3 class="text-xl font-semibold text-trust">Caregiver Orientation Guide</h3>
+                        <p class="text-sm text-slate-dark">Step-by-step overview of what to expect during the first month, including intake checklist.</p>
+                    </div>
+
+                    <div class="resource-card__meta">
+                        <span class="text-xs uppercase tracking-wide text-slate-dark">PDF download</span>
+                        <span class="text-xs text-slate-dark">Updated Oct 2025</span>
+                    </div>
+
+                    <a
+                        href="/storage/resources/caregiver-orientation-guide.pdf"
+                        class="resource-card__cta"
+                                                data-analytics-id="resource-download"
+                        data-resource-slug="caregiver-orientation-guide"
+                        onclick="if (!this.dataset.disabled) { window.eldercareAnalytics?.emit?.('resource.download', { slug: this.dataset.resourceSlug }); }"
+                    >
+                        <span>Download guide</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M7.5 12 12 16.5m0 0 4.5-4.5M12 16.5V3" />
+                        </svg>
+                    </a>
+                </article>
+                            <article class="resource-card">
+                    <div class="space-y-3">
+                        <p class="resource-card__tag">Caregivers</p>
+                        <h3 class="text-xl font-semibold text-trust">Nutrition &amp; Meal Planning Toolkit</h3>
+                        <p class="text-sm text-slate-dark">Sample menus, dietary modification tips, and MOH nutrition guidance.</p>
+                    </div>
+
+                    <div class="resource-card__meta">
+                        <span class="text-xs uppercase tracking-wide text-slate-dark">PDF download</span>
+                        <span class="text-xs text-slate-dark">Updated Oct 2025</span>
+                    </div>
+
+                    <a
+                        href="#"
+                        class="resource-card__cta"
+                                                    aria-disabled="true"
+                            data-disabled="true"
+                                                data-analytics-id="resource-download"
+                        data-resource-slug="nutrition-meal-planning-toolkit"
+                        onclick="if (!this.dataset.disabled) { window.eldercareAnalytics?.emit?.('resource.download', { slug: this.dataset.resourceSlug }); }"
+                    >
+                        <span>Download guide</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M7.5 12 12 16.5m0 0 4.5-4.5M12 16.5V3" />
+                        </svg>
+                    </a>
+                </article>
+                            <article class="resource-card">
+                    <div class="space-y-3">
+                        <p class="resource-card__tag">Caregivers</p>
+                        <h3 class="text-xl font-semibold text-trust">Transport &amp; Drop-off Checklist</h3>
+                        <p class="text-sm text-slate-dark">Printable checklist covering transport arrangements and personal items to pack.</p>
+                    </div>
+
+                    <div class="resource-card__meta">
+                        <span class="text-xs uppercase tracking-wide text-slate-dark">PDF download</span>
+                        <span class="text-xs text-slate-dark">Updated Oct 2025</span>
+                    </div>
+
+                    <a
+                        href="/storage/resources/transport-drop-off-checklist.pdf"
+                        class="resource-card__cta"
+                                                data-analytics-id="resource-download"
+                        data-resource-slug="transport-drop-off-checklist"
+                        onclick="if (!this.dataset.disabled) { window.eldercareAnalytics?.emit?.('resource.download', { slug: this.dataset.resourceSlug }); }"
+                    >
+                        <span>Download guide</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M7.5 12 12 16.5m0 0 4.5-4.5M12 16.5V3" />
+                        </svg>
+                    </a>
+                </article>
+                    </div>
+    </div>
+</section>
+
+    <section id="booking" class="bg-trust py-16 text-white content-visibility-auto">
+        <div class="mx-auto max-w-section px-6 text-center">
+            <h2 class="text-3xl font-semibold sm:text-4xl">Ready to experience ElderCare SG?</h2>
+            <p class="mt-4 text-white/85">Book an in-person or virtual tour. We confirm availability within 24 hours and personalise each visit to your family’s needs.</p>
+            <a href="https://calendly.com/eldercare-sg" class="cta-button mt-8 inline-flex">Book now</a>
+        </div>
+    </section>
+        </main>
+
+        <footer id="contact" class="mt-16 border-t border-slate/10 bg-white">
+    <div class="mx-auto max-w-section px-4 py-12 lg:px-6 lg:py-16">
+        <div class="grid gap-12 lg:grid-cols-3">
+            <div>
+                <h2 class="text-lg font-semibold uppercase tracking-wider text-trust">Get in touch</h2>
+                <p class="mt-4 text-slate">
+                    123 Caregiving Avenue<br>
+                    Singapore 049999
+                </p>
+                <p class="mt-2 text-slate">
+                    <a href="tel:+6561234567" class="hover:text-gold">+65 6123 4567</a><br>
+                    <a href="mailto:hello@eldercare.sg" class="hover:text-gold">hello@eldercare.sg</a>
+                </p>
+            </div>
+
+            <div>
+                <h2 class="text-lg font-semibold uppercase tracking-wider text-trust">Stay connected</h2>
+                <p class="mt-4 text-slate">Receive caregiver tips, program updates, and visit availability alerts.</p>
+                <form class="mt-4 flex flex-col gap-3 sm:flex-row" method="post" action="http://127.0.0.1:8000/newsletter">
+                    <input type="hidden" name="_token" value="zy6QqFXDb02v7vyEeO7a6vNmJ0w0AJuvk6uehCSS" autocomplete="off">                    <label class="sr-only" for="newsletter-email">Email</label>
+                    <input
+                        class="w-full rounded-full border border-slate/20 bg-white px-4 py-3 text-sm shadow-sm focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold"
+                        id="newsletter-email"
+                        type="email"
+                        placeholder="you@example.com"
+                        name="email"
+                        value=""
+                        required
+                    >
+                    <button type="submit" class="cta-button">Join newsletter</button>
+                </form>
+                <div class="mt-2 space-y-2 text-sm" aria-live="polite">
+                                                                            </div>
+                <p class="mt-2 text-xs text-slate">Protected by Mailchimp. Unsubscribe anytime.</p>
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-lg font-semibold uppercase tracking-wider text-trust">Trusted by</h2>
+                <ul class="flex flex-wrap items-center gap-4 text-sm text-slate">
+                    <li class="flex items-center gap-2 rounded-full bg-trust px-3 py-1 font-semibold text-white shadow-sm">MOH Certified</li>
+                    <li class="flex items-center gap-2 rounded-full bg-trust px-3 py-1 font-semibold text-white shadow-sm">SG Care Alliance</li>
+                    <li class="flex items-center gap-2 rounded-full bg-trust px-3 py-1 font-semibold text-white shadow-sm">ISO 9001</li>
+                </ul>
+                <div class="text-xs text-slate">
+                    <p>© 2025 ElderCare SG. All rights reserved.</p>
+                    <p class="mt-1">Privacy · Terms · Accessibility</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+    </div>
+
+        <script>
+        window.eldercare = window.eldercare || {};
+        window.eldercare.availabilityMessages = {"status":{"loading":"Checking availability\u2026","error":"Availability unavailable","fallback":"Manual confirmation required","high":"Ample visit slots available","medium":"Limited slots available","low":"Few slots remaining","none":"Currently waitlisting"},"detail":{"loading":"Hang tight while we fetch the latest visit openings.","error":"We\u0027re retrying the scheduling service.","fallback":"We will confirm availability within 24 hours.","summary":":total :slot_word in the next :days days.","summary_with_time":":total :slot_word in the next :days days \u2014 updated :time","slot_single":"slot","slot_plural":"slots"}};
+    </script>
+<script>
+    window.assessmentPrompts = ({ prompts = {} }) => ({
+        prompts,
+        activePrompts: [],
+        recommendationStore: null,
+        shownPromptSlugs: null,
+
+        init() {
+            this.recommendationStore = Alpine.store('assessmentRecommendation');
+            this.shownPromptSlugs = new Set();
+            this.refreshPrompts();
+
+            if (this.recommendationStore) {
+                this.$watch(
+                    () => this.recommendationStore.updatedAt,
+                    () => this.refreshPrompts()
+                );
+                this.$watch(
+                    () => this.recommendationStore.segmentKey,
+                    () => this.refreshPrompts()
+                );
+            }
+        },
+
+        refreshPrompts() {
+            const key = this.recommendationStore?.segmentKey ?? 'default';
+            const candidates = this.prompts[key] ?? this.prompts.default ?? [];
+            this.activePrompts = candidates;
+
+            candidates.forEach((prompt) => {
+                if (!this.shownPromptSlugs.has(prompt.slug)) {
+                    window.eldercareAnalytics?.emit?.('assessment.prompt_show', {
+                        slug: prompt.slug,
+                        segmentKey: key,
+                    });
+
+                    this.shownPromptSlugs.add(prompt.slug);
+                }
+            });
+        },
+
+        handlePromptClick(prompt) {
+            window.eldercareAnalytics?.emit?.('assessment.prompt_click', {
+                slug: prompt.slug,
+                segmentKey: this.recommendationStore?.segmentKey ?? 'unknown',
+                destination: prompt.cta_analytics ?? null,
+            });
+        },
+    });
+</script>
+<script>
+    window.faqAccordion = ({ faqGroups = [] }) => ({
+        faqGroups,
+        query: '',
+        filteredGroups: faqGroups,
+        openIds: new Set(),
+
+        init() {
+            this.filteredGroups = faqGroups;
+            this.filteredCount = this.countItems(faqGroups);
+        },
+
+        filterFaqs() {
+            const normalized = this.query.toLowerCase();
+            if (!normalized) {
+                this.filteredGroups = this.faqGroups;
+            } else {
+                this.filteredGroups = this.faqGroups
+                    .map((group) => {
+                        const items = group.items.filter((item) => {
+                            return (
+                                item.question.toLowerCase().includes(normalized) ||
+                                item.answer.toLowerCase().includes(normalized)
+                            );
+                        });
+
+                        if (!items.length) {
+                            return null;
+                        }
+
+                        return { ...group, items };
+                    })
+                    .filter(Boolean);
+            }
+
+            this.filteredCount = this.countItems(this.filteredGroups);
+        },
+
+        toggle(id) {
+            if (this.isOpen(id)) {
+                this.openIds.delete(id);
+            } else {
+                this.openIds.add(id);
+                window.eldercareAnalytics?.emit?.('faq.expand', { faqId: id });
+            }
+        },
+
+        isOpen(id) {
+            return this.openIds.has(id);
+        },
+
+        countItems(groups) {
+            return groups.reduce((total, group) => total + group.items.length, 0);
+        },
+    });
+</script>
 </body>
 </html>

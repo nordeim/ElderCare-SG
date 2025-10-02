@@ -106,6 +106,10 @@ _Date: 2025-10-01_
 - **Success Criteria**
   - Design tokens used consistently across CSS, enabling quick theme adjustments.
   - Documentation reviewed by design leads and referenced in PR templates.
+- **Status Update (2025-10-02)**
+  - ✅ Semantic color tokens and fluid typography utilities merged (`resources/css/app.css`, `tailwind.config.js`); verified via `npm run build` and axe/Lighthouse smoke tests.
+  - ✅ Component catalog published at `docs/components.md`, cross-linking QA scripts and analytics references.
+  - ⚠ `/ui-kit` playground deferred to backlog pending performance follow-up; rationale captured in `docs/todo/phase5_followup_execution_plan.md`.
 
 ## Phase 6 – Data & Integration Hardening (Weeks 6–7)
 - **Objectives**
