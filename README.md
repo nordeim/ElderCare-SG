@@ -182,15 +182,14 @@ sequenceDiagram
     Validation-->>-NewsletterController: Validated email
     NewsletterController->>+MailchimpService: subscribe(email)
     alt Subscription Successful
-        MailchimpService-->>NewsletterController: true
-        deactivate MailchimpService
+        MailchimpService-->>-NewsletterController: true
         NewsletterController->>+Session: flash('newsletter_status', message)
+        Session-->>-NewsletterController:
     else Subscription Fails
-        MailchimpService-->>NewsletterController: false
-        deactivate MailchimpService
+        MailchimpService-->>-NewsletterController: false
         NewsletterController->>+Session: flash('newsletter_error', message)
+        Session-->>-NewsletterController:
     end
-    Session-->>-NewsletterController:
     NewsletterController-->>-Client: 302 Redirect Back
 ```
 
@@ -277,4 +276,3 @@ MIT License © 2025 Nordeim
 - **Phase 11 – Localization & Accessibility Depth**: Expand language support (Malay/Tamil), conduct assistive tech regression tests, and document ARIA patterns.
 - **Phase 12 – Launch & Post-Launch Analytics**: Finalize go-live playbook, enable feature flags for staged rollout, and set up weekly analytics cadence.
 
----
