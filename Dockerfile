@@ -9,7 +9,7 @@ RUN apt-get update \
         libpng-dev libjpeg-dev libfreetype6-dev \
         libxml2-dev libzip-dev libonig-dev \
         zip unzip \
-    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y --no-install-recommends nodejs \
     && docker-php-ext-configure gd --with-jpeg --with-freetype \
     && docker-php-ext-install mbstring pdo_mysql exif pcntl bcmath gd zip opcache \

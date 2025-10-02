@@ -1,3 +1,16 @@
+### Production Deployments (Docker Compose)
+
+For containerized production releases:
+
+1. Populate secrets in `.env.production` (APP_KEY, database credentials, Plausible keys, etc.).
+2. Build assets locally or in CI so `public/` contains the hashed bundles (`npm run build`).
+3. Run the production stack:
+   ```bash
+   docker compose -f docker-compose-production.yml up -d
+   ```
+   This launches PHP-FPM (`app`), Nginx (`nginx`), and supporting services using `.env.production`. Static assets are mounted read-only into both containers, and health checks monitor `/healthz`.
+
+> **Note:** `docker-compose-production.yml` is intended for parity environments. Inject secrets via your CI/CD pipeline rather than committing them to Git.
 # 👵 ElderCare SG — Compassionate Elderly Daycare Platform
 
 Where compassionate care meets modern comfort for every family.
@@ -24,22 +37,12 @@ This project is designed to run in a Docker container, managed by a simple `Make
 
 This is the simplest and most reliable way to get the application running.
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/nordeim/ElderCare-SG.git
-    cd ElderCare-SG
-    ```
-
-2.  **Build and run the application:**
-    ```bash
-    make up
-    ```
-    This single command builds the Docker images, starts all necessary services (application, database, Redis), and runs database migrations automatically via the entrypoint script.
 
 The application will be available at [http://localhost:8000](http://localhost:8000).
 
 ### Alternative Workflow (Local Environment)
 
+{{ ... }}
 If you have a local PHP and Node.js environment, you can run the application manually.
 
 1.  **Clone and set up the environment:**
@@ -75,7 +78,7 @@ If you have a local PHP and Node.js environment, you can run the application man
 | Database | MariaDB | `10.11` (`docker-compose.yml`) |
 | Caching/Queues | Redis | `7.4` (`docker-compose.yml`) |
 | Dev Environment | Docker | `docker-compose.yml`, `Makefile` |
-| CI/CD | Not yet implemented | N/A |
+| CI/CD | GitHub Actions (QA pipeline) | `.github/workflows/qa-ci.yml` |
 
 ### High-Level Architecture
 
@@ -196,15 +199,22 @@ The `Makefile` provides shortcuts for common development tasks.
 
 ---
 
-## 🧪 QA & Accessibility
+## 🧪 Quality Assurance & Testing
 
-This project adheres to WCAG 2.1 AA standards.
+### Automated Test Suite
+- **PHPUnit (Phase 6 focus)**: `php artisan test --group=phase6` covers Mailchimp retries, booking analytics, and resource hub CTA fallbacks (`tests/Feature/*`).
+- **Vitest**: `npm run test:js` validates Alpine stores and analytics dispatch logic.
+- **Playwright smoke**: `npm run test:playwright:ci` boots a local server and verifies analytics events triggered across estimator, FAQ, resources, and prompts (`tests/analytics.spec.ts`). Reports land in `storage/app/playwright-report/`.
+- **Accessibility audit**: `npm run lint:accessibility` runs axe-core against the dev server via `concurrently`.
+- **Lighthouse CI**: `npm run lighthouse:ci` executes the configuration in `lighthouserc.json`; artifacts saved to `storage/app/lighthouse/`.
 
-- ✅ Color contrast checked
-- ✅ Keyboard navigability for all components
-- ✅ Screen reader accessibility for interactive elements
-- ✅ `prefers-reduced-motion` respected
-- ✅ Lighthouse score target: >90 on mobile and desktop
+### Continuous Integration
+`qa-ci.yml` orchestrates the full QA suite on every push/PR (PHP 8.3 + Node 20): composer/npm installs, grouped PHPUnit tests, axe CLI, Lighthouse CI, Playwright smoke, and artifact upload.
+
+### Manual QA & Accessibility Standards
+- Follows WCAG 2.1 AA; checklists documented in `docs/qa/scaffold-checklist.md` and `docs/ops/validation_checklist.md`.
+- `docs/qa/launch-checklist.md` captures launch gating tasks (analytics verification, backups, rollback plan).
+- Known performance warnings (FCP/LCP/CLS) tracked in `docs/notes/performance-2025-10-01.md` as backlog work.
 
 ---
 
@@ -217,3 +227,23 @@ We welcome thoughtful contributions — accessibility, performance, UI polish, o
 ## 📄 License
 
 MIT License © 2025 Nordeim
+
+---
+
+## 📈 Phase Progress Highlights
+
+- **Phase 5 – Design System & Component Docs**: Semantic Tailwind tokens and fluid typography shipped (`tailwind.config.js`, `resources/css/app.css`); `docs/components.md` catalog component usage.
+- **Phase 6 – Data & Integration Hardening**: Seeders enriched, analytics logging routed through dedicated `analytics` channel, Plausible goals wired, and validation docs/tests added (`docs/ops/validation_checklist.md`, `tests/Feature/ResourceDownloadTest.php`).
+- **Phase 7 – QA Automation & Launch Readiness**: GitHub Actions pipeline, Playwright smoke, and launch checklist established; QA documentation refreshed (`docs/qa/launch-checklist.md`).
+
+---
+
+## 🔭 Suggested roadmap
+
+Grounded in `Understanding_Project_Requirements.md`, the next opportunities include:
+
+- **Phase 8 – Guided Assessment Enhancements**: Personalize booking funnel with advanced segmentation, capture analytics events for completion/drop-off.
+- **Phase 9 – CMS & Content Ops**: Introduce editorial tooling (Nova/Filament) so non-engineers manage programs, testimonials, and resources.
+- **Phase 10 – Performance Remediation**: Address Lighthouse warnings (FCP/LCP/CLS, console errors) via caching, bundle splitting, and layout optimization.
+- **Phase 11 – Localization & Accessibility Depth**: Expand language support (Malay/Tamil), conduct assistive tech regression tests, and document ARIA patterns.
+- **Phase 12 – Launch & Post-Launch Analytics**: Finalize go-live playbook, enable feature flags for staged rollout, and set up weekly analytics cadence.
