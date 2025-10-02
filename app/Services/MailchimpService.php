@@ -2,42 +2,93 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class MailchimpService
 {
     public function subscribe(string $email): bool
     {
-        if (! config('services.mailchimp.key')) {
-            Log::info('Mailchimp disabled: missing configuration.', ['email' => $email]);
+        $config = config('services.mailchimp');
+
+        if (! $config['key'] ?? null || ! $config['list_id'] ?? null) {
+            Log::warning('Mailchimp disabled: missing configuration.', [
+                'email' => $this->maskEmail($email),
+            ]);
 
             return false;
         }
 
         try {
-            $response = Http::withBasicAuth('anystring', config('services.mailchimp.key'))
-                ->post(sprintf('%s/lists/%s/members', rtrim(config('services.mailchimp.endpoint'), '/'), config('services.mailchimp.list_id')), [
+            $attemptId = (string) Str::uuid();
+
+            $response = Http::withBasicAuth('anystring', $config['key'])
+                ->retry(3, 200, function ($exception, $request) use ($attemptId, $email) {
+                    Log::warning('Mailchimp retry due to transport error.', [
+                        'attempt_id' => $attemptId,
+                        'email' => $this->maskEmail($email),
+                        'exception' => $exception?->getMessage(),
+                    ]);
+
+                    return true;
+                })
+                ->post(sprintf('%s/lists/%s/members', rtrim($config['endpoint'], '/'), $config['list_id']), [
                     'email_address' => $email,
                     'status' => 'pending',
                 ]);
 
             if ($response->successful()) {
+                Log::info('Mailchimp subscription success.', [
+                    'attempt_id' => $attemptId,
+                    'email' => $this->maskEmail($email),
+                    'status' => $response->status(),
+                ]);
+
+                session()->flash('analytics.events.mailchimp', [
+                    'name' => 'mailchimp.success',
+                    'detail' => [
+                        'status' => $response->status(),
+                    ],
+                ]);
+
                 return true;
             }
 
             Log::warning('Mailchimp subscription failed.', [
-                'email' => $email,
+                'attempt_id' => $attemptId,
+                'email' => $this->maskEmail($email),
                 'status' => $response->status(),
                 'body' => $response->body(),
             ]);
+            
+            session()->flash('analytics.events.mailchimp', [
+                'name' => 'mailchimp.failure',
+                'detail' => [
+                    'status' => $response->status(),
+                ],
+            ]);
         } catch (\Throwable $exception) {
             Log::error('Mailchimp subscription error.', [
-                'email' => $email,
+                'email' => $this->maskEmail($email),
                 'message' => $exception->getMessage(),
+            ]);
+
+            session()->flash('analytics.events.mailchimp', [
+                'name' => 'mailchimp.failure',
+                'detail' => [
+                    'status' => $exception instanceof RequestException ? optional($exception->response())->status() : null,
+                    'exception' => get_class($exception),
+                ],
             ]);
         }
 
         return false;
+    }
+
+    protected function maskEmail(string $email): string
+    {
+        return Str::mask($email, '*', 1, max(1, strlen($email) - 3));
     }
 }
