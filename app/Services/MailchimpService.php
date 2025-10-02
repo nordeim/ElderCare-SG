@@ -25,7 +25,7 @@ class MailchimpService
             $attemptId = (string) Str::uuid();
 
             $response = Http::withBasicAuth('anystring', $config['key'])
-                ->retry(3, 200, function ($exception, $request) use ($attemptId, $email) {
+                ->retry(3, 200, function ($exception) use ($attemptId, $email) {
                     Log::warning('Mailchimp retry due to transport error.', [
                         'attempt_id' => $attemptId,
                         'email' => $this->maskEmail($email),
@@ -46,11 +46,8 @@ class MailchimpService
                     'status' => $response->status(),
                 ]);
 
-                session()->flash('analytics.events.mailchimp', [
-                    'name' => 'mailchimp.success',
-                    'detail' => [
-                        'status' => $response->status(),
-                    ],
+                $this->flashAnalyticsEvent('mailchimp.success', [
+                    'status' => $response->status(),
                 ]);
 
                 return true;
@@ -62,12 +59,9 @@ class MailchimpService
                 'status' => $response->status(),
                 'body' => $response->body(),
             ]);
-            
-            session()->flash('analytics.events.mailchimp', [
-                'name' => 'mailchimp.failure',
-                'detail' => [
-                    'status' => $response->status(),
-                ],
+
+            $this->flashAnalyticsEvent('mailchimp.failure', [
+                'status' => $response->status(),
             ]);
         } catch (\Throwable $exception) {
             Log::error('Mailchimp subscription error.', [
@@ -75,12 +69,9 @@ class MailchimpService
                 'message' => $exception->getMessage(),
             ]);
 
-            session()->flash('analytics.events.mailchimp', [
-                'name' => 'mailchimp.failure',
-                'detail' => [
-                    'status' => $exception instanceof RequestException ? optional($exception->response())->status() : null,
-                    'exception' => get_class($exception),
-                ],
+            $this->flashAnalyticsEvent('mailchimp.failure', [
+                'status' => $exception instanceof RequestException ? optional($exception->response())->status() : null,
+                'exception' => get_class($exception),
             ]);
         }
 
@@ -90,5 +81,16 @@ class MailchimpService
     protected function maskEmail(string $email): string
     {
         return Str::mask($email, '*', 1, max(1, strlen($email) - 3));
+    }
+
+    protected function flashAnalyticsEvent(string $name, array $detail = []): void
+    {
+        $events = session()->get('analytics.events', []);
+        $events[] = [
+            'name' => $name,
+            'detail' => $detail,
+        ];
+
+        session()->flash('analytics.events', $events);
     }
 }

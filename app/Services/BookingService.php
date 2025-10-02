@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class BookingService
 {
@@ -13,9 +14,19 @@ class BookingService
 
     public function logClick(string $context = 'hero'): void
     {
-        Log::info('Booking CTA engaged', [
+        $payload = [
             'context' => $context,
             'timestamp' => now()->toISOString(),
+            'referer' => request()->headers->get('referer'),
+            'user_agent' => request()->userAgent(),
+            'request_id' => (string) Str::uuid(),
+        ];
+
+        Log::info('Booking CTA engaged', $payload);
+
+        session()->flash('analytics.events.booking', [
+            'name' => 'booking.click',
+            'detail' => $payload,
         ]);
     }
 }

@@ -38,6 +38,10 @@
         @include('partials.footer')
     </div>
 
+    <script>
+        window.__eldercareAnalyticsQueue = {!! json_encode(session('analytics.events', []), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!};
+    </script>
+
     @stack('scripts')
 </body>
 </html>
