@@ -2,10 +2,57 @@ const HERO_SELECTOR = '[data-hero]';
 const VIDEO_SELECTOR = '[data-hero-video]';
 const INTERSECTION_THRESHOLD = 0.3;
 
+const parseHeroSources = (video) => {
+    const raw = video?.dataset?.heroSources;
+
+    if (!raw) {
+        return [];
+    }
+
+    try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+        console.warn('Failed to parse hero video sources', error);
+        return [];
+    }
+};
+
+const ensureHeroSources = (video) => {
+    if (!video || video.dataset.heroSourcesAppended === 'true') {
+        return;
+    }
+
+    const sources = parseHeroSources(video);
+
+    if (!sources.length) {
+        return;
+    }
+
+    sources.forEach((sourceConfig) => {
+        if (!sourceConfig?.src) {
+            return;
+        }
+
+        const sourceElement = document.createElement('source');
+        sourceElement.src = sourceConfig.src;
+
+        if (sourceConfig.type) {
+            sourceElement.type = sourceConfig.type;
+        }
+
+        video.appendChild(sourceElement);
+    });
+
+    video.dataset.heroSourcesAppended = 'true';
+};
+
 const playHeroVideo = (video) => {
     if (!video) {
         return;
     }
+
+    ensureHeroSources(video);
 
     if (!video.dataset.heroLoaded) {
         video.dataset.heroLoaded = 'true';

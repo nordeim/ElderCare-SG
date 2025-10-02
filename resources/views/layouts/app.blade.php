@@ -11,6 +11,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap">
 
+    @php
+        $appCss = Vite::asset('resources/css/app.css');
+        $appJs = Vite::asset('resources/js/app.js');
+        $heroPosterPreload = asset('assets/hero-fallback.jpg');
+    @endphp
+
+    <link rel="preload" as="style" href="{{ $appCss }}">
+    <link rel="preload" as="script" href="{{ $appJs }}" crossorigin>
+    <link rel="preload" as="image" href="{{ $heroPosterPreload }}" imagesrcset="{{ $heroPosterPreload }} 1x">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @if (config('analytics.driver') === 'plausible' && config('analytics.plausible.domain'))

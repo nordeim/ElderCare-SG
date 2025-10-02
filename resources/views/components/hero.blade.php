@@ -26,7 +26,14 @@
 
     $heroHasVideo = $heroVideoSources->every(fn ($path) => file_exists(public_path($path)));
     $heroVideoAssets = $heroHasVideo
-        ? $heroVideoSources->map(fn ($path) => asset($path))->values()
+        ? $heroVideoSources->map(function ($path) {
+            $type = str_ends_with($path, '.webm') ? 'video/webm' : 'video/mp4';
+
+            return [
+                'src' => asset($path),
+                'type' => $type,
+            ];
+        })->values()
         : collect();
 @endphp
 
@@ -44,12 +51,10 @@
                 muted
                 loop
                 poster="{{ $heroPoster }}"
-                preload="metadata"
+                preload="none"
                 data-hero-video
-            >
-                <source src="{{ $heroVideoAssets->first() }}" type="video/mp4">
-                <source src="{{ $heroVideoAssets->last() }}" type="video/webm">
-            </video>
+                data-hero-sources='@json($heroVideoAssets)'
+            ></video>
             <noscript>
                 <div
                     class="h-full w-full bg-gradient-to-br from-trust via-[#22476A] to-[#183651]"
