@@ -35,6 +35,8 @@ _Date: 2025-10-02_
 ### C. (Optional) Phase 5 Workstream 4 — `/ui-kit` Playground
 - [ ] **Decision checkpoint**
   - Confirm with stakeholders whether the optional playground delivers sufficient ROI for current sprint.
+- [x] **Decision outcome (2025-10-02)**
+  - Deferred to backlog. Current focus is on performance remediation surfaced by Lighthouse (`first-contentful-paint`, `largest-contentful-paint`, `mainthread-work-breakdown`). Revisit after perf targets trend toward ≥0.9.
 - [ ] **Implement if approved**
   - Add local-only route guarded by `app()->environment('local')` in `routes/web.php`.
   - Create `UIPlaygroundController` rendering curated component states and handle analytics stubbing.
