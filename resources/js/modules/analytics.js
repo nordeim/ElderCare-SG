@@ -21,3 +21,15 @@ export { emit, createEmitter };
 if (!window.eldercareAnalytics) {
     window.eldercareAnalytics = { emit, createEmitter };
 }
+
+if (Array.isArray(window.__eldercareAnalyticsQueue)) {
+    window.__eldercareAnalyticsQueue.forEach((event) => {
+        if (!event?.name) {
+            return;
+        }
+
+        emit(event.name, event.detail ?? {});
+    });
+
+    window.__eldercareAnalyticsQueue = [];
+}
