@@ -137,7 +137,7 @@
                         id="subsidy"
                         x-model="selectedSubsidyKey"
                         class="mt-2 w-full rounded-2xl border border-slate/20 bg-white px-4 py-3 text-body-sm focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold"
-{{ ... }}
+                    >
                         <template x-for="subsidy in subsidies" :key="subsidy.key">
                             <option :value="subsidy.key" x-text="subsidy.label"></option>
                         </template>

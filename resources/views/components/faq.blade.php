@@ -96,6 +96,7 @@
                                     <p class="text-sm text-slate" x-html="item.answer"></p>
                                 </div>
                             </article>
+                        </template>
                     </div>
                 </section>
             </template>
@@ -107,7 +108,7 @@
     </div>
 
     <script type="application/ld+json">
-{{ ... }}
+        {!! json_encode([
             '@context' => 'https://schema.org',
             '@type' => 'FAQPage',
             'mainEntity' => $faqs->map(function ($faq) {
@@ -119,7 +120,7 @@
                         'text' => $faq->answer,
                     ],
                 ];
-            }),
+            })->values()->all(),
         ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
     </script>
 </section>
