@@ -182,10 +182,12 @@ sequenceDiagram
     Validation-->>-NewsletterController: Validated email
     NewsletterController->>+MailchimpService: subscribe(email)
     alt Subscription Successful
-        MailchimpService-->>-NewsletterController: true
+        MailchimpService-->>NewsletterController: true
+        deactivate MailchimpService
         NewsletterController->>+Session: flash('newsletter_status', message)
     else Subscription Fails
-        MailchimpService-->>-NewsletterController: false
+        MailchimpService-->>NewsletterController: false
+        deactivate MailchimpService
         NewsletterController->>+Session: flash('newsletter_error', message)
     end
     Session-->>-NewsletterController:
