@@ -1,7 +1,7 @@
 [![QA Pipeline](https://github.com/nordeim/ElderCare-SG/actions/workflows/qa-ci.yml/badge.svg)](https://github.com/nordeim/ElderCare-SG/actions/workflows/qa-ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 [![PHP](https://img.shields.io/badge/php-8.3-blue.svg)](https://www.php.net/)
-[![Node.js](https://img.shields.io/badge/node-20-brightgreen.svg)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/node-22-brightgreen.svg)](https://nodejs.org/)
 [![Docker](https://img.shields.io/badge/docker-%20%20%20%20%20%20%20%20%20%20%235DA121.svg)](https://www.docker.com/)
 
 # 👵 ElderCare SG — Compassionate Elderly Daycare Platform
@@ -53,8 +53,7 @@ The application will be available at [http://localhost:8000](http://localhost:80
 
 ### Alternative Workflow (Local Environment)
 
-{{ ... }}
-If you have a local PHP and Node.js environment, you can run the application manually.
+If you have a local PHP 8.3 and Node.js 22 environment, you can run the application manually.
 
 1.  **Clone and set up the environment:**
     ```bash
@@ -104,7 +103,7 @@ For containerized production releases:
 | Frontend | Blade Templates + TailwindCSS + Alpine.js | `package.json` |
 | Database | MariaDB | `10.11` (`docker-compose.yml`) |
 | Caching/Queues | Redis | `7.4` (`docker-compose.yml`) |
-| Dev Environment | Docker | `docker-compose.yml`, `Makefile` |
+| Dev Environment | Docker + Node.js | Node `22.x` (`Dockerfile`), `docker-compose.yml`, `Makefile` |
 | CI/CD | GitHub Actions (QA pipeline) | `.github/workflows/qa-ci.yml` |
 
 ### High-Level Architecture
@@ -233,12 +232,12 @@ The `Makefile` provides shortcuts for common development tasks.
 ### Automated Test Suite
 - **PHPUnit (Phase 6 focus)**: `php artisan test --group=phase6` covers Mailchimp retries, booking analytics, and resource hub CTA fallbacks (`tests/Feature/*`).
 - **Vitest**: `npm run test:js` validates Alpine stores and analytics dispatch logic.
-- **Playwright smoke**: `npm run test:playwright:ci` boots a local server and verifies analytics events triggered across estimator, FAQ, resources, and prompts (`tests/analytics.spec.ts`). Reports lan[...]
+- **Playwright smoke (manual)**: `npm run test:playwright:ci` is available for targeted analytics verification across estimator, FAQ, resources, and prompts (`tests/analytics.spec.ts`).
 - **Accessibility audit**: `npm run lint:accessibility` runs axe-core against the dev server via `concurrently`.
 - **Lighthouse CI**: `npm run lighthouse:ci` executes the configuration in `lighthouserc.json`; artifacts saved to `storage/app/lighthouse/`.
 
 ### Continuous Integration
-`qa-ci.yml` orchestrates the full QA suite on every push/PR (PHP 8.3 + Node 20): composer/npm installs, grouped PHPUnit tests, axe CLI, Lighthouse CI, Playwright smoke, and artifact upload.
+`qa-ci.yml` orchestrates the core QA suite on every push/PR (PHP 8.3 + Node 22): composer/npm installs, grouped PHPUnit tests, axe CLI, Lighthouse CI, and artifact upload.
 
 ### Manual QA & Accessibility Standards
 - Follows WCAG 2.1 AA; checklists documented in `docs/qa/scaffold-checklist.md` and `docs/ops/validation_checklist.md`.
@@ -261,17 +260,16 @@ MIT License © 2025 Nordeim
 
 ## 📈 Phase Progress Highlights
 
+- **Phase 4 – Guided Needs Assessment Delivery**: Interactive questionnaire, `AssessmentService`, and personalization stores shipped (`resources/views/components/assessment.blade.php`, `resources/js/modules/assessment.js`).
 - **Phase 5 – Design System & Component Docs**: Semantic Tailwind tokens and fluid typography shipped (`tailwind.config.js`, `resources/css/app.css`); `docs/components.md` catalog component usage.
-- **Phase 6 – Data & Integration Hardening**: Seeders enriched, analytics logging routed through dedicated `analytics` channel, Plausible goals wired, and validation docs/tests added (`docs/ops/vali[...]
-- **Phase 7 – QA Automation & Launch Readiness**: GitHub Actions pipeline, Playwright smoke, and launch checklist established; QA documentation refreshed (`docs/qa/launch-checklist.md`).
+- **Phase 6 – Data & Integration Hardening**: Seeders enriched, analytics logging routed through dedicated `analytics` channel, Plausible goals wired, and validation docs/tests added (`docs/ops/validation_checklist.md`).
+- **Phase 7 – QA Automation & Launch Readiness**: GitHub Actions pipeline, accessibility audits, and launch checklist established; QA documentation refreshed (`docs/qa/launch-checklist.md`).
 
 ---
 
 ## 🔭 Suggested roadmap
 
-Grounded in `Understanding_Project_Requirements.md`, the next opportunities include:
-
-- **Phase 8 – Guided Assessment Enhancements**: Personalize booking funnel with advanced segmentation, capture analytics events for completion/drop-off.
+- **Phase 8 – Guided Assessment Enhancements**: Deepen segmentation logic and analytics instrumentation on the shipped assessment workflow.
 - **Phase 9 – CMS & Content Ops**: Introduce editorial tooling (Nova/Filament) so non-engineers manage programs, testimonials, and resources.
 - **Phase 10 – Performance Remediation**: Address Lighthouse warnings (FCP/LCP/CLS, console errors) via caching, bundle splitting, and layout optimization.
 - **Phase 11 – Localization & Accessibility Depth**: Expand language support (Malay/Tamil), conduct assistive tech regression tests, and document ARIA patterns.

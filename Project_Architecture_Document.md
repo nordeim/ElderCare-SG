@@ -19,44 +19,47 @@ graph TD
         B
         D
     end
-```
 
 ## 3. Technology Stack
-- **Backend**: Laravel 12, PHP 8.3.
-- **Frontend**: Blade templates, TailwindCSS 3.4 with custom tokens, Alpine.js for interactivity, Embla carousel.
-- **Database**: MariaDB/MySQL (`initialize_database.sql` provisions `laravel` DB and `sail` user).
-- **Dev Environment**: Laravel Sail (Docker) or local PHP + MySQL with overrides.
-- **Build Tooling**: Vite 7, PostCSS, Tailwind.
-- **QA Tooling**: `axe-core` CLI, Lighthouse CI, `launch_laravel_dev_server.sh` orchestration script.
+
+- **Backend**: Laravel 12, PHP 8.3 (`Dockerfile`).
+- **Frontend**: Blade templates, TailwindCSS 3.4 with custom tokens, Alpine.js, Embla carousel (`package.json`).
+- **Database**: MariaDB 10.11 with Redis 7.4 for caching/queues (`docker-compose.yml`).
+- **Build Tooling**: Vite 7, PostCSS, Tailwind (`vite.config.js`, `postcss.config.js`).
+- **QA Tooling**: PHPUnit (phase6 group), Vitest, manual Playwright smoke script, axe-core CLI, Lighthouse CI (`package.json`, `.github/workflows/qa-ci.yml`).
 
 ## 4. Application Structure
 ### 4.1 HTTP Layer
-- **Routes**: `routes/web.php` defines `/` served by `HomeController` (invokable) and `POST /newsletter` handled by `NewsletterController`.
+- **Routes**: `routes/web.php` defines `/` served by `HomeController` (invokable), locale switching (`LocaleController`), newsletter subscription (`NewsletterController`), guided assessment submission (`AssessmentController`), and availability polling (`AvailabilityController`).
 - **Controllers**:
-  - `App\Http\Controllers\HomeController`: Fetches active `Program` and `Testimonial` models, injects booking URL from `BookingService` into `home` view.
-  - `App\Http\Controllers\NewsletterController`: Validates email via `NewsletterSubscriptionRequest`, invokes `MailchimpService`, and returns flash messaging.
-- **Requests**: `App\Http\Requests\NewsletterSubscriptionRequest` ensures email correctness and future-proofs auth logic.
+  - `App\Http\Controllers\HomeController`: Fetches active `Program`, `Testimonial`, `Staff`, `Faq`, and `Resource` models; loads tour hotspots; injects booking URL from `BookingService` into `home` view.
+  - `App\Http\Controllers\NewsletterController`: Validates email via `NewsletterSubscriptionRequest`, invokes `MailchimpService`, logs analytics events, and returns flash messaging.
+  - `App\Http\Controllers\AssessmentController`: Validates questionnaire payload, delegates segmentation to `AssessmentService`, logs outcomes, and returns segment metadata.
+  - `App\Http\Controllers\AvailabilityController`: Proxies availability data from `AvailabilityService` with optional refresh semantics and throttling.
+- **Requests**: `App\Http\Requests\NewsletterSubscriptionRequest` and `AssessmentSubmissionRequest` provide validation and coercion for inbound payloads.
 
 ### 4.2 Domain & Data Layer
 - **Models**:
-  - `App\Models\Program`: Fillable fields (`name`, `slug`, `description`, etc.), casts `highlights` to array, includes `scopeActive()`.
-  - `App\Models\Testimonial`: Captures author metadata, rating, feature flag, `scopeActive()`.
-- **Migrations**: `database/migrations/2025_09_30_*` create `programs` and `testimonials` tables; Laravel default migration sets up `sessions` within `create_users_table`.
-- **Seeders**: `ProgramSeeder` and `TestimonialSeeder` populate sample content; `DatabaseSeeder` registers both.
+  - `App\Models\Program`: Program metadata with casted highlights, pricing fields, and `scopeActive()`.
+  - `App\Models\Testimonial`: Review author context, ratings, featured flag, and `scopeActive()`.
+- **Migrations**: Schema definitions for programs, testimonials, staff, FAQs, and resources reside under `database/migrations/` and leverage Laravel timestamps/foreign key conventions.
+- **Seeders**: `database/seeders/DatabaseSeeder.php` wires dedicated seeders (`ProgramSeeder`, `TestimonialSeeder`, `StaffSeeder`, `FaqSeeder`, `ResourceSeeder`) providing rich demo data.
 
 ### 4.3 Services & Integrations
-- **MailchimpService (`app/Services/MailchimpService.php`)**: Calls Mailchimp API when credentials provided; logs failures and gracefully returns `false` if keys missing.
-- **BookingService (`app/Services/BookingService.php`)**: Supplies configurable booking URL (`config/services.php` → `services.booking.url`) and logs click context.
-- **Analytics Config (`config/analytics.php`)**: Allows enabling Plausible script via env configuration; layout conditionally injects script.
+- **MailchimpService (`app/Services/MailchimpService.php`)**: Handles double opt-in subscriptions, retries, analytics logging, and masked diagnostics when config is missing.
+- **BookingService (`app/Services/BookingService.php`)**: Supplies configurable booking URL (`config/services.php`) and emits analytics events for CTA engagement.
+- **AvailabilityService (`app/Services/AvailabilityService.php`)**: Normalizes provider responses, caches slots, handles fallbacks/staleness, and surfaces user-friendly availability summaries.
+- **AssessmentService (`app/Services/AssessmentService.php`)**: Determines personalization segments from user answers, composes summaries, and logs outcomes through PSR logger bindings.
+- **Analytics Config (`config/analytics.php`)**: Enables Plausible driver with goal mappings consumed by Blade layout (`resources/views/layouts/app.blade.php`).
 
 ### 4.4 Frontend Composition
-- **Layout**: `resources/views/layouts/app.blade.php` sets meta tags, fonts, Vite assets, analytics script, and surrounds content with nav/footer partials.
-- **Partials**: `resources/views/partials/nav.blade.php` (header, CTA), `partials/footer.blade.php` (newsletter form, badges, contact info).
-- **Landing Page**: `resources/views/home.blade.php` composed of hero, program cards, philosophy section, trust badges, testimonials carousel, tour preview, and booking CTA. Utilizes dynamic data arrays from controllers.
+- **Layout**: `resources/views/layouts/app.blade.php` sets meta tags, fonts, Vite assets, analytics script, and wraps page content between navigation/footer partials.
+- **Partials**: `resources/views/partials/nav.blade.php` and `resources/views/partials/footer.blade.php` surface global navigation, contact details, and newsletter CTA with status messaging.
+- **Landing Page**: `resources/views/home.blade.php` orchestrates hero, guided assessment modal/prompts, personalized program grid, philosophy metrics, testimonial carousel, virtual tour, staff carousel, cost estimator, FAQ accordion, resource hub, and booking CTA.
 - **Components & JS**:
-  - `resources/views/components/hero.blade.php` (hero layout with CTA props).
-  - `resources/js/app.js` initializes Alpine and Embla module; `resources/js/modules/carousel.js` exports initializer for carousel.
-- **Styling**: Tailwind theme defined in `tailwind.config.js`; base styles in `resources/css/app.css` (with theme fallbacks for canvas/gold colors, global typography, selection styles).
+  - Blade components (`resources/views/components/*.blade.php`) cover hero, assessment, prompts, staff carousel, cost estimator, FAQ, resource hub, and virtual tour.
+  - `resources/js/app.js` boots Alpine stores (`assessment`, `assessment-recommendation`, `availability`, `tour`, `cost-estimator`, `analytics`, `hero`, `carousel`).
+- **Styling**: Tailwind theme tokens live in `tailwind.config.js`; base styles and custom utilities in `resources/css/app.css` ensure consistent typography, palette, and motion preferences.
 
 ### 4.5 Asset Pipeline
 - **Vite**: Configured in `vite.config.js` with Laravel plugin; `npm run dev` for HMR, `npm run build` to emit hashed assets under `public/build/` with manifest consumed by `@vite` directive.
@@ -74,37 +77,49 @@ graph TD
 ### 5.2 Newsletter Submission
 1. POST `/newsletter` with email.
 2. `NewsletterSubscriptionRequest` validates email.
-3. `NewsletterController` calls `MailchimpService::subscribe()`.
-4. Success → flash `newsletter_status`; failure → flash `newsletter_error` + `old('email')` retention.
-5. Footer partial displays messages in aria-live region; logs capture attempts.
+3. `NewsletterController` calls `MailchimpService::subscribe()` with retry logging.
+4. Success → flash `newsletter_status` + analytics event; failure → flash `newsletter_error`, retain input, and log diagnostics to `analytics` channel.
+5. Footer partial displays messages in aria-live region; Plausible goals trigger via Blade layout queue.
+
+### 5.3 Guided Assessment Submission
+1. POST `/assessment-insights` with question payload and metadata.
+2. `AssessmentSubmissionRequest` validates structured answers.
+3. `AssessmentController` invokes `AssessmentService::createSummary()` to determine segment.
+4. Service logs outcome via PSR logger and returns segment copy/CTAs.
+5. Alpine store updates UI recommendations and booking CTA messaging.
+
+### 5.4 Availability Polling
+1. Client calls `/api/availability` (optionally `?refresh=1`).
+2. `AvailabilityController` delegates to `AvailabilityService::getAvailability()`.
+3. Service pulls or refreshes cached slots, decorates payload with staleness flags/fallback messaging.
+4. Alpine `availability` store updates hero badge, emits analytics events for load/error states.
 
 ## 6. Environment & Deployment
-- **Local Dev via Sail**: `./vendor/bin/sail up -d` (Docker containers). `.env` uses `DB_HOST=mysql` for container network.
-- **Local Dev via PHP**: Override env per command (e.g., `DB_HOST=127.0.0.1 DB_USERNAME=sail DB_PASSWORD=password php artisan serve`). `launch_laravel_dev_server.sh` automates server start, optional installs, migrations, QA scripts, and log tailing.
-- **Database Initialization**: `initialize_database.sql` creates `laravel` database and `sail` user for host-based usage.
-- **Asset Build**: `npm run build` prior to `php artisan serve` ensures `public/build/manifest.json` exists.
-- **Configuration Files**: `config/services.php` includes Mailchimp and booking sections; `.env` requires `MAILCHIMP_KEY`, `MAILCHIMP_LIST_ID`, `BOOKING_URL`, analytics driver variables for production readiness.
+- **Docker Workflow**: `make up` builds/starts containers (PHP-FPM, MariaDB, Redis, Mailhog). `.env.docker` stores container credentials; volumes persist storage and public assets.
+- **Local Overrides**: Developers with PHP 8.3 and Node.js 22 can run `composer install`, `npm install`, `npm run build`, and `php artisan serve` outside Docker (ensure MariaDB/Redis credentials align).
+- **Database Seeding**: `make migrate-fresh` or `php artisan migrate --seed` loads seed data; optional `initialize_database.sql` exists for manual DB provisioning but is not required in Docker path.
+- **Configuration Files**: `config/services.php` houses Mailchimp, booking, and availability settings; `.env` files capture secrets for different environments.
+- **Production Compose**: `docker-compose-production.yml` runs PHP-FPM + Nginx with read-only assets and health checks; secrets provided via CI/CD.
 
 ## 7. QA & Automation Pipeline
-- **Scripts**: `launch_laravel_dev_server.sh` starts server, optional seeds, runs `npm run lint:accessibility` and `npm run lighthouse`.
-- **Accessibility Audit**: `npm run lint:accessibility` leverages axe CLI (current failures due to contrast combinations noted in QA report).
-- **Performance Audit**: `npm run lighthouse` uses `lighthouserc.json` to assert minimum scores; reports stored in `storage/app/lighthouse`.
-- **Checklist**: `docs/qa/scaffold-checklist.md` records completed verifications, outstanding tasks (contrast fixes, logging checks, automation integration).
-- **Future CI**: Plan to integrate scripts into GitHub Actions for automated regression checks.
+- **GitHub Actions**: `.github/workflows/qa-ci.yml` runs on push/PR to `main`/`develop`: PHP 8.3 setup, Node 22 setup, composer install, `npm ci`, `php artisan test --group=phase6`, `npm run lint:accessibility`, `npm run lighthouse` (CI preset), and artifact upload.
+- **Local QA Scripts**: `npm run lint:accessibility`, `npm run lighthouse`, and `npm run test:playwright:ci` support developer validation; `make test` wraps PHPUnit.
+- **Manual QA**: Checklists live under `docs/qa/` for accessibility, performance, and launch readiness tracking.
+- **Analytics Verification**: Session-flashed analytics events can be inspected via browser devtools; Playwright script remains available for ad-hoc regression.
 
 ## 8. Future Enhancements
-- **Contrast Remediation**: Update gold/amber styling to meet WCAG AA.
-- **Performance Optimization**: Preload hero assets, enable compression, optimize unused CSS/JS flagged by Lighthouse.
-- **Interactive Features**: Implement Alpine-driven needs assessment, improved testimonials management, and analytics instrumentation per PRD roadmap.
+- **Contrast Remediation**: Update palette tokens to guarantee WCAG AA compliance.
+- **Performance Optimization**: Address Lighthouse warnings via caching, bundle splitting, and image optimization.
+- **Guided Assessment Enhancements**: Expand segmentation logic, analytics tracking, and CTA variations atop current assessment workflow.
 - **Documentation**: Expand `docs/design-system.md`, `docs/architecture.md`, and `docs/accessibility.md` for comprehensive onboarding.
-- **Internationalization**: Consider multilingual support indicated in requirement summaries.
+- **Internationalization & CMS**: Plan for multilingual content and editorial tooling (Nova/Filament) aligned with roadmap phases 8–11.
 
 ## 9. References
-- `temp-laravel/README.md`
-- `temp-laravel/Project_Requirements_Document.md`
-- `temp-laravel/Understanding_Project_Requirements.md`
-- Laravel source under `temp-laravel/` (controllers, models, services, views, scripts)
-- QA artifacts: `docs/qa/scaffold-checklist.md`, `launch_laravel_dev_server.sh`, `lighthouserc.json`
+- `README.md`
+- `Project_Requirements_Document.md`
+- `Understanding_Project_Requirements.md`
+- Source directories under `app/`, `resources/`, `config/`, and `database/`
+- QA artifacts: `docs/qa/scaffold-checklist.md`, `.github/workflows/qa-ci.yml`, `lighthouserc.json`
 
 ---
 Prepared 2025-09-30 for onboarding and architectural clarity.

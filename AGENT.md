@@ -27,7 +27,7 @@
 | Caching/Queues | Redis | `7.4` | `docker-compose.yml` |
 | Frontend Stack | Blade + TailwindCSS + Alpine.js | - | `package.json` |
 | Build Tool | Vite | - | `vite.config.js` |
-| Dev Environment | Docker | - | `docker-compose.yml`, `Makefile` |
+| Dev Environment | Docker + Node.js | Node `22.x` (`Dockerfile`), `docker-compose.yml`, `Makefile` |
 
 ## Architecture
 
@@ -112,7 +112,7 @@ make npm-dev
 | MailchimpService | Newsletter subscription | ✅ Implemented |
 | AvailabilityService | Real-time availability data | ✅ Implemented |
 | BookingService | Booking CTA interactions | ✅ Partially implemented |
-| AssessmentService | Needs assessment logic | 🔄 Planned |
+| AssessmentService | Needs assessment logic | ✅ Implemented |
 
 ## Frontend Architecture
 
@@ -123,6 +123,7 @@ make npm-dev
 
 **Key Components:**
 - Hero section with CTAs
+- Guided needs assessment modal and prompt surfaces
 - Program showcase cards
 - Testimonial carousel
 - Virtual tour experience
@@ -180,7 +181,7 @@ make npm-dev
 - ✅ **Cost Estimator:** A fully implemented interactive tool for estimating monthly fees.
 - ✅ **FAQ System:** An accessible accordion with live search/filter functionality.
 - ✅ **Resource Hub:** A section for users to download caregiver guides.
-- 🔄 **Needs Assessment:** (Planned) An interactive questionnaire to provide personalized recommendations.
+- ✅ **Needs Assessment:** Interactive questionnaire powered by `AssessmentService` with personalization analytics.
 
 ### 4. Newsletter System
 - Mailchimp API integration via `MailchimpService`.
@@ -190,10 +191,11 @@ make npm-dev
 ## Testing Strategy
 
 **Test Types:**
-- **PHPUnit:** For backend unit and feature tests.
-- **Vitest:** For JavaScript and Alpine.js component tests.
-- **Playwright:** For end-to-end browser and visual regression testing.
-- **axe-core:** For automated accessibility checks, run via npm scripts.
+- **PHPUnit:** Backend unit and feature tests (Phase 6 focus group).
+- **Vitest:** JavaScript and Alpine.js component tests.
+- **Playwright (manual/optional):** Targeted analytics regression when needed.
+- **axe-core:** Automated accessibility checks via npm scripts.
+- **Lighthouse CI:** Performance audits (`npm run lighthouse:ci`).
 
 **Running Tests:**
 ```bash
@@ -280,10 +282,10 @@ make artisan ARGS="cache:clear && config:clear && view:clear && route:clear"
 - The core backend services for existing features are in place.
 
 **Upcoming Milestones (in order):**
-- **Phase 1 (Guided Needs Assessment):** Implement the interactive questionnaire.
 - **Phase 5 (Docs):** Complete the component documentation.
-- **Phase 7 (QA Automation):** Implement GitHub Actions for automated testing and linting.
 - **Phase 6 (Data Hardening):** Expand seeders and harden integrations.
+- **Phase 8 (Guided Assessment Enhancements):** Deepen segmentation logic and analytics instrumentation.
+- **Phase 9 (CMS & Content Ops):** Introduce editorial tooling for program/testimonial management.
 
 ## Security Measures
 - **Input Validation:** All incoming data is validated via dedicated Form Request classes.
