@@ -178,8 +178,19 @@ sequenceDiagram
 
     Client->>+Router: POST /newsletter (with email)
     Router->>+NewsletterController: __invoke()
-…        Session-->>-NewsletterController:
+    NewsletterController->>+Validation: Validate request
+    Validation-->>-NewsletterController: Validated email
+    NewsletterController->>+MailchimpService: subscribe(email)
+    alt Subscription Successful
+        MailchimpService-->>NewsletterController: true
+        NewsletterController->>+Session: flash('newsletter_status', message)
+        Session-->>-NewsletterController:
+    else Subscription Fails
+        MailchimpService-->>NewsletterController: false
+        NewsletterController->>+Session: flash('newsletter_error', message)
+        Session-->>-NewsletterController:
     end
+    MailchimpService-->>-NewsletterController: return
     NewsletterController-->>-Client: 302 Redirect Back
 ```
 
